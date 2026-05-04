@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <link rel="icon" type="image/png" href="uploads/win xp logo complete.png">
+<link rel="icon" type="image/png" href="uploads/win xp logo complete.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Santiago Filippone — Portfolio</title>
@@ -135,6 +136,30 @@ input, textarea { cursor: text; }
 }
 .xp-window.inactive .xp-titlebar {
   background: linear-gradient(180deg, #7A8CAA 0%, #9EB0C8 4%, #8EA8C0 50%, #7A9AB8 100%);
+}
+
+.xp-window.fs-mode .xp-titlebar {
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.xp-window.fs-mode .xp-titlebar:hover {
+  opacity: 1;
+}
+.xp-window.fs-mode .xp-title-icon,
+.xp-window.fs-mode .xp-title-text {
+  display: none;
+}
+.xp-window.fs-mode .xp-btns {
+  margin-left: auto;
 }
 
 .xp-title-icon { font-size:14px; margin-right:4px; flex-shrink:0; line-height:1; z-index:1; }
