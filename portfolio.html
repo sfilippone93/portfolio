@@ -543,7 +543,9 @@ body {
   <!-- HERO -->
   <div class="hero" id="work">
     <div class="hero-avatar">
-      <img src="uploads/profile-pic.jpg" alt="Santi Filippone" style="width:120px;height:120px;">
+      <a href="https://santiagofilippone.com.ar/" target="_blank">
+        <img src="uploads/profile-pic.jpg" alt="Santi Filippone" style="width:120px;height:120px;">
+      </a>
     </div>
     <div class="hero-name">Santi Filippone</div>
     <div class="hero-role">Product Designer</div>
@@ -893,36 +895,7 @@ body {
 </div><!-- /col -->
 
 <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
 
-  <a href="#work" class="bnav-tab active">Selected work</a>
-  <a href="#concepts" class="bnav-tab">Concepts &amp; fun</a>
-
-</nav>
-
-<script>
-  // Highlight active nav tab on scroll
-  const sections = [
-    { id: 'work', el: document.getElementById('work') },
-    { id: 'concepts', el: document.getElementById('concepts') },
-    { id: 'about', el: document.getElementById('about') }
-  ];
-  const tabs = document.querySelectorAll('.bnav-tab');
-
-  function updateActive() {
-    const scrollY = window.scrollY + window.innerHeight * 0.4;
-    let current = 'work';
-    sections.forEach(s => {
-      if (s.el && s.el.getBoundingClientRect().top + window.scrollY <= scrollY) {
-        current = s.id;
-      }
-    });
-    tabs.forEach(t => {
-      t.classList.toggle('active', t.getAttribute('href') === '#' + current);
-    });
-  }
-
-  window.addEventListener('scroll', updateActive, { passive: true });
 </script>
 
 </body>
