@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santiago Filippone — Portfolio</title>
+<style>
+/* ────────────────────────────────────────────────
+   RESET & BASE
+──────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --xp-blue:       #245EDC;
+  --xp-blue-dark:  #0A246A;
+  --xp-gray:       #ECE9D8;
+  --xp-gray-mid:   #D4D0C8;
+  --xp-gray-dark:  #ACA899;
+  --title-active:  linear-gradient(90deg, #0A246A 0%, #2E6FD4 12%, #245EDC 82%, #1837B0 100%);
+  --title-inactive:linear-gradient(90deg, #7388AA 0%, #9AB0C8 100%);
+}
+
+html, body {
+  width:100%; height:100%;
+  overflow:hidden;
+  font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+  font-size:11px;
+}
+
+/* ────────────────────────────────────────────────
+   CURSOR
+──────────────────────────────────────────────── */
+* { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><polygon points='2,2 2,16 6,12 9,19 11,18 8,11 14,11' fill='white' stroke='black' stroke-width='1.2'/></svg>") 2 2, auto; }
+button, [data-window], .desktop-icon, .xp-btn, .sm-item, .taskbar-window-btn, #start-btn {
+  cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><polygon points='2,2 2,16 6,12 9,19 11,18 8,11 14,11' fill='white' stroke='black' stroke-width='1.2'/></svg>") 2 2, pointer;
+}
+.xp-titlebar {
+  cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><polygon points='2,2 2,16 6,12 9,19 11,18 8,11 14,11' fill='white' stroke='black' stroke-width='1.2'/></svg>") 2 2, move;
+}
+input, textarea { cursor: text; }
+
+/* ────────────────────────────────────────────────
+   DESKTOP & BLISS WALLPAPER
+──────────────────────────────────────────────── */
+#desktop {
+  position: fixed;
+  inset: 0 0 30px 0;
+  overflow: hidden;
+  background: #3A80C4;
+  background-image: url('bliss.png');
+  background-size: cover;
+  background-position: center center;
+}
+
+#bliss-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+}
+
+/* ────────────────────────────────────────────────
+   DESKTOP ICONS
+──────────────────────────────────────────────── */
+.desktop-icon {
+  position: absolute;
+  display: flex; flex-direction: column; align-items: center;
+  width: 76px;
+  padding: 4px 4px 5px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  gap: 4px;
+  transition: background 0.05s;
+}
+.desktop-icon:hover { background: rgba(12,52,124,0.25); border-color: rgba(12,52,124,0.35); }
+.desktop-icon.selected { background: rgba(12,52,124,0.45); border-color: rgba(12,52,124,0.6); }
+.desktop-icon .d-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+}
+.desktop-icon .d-icon svg { width:38px; height:38px; }
+.desktop-icon .d-label {
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.35;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.85), -1px -1px 1px rgba(0,0,0,0.4);
+  word-break: break-word;
+}
+
+/* ────────────────────────────────────────────────
+   XP WINDOWS
+──────────────────────────────────────────────── */
+.xp-window {
+  position: fixed;
+  background: var(--xp-gray);
+  border: 3px solid #1030A0;
+  border-radius: 8px 8px 4px 4px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.15);
+  display: none;
+  flex-direction: column;
+  min-width: 220px; min-height: 180px;
+  overflow: hidden;
+}
+.xp-window.is-open { display: flex; }
+.xp-window.inactive {
+  border-color: #6A7E9A;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Title bar */
+.xp-titlebar {
+  height: 28px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg,
+    #1638C0 0%,
+    #2C68DC 4%,
+    #2060D8 8%,
+    #1C56CC 50%,
+    #1848C0 90%,
+    #1030A8 100%);
+  display: flex; align-items: center;
+  padding: 0 2px 0 5px;
+  position: relative;
+  flex-shrink: 0;
+  user-select: none;
+}
+/* Highlight stripe at very top */
+.xp-titlebar::before {
+  content:'';
+  position:absolute; top:1px; left:6px; right:6px; height:10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.05) 100%);
+  border-radius:4px 4px 0 0;
+  pointer-events:none;
+}
+.xp-window.inactive .xp-titlebar {
+  background: linear-gradient(180deg, #7A8CAA 0%, #9EB0C8 4%, #8EA8C0 50%, #7A9AB8 100%);
+}
+
+.xp-title-icon { font-size:14px; margin-right:4px; flex-shrink:0; line-height:1; z-index:1; }
+.xp-title-text {
+  flex: 1;
+  color: #fff;
+  font-weight: bold; font-size: 11px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  z-index:1;
+}
+
+
+
+/* Window control buttons — XP authentic */
+.xp-btns { display:flex; gap:2px; align-items:center; flex-shrink:0; margin-left:4px; z-index:1; }
+
+.xp-btn {
+  width: 22px; height: 21px;
+  border-radius: 4px;
+  border: 1px solid rgba(10,20,80,0.9);
+  background: linear-gradient(180deg, #5090F0 0%, #3070DC 35%, #1C58CC 50%, #2868D8 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; padding: 0;
+  font-size: 0; color: transparent;
+  position: relative; overflow: visible;
+}
+.xp-btn:hover {
+  background: linear-gradient(180deg, #70A8FF 0%, #4888EE 35%, #2C70DC 50%, #3878E4 100%);
+}
+.xp-btn:active {
+  background: linear-gradient(180deg, #1848B8 0%, #0C3CA8 100%);
+  transform: translateY(1px);
+}
+
+/* Minimize: white bar */
+.xp-btn[data-action="min"]::before {
+  content: '';
+  display: block;
+  width: 8px; height: 2px;
+  background: white;
+  border-radius: 0.5px;
+  margin-top: 6px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+/* Maximize: window frame */
+.xp-btn[data-action="max"]::before {
+  content: '';
+  display: block;
+  width: 9px; height: 8px;
+  border: 2px solid white;
+  border-top-width: 3px;
+  border-radius: 0.5px;
+  background: transparent;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+/* Close: X */
+.xp-btn[data-action="cls"]::before {
+  content: '';
+  display: block;
+  width: 10px; height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cline x1='1' y1='1' x2='9' y2='9' stroke='white' stroke-width='2.2' stroke-linecap='round'/%3E%3Cline x1='9' y1='1' x2='1' y2='9' stroke='white' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: contain; background-repeat: no-repeat;
+}
+
+.xp-btn.x-close {
+  background: linear-gradient(180deg, #E86060 0%, #CC2828 35%, #B81818 50%, #CC2828 100%);
+  border-color: rgba(80,0,0,0.7);
+  margin-left: 1px;
+}
+.xp-btn.x-close:hover {
+  background: linear-gradient(180deg, #F07878 0%, #DC4040 35%, #CC2828 50%, #DC3838 100%);
+}
+.xp-btn.x-close:active {
+  background: linear-gradient(180deg, #901010 0%, #780808 100%);
+}
+
+/* Menubar */
+.xp-menubar {
+  height: 22px;
+  background: var(--xp-gray);
+  border-bottom: 1px solid var(--xp-gray-dark);
+  display: flex; align-items: center;
+  padding: 0 4px;
+  flex-shrink: 0;
+  gap: 0;
+}
+.xp-mi {
+  padding: 1px 6px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  font-size: 11px;
+}
+.xp-mi:hover { background: #316AC5; color: #fff; border-color: #1A4EA8; }
+
+/* Content area */
+.xp-content {
+  flex: 1;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid;
+  border-color: #808080 #DFDFDF #DFDFDF #808080;
+  margin: 2px 2px 0 2px;
+}
+
+/* Status bar */
+.xp-status {
+  height: 20px;
+  background: var(--xp-gray);
+  border-top: 1px solid var(--xp-gray-dark);
+  display: flex; align-items: center;
+  padding: 0 8px;
+  font-size: 10px; color: #444;
+  flex-shrink: 0;
+  gap: 8px;
+}
+.xp-status-seg {
+  border-right: 1px solid var(--xp-gray-dark);
+  padding-right: 8px;
+}
+
+/* ────────────────────────────────────────────────
+   WINDOW ANIMATIONS
+──────────────────────────────────────────────── */
+@keyframes wOpen {
+  from { transform: scale(0.25); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+@keyframes wClose {
+  from { transform: scale(1);    opacity: 1; }
+  to   { transform: scale(0.25); opacity: 0; }
+}
+@keyframes wMinimize {
+  from { transform: scale(1) translateY(0);   opacity: 1; }
+  to   { transform: scale(0.1) translateY(300px); opacity: 0; }
+}
+.anim-open     { animation: wOpen     0.14s cubic-bezier(.2,.8,.3,1)  forwards; }
+.anim-close    { animation: wClose    0.10s ease-in    forwards; }
+.anim-minimize { animation: wMinimize 0.15s ease-in    forwards; }
+
+/* ────────────────────────────────────────────────
+   TASKBAR
+──────────────────────────────────────────────── */
+#taskbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 30px;
+  background: linear-gradient(180deg,
+    #1F3FAC 0%,
+    #2D6BD2 1px,
+    #1E5BBE 2px,
+    #1A4CB2 100%);
+  border-top: 1px solid #0A246A;
+  display: flex; align-items: center;
+  z-index: 99999;
+  gap: 0;
+}
+
+/* Start button */
+#start-btn {
+  height: 28px;
+  padding: 0 14px 0 8px;
+  margin: 0 2px 0 0;
+  border-radius: 0 14px 14px 0;
+  background: linear-gradient(180deg, #5EC15A 0%, #3E9E2A 38%, #228808 52%, #3A9C1E 100%);
+  border: 1px solid #1A5E0A;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 2px 0 5px rgba(0,0,0,0.4);
+  display: flex; align-items: center; gap: 5px;
+  color: #fff;
+  font-weight: bold; font-size: 14px; font-style: italic;
+  font-family: Tahoma, Arial, sans-serif;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.55);
+  user-select: none;
+  flex-shrink: 0;
+}
+#start-btn:hover { background: linear-gradient(180deg, #72D068 0%, #50AE3C 38%, #309E14 52%, #4CAC28 100%); }
+#start-btn:active { background: linear-gradient(180deg, #3A9C1E 0%, #268E10 100%); }
+
+.start-icon { width:18px; height:18px; flex-shrink:0; font-style:normal; font-size:14px; }
+
+/* Taskbar separator */
+.tb-sep { width:1px; height:22px; background:rgba(0,0,0,0.35); margin:0 3px; box-shadow:1px 0 0 rgba(255,255,255,0.1); flex-shrink:0; }
+
+/* Window buttons */
+#tb-wins {
+  flex: 1;
+  display: flex; align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+  overflow: hidden;
+}
+.tb-win-btn {
+  height: 22px;
+  min-width: 90px; max-width: 160px;
+  padding: 0 8px;
+  background: linear-gradient(180deg, #3C72D0 0%, #2460C0 48%, #1E50B0 50%, #2860C8 100%);
+  border: 1px solid #0A246A;
+  border-radius: 2px;
+  color: #fff; font-size: 11px;
+  font-family: Tahoma, Arial, sans-serif;
+  display: flex; align-items: center; gap: 4px;
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  user-select: none; flex-shrink: 0;
+}
+.tb-win-btn:hover { background: linear-gradient(180deg, #5088E0 0%, #3878D0 48%, #2C68C0 50%, #3A80D8 100%); }
+.tb-win-btn.tb-active { background: linear-gradient(180deg, #1E50B0 0%, #2860C8 100%); box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3); }
+.tb-win-icon { font-size: 12px; flex-shrink:0; }
+
+/* System tray */
+#systray {
+  height: 100%;
+  padding: 0 10px;
+  display: flex; align-items: center; gap: 6px;
+  background: linear-gradient(180deg, #1A40AC 0%, #0E2E90 100%);
+  border-left: 1px solid #0A246A;
+  box-shadow: inset 1px 0 0 rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+#clock {
+  color: #fff;
+  font-size: 11px;
+  text-align: right;
+  line-height: 1.35;
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+/* ────────────────────────────────────────────────
+   START MENU — Windows XP authentic
+──────────────────────────────────────────────── */
+#start-menu {
+  position: fixed;
+  bottom: 30px; left: 0;
+  width: 380px;
+  background: #fff;
+  border: 1px solid #0A246A;
+  border-bottom: none;
+  box-shadow: 4px -2px 14px rgba(0,0,0,0.55);
+  border-radius: 8px 8px 0 0;
+  display: none;
+  z-index: 99998;
+  overflow: hidden;
+  font-family: Tahoma, Arial, sans-serif;
+}
+#start-menu.sm-visible { display: block; }
+
+/* Header — dark blue gradient with avatar + name */
+.sm-header {
+  background: linear-gradient(180deg, #1638AA 0%, #3A72D4 50%, #2461CE 100%);
+  padding: 8px 10px 8px 8px;
+  display: flex; align-items: center; gap: 8px;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 2px solid #0A246A;
+  min-height: 58px;
+}
+.sm-avatar {
+  width: 48px; height: 48px;
+  background: #C8D8F0;
+  border: 3px solid #fff;
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
+}
+.sm-avatar img { width:100%; height:100%; object-fit:cover; }
+.sm-uname {
+  color: #fff;
+  font-weight: bold; font-size: 13px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.65);
+  letter-spacing: 0.2px;
+}
+
+/* Body — two columns */
+.sm-body { display: flex; min-height: 300px; }
+
+/* Left column — white */
+.sm-left {
+  width: 210px; flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #9CAFD4;
+  display: flex; flex-direction: column;
+}
+
+/* Right column — light blue */
+.sm-right {
+  flex: 1;
+  background: #C8D9ED;
+  display: flex; flex-direction: column;
+}
+
+/* Items — shared */
+.sm-item {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  cursor: default;
+  user-select: none;
+}
+.sm-item:hover {
+  background: linear-gradient(180deg, #3B6ED0 0%, #2458BC 50%, #1E4EB4 100%);
+  color: #fff;
+  border-color: #1A3FAA;
+}
+.sm-item:hover .sm-sub { color: rgba(255,255,255,0.8); }
+.sm-item:hover .sm-item-main { color: #fff; }
+
+/* Left column item icons — 32px */
+.sm-left .sm-item-ico {
+  font-size: 28px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Right column item icons — 24px */
+.sm-right .sm-item-ico {
+  font-size: 22px;
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.sm-item-main { font-weight: bold; font-size: 11px; color: #000; line-height: 1.25; }
+.sm-sub { font-size: 10px; color: #555; margin-top: 1px; line-height: 1.2; }
+
+/* Separator */
+.sm-sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #9CAFD4 15%, #9CAFD4 85%, transparent 100%);
+  margin: 4px 0;
+}
+.sm-right .sm-sep {
+  background: linear-gradient(90deg, transparent 0%, #7A9EC8 15%, #7A9EC8 85%, transparent 100%);
+}
+
+/* "All Programs" row at bottom of left */
+.sm-all-programs {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 8px 6px 44px;
+  font-weight: bold; font-size: 11px;
+  border-top: 1px solid #9CAFD4;
+  margin-top: auto;
+  cursor: default;
+  user-select: none;
+}
+.sm-all-programs:hover {
+  background: linear-gradient(180deg, #3B6ED0 0%, #2458BC 50%, #1E4EB4 100%);
+  color: #fff;
+}
+.sm-all-programs-arrow {
+  width: 0; height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #3A8A1A;
+  flex-shrink: 0;
+}
+.sm-all-programs:hover .sm-all-programs-arrow {
+  border-left-color: #fff;
+}
+
+/* Footer — blue gradient, Log Off + Shut Down centered */
+.sm-footer {
+  display: flex; justify-content: flex-end; align-items: center;
+  padding: 6px 10px;
+  background: linear-gradient(180deg, #3A6CCE 0%, #2456B8 40%, #1E4AAE 100%);
+  border-top: 1px solid #0A246A;
+  gap: 6px;
+}
+.sm-foot-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 4px 12px;
+  background: linear-gradient(180deg, #4D84DC 0%, #3068C4 45%, #2860BC 100%);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 3px;
+  font-size: 11px; font-family: Tahoma, Arial, sans-serif;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.sm-foot-btn:hover {
+  background: linear-gradient(180deg, #5A90E8 0%, #3A78D4 45%, #3070CC 100%);
+  border-color: rgba(255,255,255,0.5);
+}
+.sm-foot-btn:active {
+  background: linear-gradient(180deg, #2050A8 0%, #1A44A0 100%);
+  transform: translateY(1px);
+}
+.sm-foot-icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 2px;
+  font-size: 13px;
+}
+.sm-foot-icon.logoff { background: radial-gradient(circle at 40% 35%, #F4D848, #E0A820); color: #7A4400; }
+.sm-foot-icon.shutdown { background: radial-gradient(circle at 40% 35%, #F47848, #CC2010); color: #fff; }
+
+/* ────────────────────────────────────────────────
+   SHUTDOWN SCREEN
+──────────────────────────────────────────────── */
+#shutdown {
+  position: fixed; inset: 0;
+  background: #003399;
+  display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 28px; z-index: 999999;
+}
+#shutdown.sd-on { display: flex; }
+
+.sd-logo { font-size: 56px; }
+.sd-text { color: #fff; font-size: 22px; font-family: Tahoma, Arial, sans-serif; }
+.sd-sub { color: rgba(255,255,255,0.7); font-size: 12px; font-family: Tahoma, Arial, sans-serif; }
+.sd-bar-wrap { width:220px; height:20px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.25); border-radius:2px; overflow:hidden; }
+.sd-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0055CC, #4499FF, #0055CC);
+  background-size: 220px 100%;
+  transition: width 2.5s linear;
+}
+.sd-restart {
+  padding: 8px 24px;
+  background: #fff; border:none; border-radius:2px;
+  font-size: 12px; font-family: Tahoma, Arial, sans-serif;
+  display: none;
+}
+.sd-restart:hover { background: #EEE; }
+
+/* ────────────────────────────────────────────────
+   CONTENT: PROYECTOS
+──────────────────────────────────────────────── */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+.proj-card {
+  border: 1px solid; border-color: #808080 #DFDFDF #DFDFDF #808080;
+  background: #fff;
+  transition: outline 0.05s;
+}
+.proj-card:hover { outline: 2px solid #316AC5; }
+.proj-thumb {
+  width: 100%; height: 108px;
+  background: repeating-linear-gradient(
+    -45deg, #f0f0f0, #f0f0f0 5px, #e6e6e6 5px, #e6e6e6 10px
+  );
+  display: flex; align-items: center; justify-content: center;
+  color: #aaa; font-size: 10px; text-align: center; padding: 8px;
+  font-family: 'Courier New', monospace;
+}
+.proj-info { padding: 6px 8px; border-top: 1px solid #DDD; }
+.proj-name { font-weight: bold; font-size: 11px; }
+.proj-meta { font-size: 10px; color: #666; margin-top: 2px; }
+.proj-tag {
+  display: inline-block;
+  background: #316AC5; color: #fff;
+  font-size: 9px; padding: 0 4px; border-radius: 2px;
+  margin-top: 3px;
+}
+
+/* ────────────────────────────────────────────────
+   CONTENT: SOBRE MÍ
+──────────────────────────────────────────────── */
+.about-wrap { padding: 16px; max-width: 640px; }
+.about-hdr { display: flex; gap: 16px; margin-bottom: 14px; align-items: flex-start; }
+.about-photo {
+  width: 84px; height: 84px; flex-shrink:0;
+  background: repeating-linear-gradient(-45deg, #f0f0f0, #f0f0f0 4px, #e6e6e6 4px, #e6e6e6 8px);
+  border: 2px inset #999;
+  display: flex; align-items: center; justify-content: center;
+  color: #bbb; font-size: 9px; text-align: center;
+  font-family: 'Courier New', monospace;
+}
+.about-name { font-size: 20px; font-weight: bold; margin-bottom:3px; }
+.about-role { color: #316AC5; font-size: 12px; margin-bottom: 6px; }
+.about-p { font-size: 11px; line-height: 1.72; color: #333; margin-bottom: 10px; }
+.about-links { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.about-link-chip {
+  padding: 3px 10px;
+  background: var(--xp-gray);
+  border: 1px solid; border-color: #fff #808080 #808080 #fff;
+  font-size: 11px;
+  display:flex; align-items:center; gap:4px;
+}
+.about-link-chip:hover { background: #316AC5; color:#fff; }
+
+/* ────────────────────────────────────────────────
+   CONTENT: SKILLS (Excel)
+──────────────────────────────────────────────── */
+.excel-wrap { overflow: auto; }
+.xls-formula {
+  background: #fff;
+  border-bottom: 1px solid #CCCCCC;
+  padding: 3px 8px;
+  font-size: 11px;
+  color: #333;
+  display: flex; align-items: center; gap: 8px;
+}
+.xls-formula .fx { color: #7F0000; font-style:italic; font-weight:bold; }
+.xls-table { border-collapse: collapse; width: 100%; font-size: 11px; }
+.xls-table th {
+  background: linear-gradient(180deg, #F0EDE4 0%, #D4D0C8 100%);
+  border: 1px solid #999;
+  padding: 3px 10px;
+  text-align: left; font-weight: bold; color: #333;
+  white-space: nowrap;
+}
+.xls-table td {
+  border: 1px solid #CCCCCC;
+  padding: 3px 10px;
+  background: #fff;
+}
+.xls-table tr:nth-child(even) td { background: #F2F0FA; }
+.xls-table tr:hover td { background: #D0E0FF; }
+.xls-row-num { text-align:center; color:#999; background: linear-gradient(180deg,#F0EDE4,#D4D0C8) !important; border:1px solid #999 !important; font-weight:normal !important; min-width:28px; }
+.skill-bar {
+  width: 130px; height: 12px;
+  background: #ECE9D8;
+  border: 1px inset #999;
+  overflow: hidden;
+}
+.skill-fill { height: 100%; background: linear-gradient(90deg, #1A50B2 0%, #4888E4 100%); }
+
+/* ────────────────────────────────────────────────
+   CONTENT: CONTACTO
+──────────────────────────────────────────────── */
+.contact-wrap { padding: 16px; max-width: 440px; display:flex; flex-direction:column; gap:10px; }
+.contact-hdr { font-size:13px; font-weight:bold; color:#316AC5; margin-bottom:4px; }
+.f-group { display:flex; flex-direction:column; gap:3px; }
+.f-label { font-size:11px; font-weight:bold; }
+.xp-inp {
+  border: 2px inset #808080;
+  background: #fff;
+  padding: 3px 6px;
+  font-family: Tahoma, Arial, sans-serif; font-size: 11px;
+  outline: none; width: 100%;
+}
+.xp-inp:focus { outline: 2px solid #316AC5; outline-offset:-2px; }
+.xp-ta {
+  border: 2px inset #808080; background: #fff;
+  padding: 3px 6px; resize: vertical; height: 80px; width: 100%;
+  font-family: Tahoma, Arial, sans-serif; font-size: 11px; outline: none;
+}
+.xp-ta:focus { outline: 2px solid #316AC5; outline-offset:-2px; }
+.xp-push {
+  padding: 4px 20px; min-width: 80px;
+  background: linear-gradient(180deg, #F4F4F4 0%, #DCDCDC 100%);
+  border: 1px solid; border-color: #fff #808080 #808080 #fff;
+  font-family: Tahoma, Arial, sans-serif; font-size: 11px;
+}
+.xp-push:hover { background: linear-gradient(180deg, #FFF 0%, #EAEAEA 100%); }
+.xp-push:active { border-color: #808080 #fff #fff #808080; background: #D0D0D0; transform:translateY(1px); }
+.btn-row { display:flex; gap:8px; }
+
+/* ────────────────────────────────────────────────
+   SCROLLBARS
+──────────────────────────────────────────────── */
+::-webkit-scrollbar { width:16px; height:16px; }
+::-webkit-scrollbar-track { background: var(--xp-gray); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #E4E4E4 0%, #C8C4BC 50%, #B8B4AC 100%);
+  border: 1px solid #888;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #EAEAEA 0%, #D4D0C8 50%, #C4C0B8 100%); }
+::-webkit-scrollbar-button { background: linear-gradient(180deg, #ECE9D8 0%, #D4D0C8 100%); border:1px solid #888; height:16px; width:16px; }
+::selection { background: #316AC5; color: #fff; }
+
+/* ────────────────────────────────────────────────
+   XP EXPLORER TOOLBAR
+──────────────────────────────────────────────── */
+.xp-toolbar {
+  height: 36px;
+  background: linear-gradient(180deg, #EDE8DC 0%, #D6D0C4 100%);
+  border-bottom: 1px solid #ACA899;
+  display: flex; align-items: center;
+  padding: 0 4px; gap: 2px;
+  flex-shrink: 0;
+}
+.tb-tool-btn {
+  height: 30px; padding: 0 8px;
+  background: none; border: 1px solid transparent; border-radius: 2px;
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; font-family: Tahoma, Arial, sans-serif; color: #222;
+  white-space: nowrap;
+}
+.tb-tool-btn:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(220,216,208,0.6) 100%);
+  border-color: #B0A898;
+}
+.tb-tool-btn:active {
+  background: linear-gradient(180deg, rgba(180,176,168,0.5) 0%, rgba(200,196,188,0.4) 100%);
+  border-color: #888;
+}
+.tb-tool-btn .tbi { font-size:16px; }
+.tb-tool-sep { width:1px; height:24px; background: linear-gradient(180deg,transparent,#B0A898,transparent); margin:0 3px; flex-shrink:0; }
+.tb-tool-btn.disabled { opacity:0.45; pointer-events:none; }
+
+/* Nav buttons (Back/Forward) with dropdown arrow */
+.tb-nav-btn {
+  height: 30px;
+  background: none; border: 1px solid transparent; border-radius: 2px;
+  display: flex; align-items: center;
+  font-size: 11px; font-family: Tahoma, Arial, sans-serif; color: #222;
+  overflow:hidden;
+}
+.tb-nav-btn:hover { background: linear-gradient(180deg,rgba(255,255,255,0.8),rgba(220,216,208,0.6)); border-color:#B0A898; }
+.tb-nav-main { display:flex; align-items:center; gap:4px; padding:0 6px; height:100%; }
+.tb-nav-drop { width:12px; height:100%; border-left:1px solid #C0BAB0; display:flex; align-items:center; justify-content:center; font-size:7px; padding:0 2px; }
+.tb-nav-btn.disabled { opacity:0.45; pointer-events:none; }
+
+/* XP Explorer address bar */
+.xp-addrbar {
+  height: 25px;
+  background: var(--xp-gray);
+  border-bottom: 1px solid #ACA899;
+  display: flex; align-items: center;
+  padding: 2px 4px; gap: 4px;
+  flex-shrink: 0; font-size:11px;
+}
+.addr-lbl { color:#333; flex-shrink:0; font-size:11px; }
+.addr-box {
+  flex:1; height:19px;
+  border:1px solid; border-color:#7A7A7A #DFDFDF #DFDFDF #7A7A7A;
+  background:white; padding:0 4px;
+  font-size:11px; font-family:Tahoma,Arial,sans-serif;
+  display:flex; align-items:center; gap:4px; overflow:hidden;
+}
+.addr-go {
+  height:19px; padding:0 8px;
+  background:linear-gradient(180deg,#F0EDE4 0%,#D8D4CC 100%);
+  border:1px solid; border-color:#fff #808080 #808080 #fff;
+  font-size:11px; color:#006600; font-family:Tahoma,Arial,sans-serif;
+  display:flex; align-items:center; gap:3px; font-weight:bold;
+}
+.addr-go:hover { background:linear-gradient(180deg,#FAFAF4 0%,#E4E0D8 100%); }
+
+/* Explorer body: sidebar + main */
+.xp-explorer {
+  display: flex; flex:1; overflow:hidden; min-height:0;
+}
+
+/* ────────────────────────────────────────────────
+   XP SIDEBAR — authentic task pane style
+──────────────────────────────────────────────── */
+.xp-sidebar {
+  width: 160px; flex-shrink: 0;
+  background: #5578B8;
+  overflow-y: auto; overflow-x: hidden;
+  border-right: 1px solid #3A5FA0;
+  padding: 5px 5px 8px;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.xp-sidebar::-webkit-scrollbar { width: 8px; }
+.xp-sidebar::-webkit-scrollbar-track { background: #4A6AAC; }
+.xp-sidebar::-webkit-scrollbar-thumb { background: #3A5898; border: none; }
+
+/* Sidebar card */
+.sb-section {
+  border-radius: 4px 4px 2px 2px;
+  overflow: hidden;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Card header */
+.sb-hdr {
+  background: #3169C6;
+  color: #fff;
+  font-weight: bold; font-size: 11px;
+  padding: 4px 6px 4px 8px;
+  display: flex; align-items: center; justify-content: space-between;
+  user-select: none; min-height: 22px;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+}
+.sb-hdr:hover { background: #3D78D4; }
+
+/* Collapse toggle — double chevron icon */
+.sb-toggle {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #80AAEE, #2858B8);
+  border: 1px solid rgba(255,255,255,0.55);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0; line-height: 1; color: transparent;
+  transition: transform 0.15s; flex-shrink: 0;
+  font-family: Arial, sans-serif;
+}
+.sb-toggle::after { content: '«'; display: block; font-size: 10px; color: #fff; transform: rotate(-90deg); }
+.sb-section.sb-collapsed .sb-toggle::after { transform: rotate(90deg); }
+
+/* Card body */
+.sb-body {
+  background: #D8E4F8;
+  padding: 4px 0;
+  overflow: hidden;
+  max-height: 400px; transition: max-height 0.2s ease-out, padding 0.2s;
+}
+.sb-section.sb-collapsed .sb-body { max-height: 0; padding: 0; }
+
+/* Sidebar items */
+.sb-item {
+  display: flex; align-items: center; gap: 5px;
+  padding: 3px 8px;
+  color: #000; font-size: 11px;
+  text-decoration: none; line-height: 1.35;
+  cursor: pointer; user-select: none;
+}
+.sb-item:hover { background: #316AC5; color: #fff; }
+.sb-item:hover .sbi { color: #fff; }
+.sb-item .sbi { font-size: 15px; flex-shrink: 0; line-height: 1; }
+
+/* Main content pane */
+.xp-main {
+  flex:1; overflow:auto; background:#fff;
+}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<style id="xp-theme-overrides"></style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     DESKTOP
+════════════════════════════════════════════ -->
+<div id="desktop">
+
+  <!-- ─── Desktop Icons ─── -->
+  <div class="desktop-icon" style="top:18px;left:18px" id="ico-about" data-win="win-about">
+    <div class="d-icon">
+      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="2" width="26" height="34" rx="1" fill="#FDFDF8" stroke="#CCCCCC" stroke-width="1.2"/>
+        <rect x="5" y="2" width="26" height="34" rx="1" fill="url(#docFold)" stroke="#CCCCCC" stroke-width="1.2"/>
+        <path d="M21 2 L31 12 L21 12 Z" fill="#CCCCCC"/>
+        <path d="M21 2 L21 12 L31 12" fill="#EAEAE0" stroke="#CCCCCC" stroke-width="1.2"/>
+        <line x1="9" y1="16" x2="29" y2="16" stroke="#AAAAAA" stroke-width="1"/>
+        <line x1="9" y1="20" x2="29" y2="20" stroke="#AAAAAA" stroke-width="1"/>
+        <line x1="9" y1="24" x2="22" y2="24" stroke="#AAAAAA" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="d-label">Sobre mí.txt</div>
+  </div>
+
+  <div class="desktop-icon" style="top:100px;left:18px" id="ico-skills" data-win="win-skills">
+    <div class="d-icon">
+      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="4" width="34" height="30" rx="1" fill="#D0EAD0" stroke="#4A8A4A" stroke-width="1.2"/>
+        <rect x="2" y="4" width="12" height="8" fill="#4A8A4A" rx="0"/>
+        <rect x="14" y="4" width="12" height="8" fill="#5A9A5A"/>
+        <rect x="26" y="4" width="10" height="8" fill="#4A8A4A"/>
+        <line x1="2"  y1="12" x2="36" y2="12" stroke="#4A8A4A" stroke-width="1"/>
+        <line x1="2"  y1="18" x2="36" y2="18" stroke="#4A8A4A" stroke-width="0.8"/>
+        <line x1="2"  y1="24" x2="36" y2="24" stroke="#4A8A4A" stroke-width="0.8"/>
+        <line x1="14" y1="4"  x2="14" y2="34" stroke="#4A8A4A" stroke-width="0.8"/>
+        <line x1="26" y1="4"  x2="26" y2="34" stroke="#4A8A4A" stroke-width="0.8"/>
+        <rect x="3" y="13" width="10" height="5" fill="#AADCAA" opacity="0.7"/>
+        <rect x="15" y="19" width="10" height="5" fill="#AADCAA" opacity="0.7"/>
+      </svg>
+    </div>
+    <div class="d-label">Skills.xls</div>
+  </div>
+
+  <div class="desktop-icon" style="top:182px;left:18px" id="ico-portfolio" data-win="win-portfolio">
+    <div class="d-icon">
+      <img src="uploads/explorer-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="IE">
+    </div>
+    <div class="d-label">My Projects</div>
+  </div>
+
+  <div class="desktop-icon" style="top:264px;left:18px" id="ico-contact" data-win="win-contact">
+    <div class="d-icon">
+      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="8" width="32" height="22" rx="2" fill="#D8E8F8" stroke="#6090C8" stroke-width="1.2"/>
+        <path d="M3 10 L19 22 L35 10" stroke="#6090C8" stroke-width="1.2" fill="none"/>
+        <line x1="3"  y1="30" x2="14" y2="20" stroke="#6090C8" stroke-width="1"/>
+        <line x1="35" y1="30" x2="24" y2="20" stroke="#6090C8" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="d-label">Contacto.url</div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       WINDOWS
+  ════════════════════════════════════════ -->
+
+  <!-- PROYECTOS -->
+  <div class="xp-window" id="win-proj" style="width:700px;height:520px;left:120px;top:50px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">📁</span>
+      <span class="xp-title-text">Proyectos — Explorador de Windows</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min"  data-wid="win-proj" title="Minimizar">&#x2013;</button>
+        <button class="xp-btn" data-action="max"  data-wid="win-proj" title="Maximizar">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-proj" title="Cerrar">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-menubar">
+      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
+      <span class="xp-mi">Ver</span><span class="xp-mi">Favoritos</span>
+      <span class="xp-mi">Ayuda</span>
+    </div>
+    <div class="xp-toolbar">
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
+      <button class="tb-tool-btn"><span class="tbi">🔼</span></button>
+      <div class="tb-tool-sep"></div>
+      <button class="tb-tool-btn"><span class="tbi">🔍</span> Buscar</button>
+      <button class="tb-tool-btn"><span class="tbi">📂</span> Carpetas</button>
+      <div class="tb-tool-sep"></div>
+      <button class="tb-tool-btn"><span class="tbi">⊞</span> Vistas</button>
+    </div>
+    <div class="xp-addrbar">
+      <span class="addr-lbl">Dirección</span>
+      <div class="addr-box"><span>📁</span><span>Mis documentos\Proyectos</span></div>
+      <button class="addr-go">▶ Ir</button>
+    </div>
+    <div class="xp-explorer">
+      <div class="xp-sidebar">
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Tareas del sistema <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🌐</span> Ver en Behance</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📥</span> Descargar CV</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📤</span> Compartir</a>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Otros sitios <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
+            <a class="sb-item" href="https://linkedin.com" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
+            <a class="sb-item" href="#" onclick="openWin('win-contact');return false"><span class="sbi">📧</span> Contacto</a>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <span style="opacity:0.7;font-size:10px">Proyectos</span>
+              <span>10 items</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Product Designer</span>
+              <span>Santiago Filippone</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Ubicación</span>
+              <span>Buenos Aires, AR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="xp-main">
+        <div class="proj-grid" id="proj-grid"></div>
+      </div>
+    </div>
+    <div class="xp-status">
+      <span class="xp-status-seg" id="proj-status">10 objetos</span>
+      <span>Carpeta local</span>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="xp-window" id="win-portfolio" style="width:900px;height:620px;left:80px;top:30px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">🌐</span>
+      <span class="xp-title-text">Projects — Internet Explorer</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-portfolio">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-portfolio">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-portfolio">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-menubar">
+      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
+      <span class="xp-mi">Ver</span><span class="xp-mi">Favoritos</span>
+      <span class="xp-mi">Herramientas</span><span class="xp-mi">Ayuda</span>
+    </div>
+    <div class="xp-toolbar">
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
+      <button class="tb-tool-btn disabled"><span class="tbi">🔼</span></button>
+      <div class="tb-tool-sep"></div>
+      <button class="tb-tool-btn"><span class="tbi">🔄</span> Actualizar</button>
+      <button class="tb-tool-btn"><span class="tbi">🏠</span> Inicio</button>
+    </div>
+    <div class="xp-addrbar">
+      <span class="addr-lbl">Dirección</span>
+      <div class="addr-box"><span>🌐</span><span>http://santifilippone.com/projects</span></div>
+      <button class="addr-go">▶ Ir</button>
+    </div>
+    <div class="xp-content" style="padding:0;margin:0;border:none;">
+      <iframe src="portfolio.html" style="width:100%;height:100%;border:none;display:block;" title="Portfolio"></iframe>
+    </div>
+    <div class="xp-status">
+      <span class="xp-status-seg">Listo</span>
+      <span>Internet</span>
+    </div>
+  </div>
+
+  <!-- SOBRE MÍ -->
+  <div class="xp-window" id="win-about" style="width:580px;height:460px;left:170px;top:90px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">📝</span>
+      <span class="xp-title-text">Sobre mí.txt — Bloc de notas</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-about">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-about">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-about">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-menubar">
+      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
+      <span class="xp-mi">Formato</span><span class="xp-mi">Ver</span>
+    </div>
+    <div class="xp-toolbar">
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
+      <div class="tb-tool-sep"></div>
+      <button class="tb-tool-btn"><span class="tbi">🖨️</span> Imprimir</button>
+      <button class="tb-tool-btn"><span class="tbi">✉️</span> Enviar</button>
+    </div>
+    <div class="xp-addrbar">
+      <span class="addr-lbl">Dirección</span>
+      <div class="addr-box"><span>📝</span><span>Mis documentos\Sobre mí.txt</span></div>
+      <button class="addr-go">▶ Ir</button>
+    </div>
+    <div class="xp-explorer">
+      <div class="xp-sidebar">
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Tareas <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🖨️</span> Imprimir bio</a>
+            <a class="sb-item" href="#" onclick="openWin('win-contact');return false"><span class="sbi">📧</span> Contactar</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📄</span> Descargar CV</a>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Mis links <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
+            <a class="sb-item" href="https://linkedin.com" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <span style="opacity:0.7;font-size:10px">Rol</span>
+              <span>Product Designer</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Empresa</span>
+              <span>Freelance</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Ciudad</span>
+              <span>Buenos Aires, AR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="xp-main" style="background:#FAFAF6;">
+        <div class="about-wrap">
+          <div class="about-hdr">
+            <div class="about-photo" style="padding:0;overflow:hidden;"><img src="foto.jpg" style="width:100%;height:100%;object-fit:cover;" alt="Santiago Filippone"/></div>
+            <div>
+              <div class="about-name">Santiago Filippone</div>
+              <div class="about-role">Product Designer · Freelance</div>
+              <div class="about-p">Product Designer con experiencia trabajando en proyectos end-to-end para medios y banca.</div>
+            </div>
+          </div>
+          <div class="about-p">Trabajo en la definición, diseño, documentación e implementación de soluciones que busquen mejorar la experiencia del usuario y la eficiencia. Me interesa mejorar los procesos, la colaboración dentro del equipo, facilitar la adopción de buenas prácticas y generar un puente sólido entre diseño y otros equipos.</div>
+          <p style="color:#999;font-size:10px;margin-top:14px;">— Editado: Abril 2026</p>
+        </div>
+      </div>
+    </div>
+    <div class="xp-status"><span>Listo</span></div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="xp-window" id="win-skills" style="width:620px;height:480px;left:200px;top:70px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">📊</span>
+      <span class="xp-title-text">Skills.xls — Microsoft Excel</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-skills">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-skills">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-skills">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-menubar">
+      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
+      <span class="xp-mi">Ver</span><span class="xp-mi">Insertar</span>
+      <span class="xp-mi">Herramientas</span><span class="xp-mi">Ayuda</span>
+    </div>
+    <div class="xp-toolbar">
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
+      <div class="tb-tool-sep"></div>
+      <button class="tb-tool-btn"><span class="tbi">🖨️</span> Imprimir</button>
+      <button class="tb-tool-btn"><span class="tbi">📊</span> Gráfico</button>
+      <button class="tb-tool-btn"><span class="tbi">🔃</span> Ordenar</button>
+    </div>
+    <div class="xp-addrbar">
+      <span class="addr-lbl">Dirección</span>
+      <div class="addr-box"><span>📊</span><span>Mis documentos\Skills.xls</span></div>
+      <button class="addr-go">▶ Ir</button>
+    </div>
+    <div class="xp-explorer">
+      <div class="xp-sidebar">
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Tareas <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📊</span> Ver gráfico</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🔃</span> Ordenar por nivel</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📤</span> Exportar</a>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Categorías <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🎨</span> Diseño</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">⚙️</span> Herramientas</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">💻</span> Frontend</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">✨</span> Creativo</a>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <span style="opacity:0.7;font-size:10px">Total skills</span>
+              <span style="font-weight:bold">9 registradas</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Nivel top</span>
+              <span>Experto</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="xp-main">
+        <div class="xls-formula">
+          <span class="fx">fx</span>
+          <span>A1 = "Skill"</span>
+        </div>
+        <div class="excel-wrap">
+          <table class="xls-table">
+            <thead>
+              <tr>
+                <th class="xls-row-num"></th>
+                <th>A — Skill</th>
+                <th>B — Categoría</th>
+                <th>C — Nivel</th>
+                <th>D — Progreso</th>
+              </tr>
+            </thead>
+            <tbody id="skills-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="xp-status">
+      <span class="xp-status-seg">Listo</span>
+      <span class="xp-status-seg">Hoja 1 de 1</span>
+      <span>NUM</span>
+    </div>
+  </div>
+
+  <!-- CONTACTO -->
+  <!-- CONTACTO -->
+  <div class="xp-window" id="win-contact" style="width:520px;height:440px;left:240px;top:110px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">📧</span>
+      <span class="xp-title-text">Contacto.url — Internet Explorer</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-contact">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-contact">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-contact">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-menubar">
+      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
+      <span class="xp-mi">Ver</span><span class="xp-mi">Favoritos</span>
+    </div>
+    <div class="xp-toolbar">
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
+      <div class="tb-tool-sep"></div>
+      <button class="tb-tool-btn"><span class="tbi">🏠</span> Inicio</button>
+      <button class="tb-tool-btn"><span class="tbi">⭐</span> Favoritos</button>
+    </div>
+    <div class="xp-addrbar">
+      <span class="addr-lbl">Dirección</span>
+      <div class="addr-box"><span>🌐</span><span>mailto:hola@santiago.com</span></div>
+      <button class="addr-go">▶ Ir</button>
+    </div>
+    <div class="xp-explorer">
+      <div class="xp-sidebar">
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Contacto rápido <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <a class="sb-item" href="mailto:hola@santiago.com"><span class="sbi">📧</span> Email directo</a>
+            <a class="sb-item" href="https://linkedin.com" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
+            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Disponibilidad <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:3px">
+              <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#4CDB4C;display:inline-block"></span><span style="font-weight:bold">Disponible</span></span>
+              <span style="opacity:0.7;font-size:10px;margin-top:2px">Proyectos freelance</span>
+              <span style="opacity:0.7;font-size:10px">Consultoría UX</span>
+              <span style="opacity:0.7;font-size:10px">Tiempo de respuesta: 24h</span>
+            </div>
+          </div>
+        </div>
+        <div class="sb-section">
+          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
+          <div class="sb-body">
+            <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <span style="opacity:0.7;font-size:10px">Ubicación</span>
+              <span>Buenos Aires, AR</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Zona horaria</span>
+              <span>GMT-3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="xp-main" style="background:var(--xp-gray);">
+        <div class="contact-wrap">
+          <div class="contact-hdr">✉ Escribime un mensaje</div>
+          <div class="f-group">
+            <label class="f-label">Nombre:</label>
+            <input type="text" class="xp-inp" placeholder="Tu nombre" id="c-name"/>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Email:</label>
+            <input type="email" class="xp-inp" placeholder="tu@email.com" id="c-email"/>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Asunto:</label>
+            <input type="text" class="xp-inp" placeholder="¿De qué se trata?" id="c-subject"/>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Mensaje:</label>
+            <textarea class="xp-ta" placeholder="Escribí tu mensaje..." id="c-msg"></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="xp-push" onclick="sendContact()">Enviar</button>
+            <button class="xp-push" onclick="clearContact()">Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="xp-status"><span>Listo</span></div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       WIN-TN — TN Rediseño Artear
+  ════════════════════════════════════════ -->
+  <div class="xp-window" id="win-tn" style="width:860px;height:560px;left:100px;top:40px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">🎨</span>
+      <span class="xp-title-text">TN — Rediseño · Artear 2021–2022</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-tn">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-tn">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-tn">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-content" style="overflow-y:auto;background:#fff;padding:0;">
+
+      <!-- COVER -->
+      <div style="background:#000821;padding:40px;">
+        <div style="font-size:32px;font-weight:bold;margin-bottom:14px;line-height:1;">
+          <span style="color:#E8001C;">T</span><span style="color:#1A6FF5;">N</span>
+        </div>
+        <div style="color:#fff;font-size:22px;font-weight:bold;margin-bottom:8px;line-height:1.3;">Rediseño del medio de noticias líder de Argentina, de cero a la Copa del Mundo</div>
+        <div style="color:#8899AA;font-size:13px;margin-bottom:28px;">Product Designer · Equipo: 3 diseñadores · 2021–2022 · Figma</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:420px;">
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">591K</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">usuarios activos</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">285K</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">usuarios diarios</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">135</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">componentes</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">624</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">variantes</div></div>
+        </div>
+      </div>
+
+      <!-- PROBLEMA -->
+      <div style="background:#fff;padding:32px;">
+        <div style="font-size:18px;font-weight:bold;color:#000;margin-bottom:12px;">El problema</div>
+        <div style="font-size:14px;color:#444;line-height:1.7;margin-bottom:20px;">TN tenía un sitio viejo sin sistema de diseño. El rediseño completo requería construir todo desde cero — tipografía, color, componentes, bricks — compatibles con el CMS del Washington Post y que funcionaran sin intervención manual del equipo de diseño en cada nota.</div>
+        <img src="portada1.gif" style="width:100%;display:block;" alt="Portada TN 1"/><img src="portada2.gif" style="width:100%;display:block;" alt="Portada TN 2"/>
+      </div>
+
+      <!-- BRICK UI -->
+      <div style="background:#0A0E1A;padding:32px;">
+        <div style="font-size:18px;font-weight:bold;color:#fff;margin-bottom:6px;">Brick UI Design System</div>
+        <div style="font-size:14px;color:#1A6FF5;margin-bottom:20px;">El primer design system open source de un medio masivo en Latinoamérica</div>
+        <div style="display:flex;gap:32px;margin-bottom:20px;">
+          <div><div style="color:#fff;font-size:22px;font-weight:bold;">56</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">estilos</div></div>
+          <div><div style="color:#fff;font-size:22px;font-weight:bold;">135</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">componentes</div></div>
+          <div><div style="color:#fff;font-size:22px;font-weight:bold;">624</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">variantes</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;">
+          <div style="color:#CCDDEE;font-size:13px;">— Benchmark tipográfico: 1 sola fuente para noticias duras y blandas</div>
+          <div style="color:#CCDDEE;font-size:13px;">— Sistema de bricks compatible con CMS Washington Post</div>
+          <div style="color:#CCDDEE;font-size:13px;">— Hand-off a desarrollo con specs CSS directos desde Figma</div>
+        </div>
+        <img src="brick-ds" style="width:100%;height:180px;object-fit:cover;display:block;" alt="Brick UI Design System"/>
+      </div>
+
+      <!-- PRODUCTO -->
+      <div style="background:#fff;padding:32px;">
+        <div style="font-size:18px;font-weight:bold;color:#000;margin-bottom:16px;">Del sistema al producto</div>
+        <div style="display:flex;gap:16px;margin-bottom:10px;">
+          <img src="app-tn.png" style="width:48%;height:200px;object-fit:cover;display:block;" alt="TN App mobile"/>
+          <img src="nota-tn.jpg" style="width:48%;height:200px;object-fit:cover;display:block;" alt="TN web desktop"/>
+        </div>
+        <div style="font-size:12px;color:#888;">El mismo sistema funcionando en web y mobile. Probado por primera vez en Elecciones 2021.</div>
+      </div>
+
+      <!-- REMATE -->
+      <div style="background:#000821;padding:32px;">
+        <div style="font-size:22px;font-weight:bold;color:#fff;margin-bottom:8px;">El remate</div>
+        <div style="font-size:14px;color:#AABBCC;margin-bottom:24px;">El sistema bancó el evento más visto de la historia argentina.</div>
+        <div style="display:flex;gap:40px;margin-bottom:24px;">
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">3.232</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">apreciaciones en Behance</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">3 premios</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Communicator · w3 · EPPY</div></div>
+        </div>
+        <img src="qatar.png" style="width:100%;height:160px;object-fit:cover;display:block;" alt="Copa del Mundo 2022"/>
+      </div>
+
+      <!-- CIERRE -->
+      <div style="background:#F5F5F5;padding:32px;">
+        <div style="font-style:italic;color:#666;font-size:13px;line-height:1.7;margin-bottom:20px;">"Construir un sistema desde cero enseña que las decisiones más pequeñas — una tipografía, un espaciado — son las que escalan o rompen todo."</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="https://www.behance.net/gallery/145754347/tncomar-Brick-UI-Design-System" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">Ver en Behance →</a>
+          <a href="https://www.figma.com/community/file/1093982260596156097" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">Ver Brick UI en Figma →</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="xp-status"><span>TN — Artear 2021–2022</span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       WIN-AEROLAB — Proyecto protegido
+  ════════════════════════════════════════ -->
+  <div class="xp-window" id="win-aerolab" style="width:700px;height:480px;left:140px;top:80px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">🔒</span>
+      <span class="xp-title-text">Aerolab — Product Design 2025–2026</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-aerolab">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-aerolab">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-aerolab">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-content" style="background:#0A0E1A;display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;max-width:360px;padding:32px;">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:18px;">
+          <rect x="10" y="22" width="28" height="20" rx="3" fill="none" stroke="white" stroke-width="2.5"/>
+          <path d="M16 22V16C16 10.477 20.477 6 26 6C28.67 6 31.1 7.07 32.9 8.83" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M16 22V16a8 8 0 0 1 16 0v6" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="24" cy="32" r="3" fill="white"/>
+        </svg>
+        <div style="color:#fff;font-size:20px;font-weight:bold;margin-bottom:10px;">Proyecto protegido</div>
+        <div style="color:#8899AA;font-size:14px;line-height:1.6;margin-bottom:24px;">Este case study está disponible bajo solicitud. Contiene trabajo confidencial de clientes de Aerolab.</div>
+        <div style="text-align:left;margin-bottom:16px;">
+          <label style="color:#8899AA;font-size:11px;display:block;margin-bottom:4px;">Contraseña:</label>
+          <div style="display:flex;gap:6px;">
+            <input type="password" class="xp-inp" placeholder="••••••••" style="flex:1;background:#1A2030;color:#fff;border-color:#334455;"/>
+            <button class="xp-push" style="background:linear-gradient(180deg,#2A3A5A,#1A2A4A);color:#fff;border-color:#334455 #1A2030 #1A2030 #334455;">Acceder</button>
+          </div>
+        </div>
+        <div style="color:#556677;font-size:11px;">¿No tenés la contraseña? Escribime a <a href="mailto:santiagofilippone@gmail.com" style="color:#1A6FF5;">santiagofilippone@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="xp-status"><span>Acceso restringido</span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       WIN-BANCOSOL — En construcción
+  ════════════════════════════════════════ -->
+  <div class="xp-window" id="win-bancosol" style="width:700px;height:400px;left:160px;top:100px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">🏗️</span>
+      <span class="xp-title-text">Banco del Sol — DesignOps · Próximamente</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-bancosol">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-bancosol">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-bancosol">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-content" style="background:#fff;display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;max-width:340px;padding:32px;">
+        <div style="font-size:48px;margin-bottom:16px;">🏗️</div>
+        <div style="font-size:20px;font-weight:bold;color:#000;margin-bottom:10px;">En construcción</div>
+        <div style="font-size:14px;color:#666;line-height:1.6;margin-bottom:24px;">El case study de Banco del Sol está en preparación. Volvé pronto.</div>
+        <a href="https://www.linkedin.com/in/santiagofilippone/" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">Ver LinkedIn →</a>
+      </div>
+    </div>
+    <div class="xp-status"><span>Próximamente</span></div>
+  </div>
+
+</div><!-- /desktop -->
+
+<!-- ════════════════════════════════════════════
+     TASKBAR
+════════════════════════════════════════════ -->
+<div id="taskbar">
+  <button id="start-btn" onclick="toggleSM()">
+    <img src="winlogo.webp" style="width:18px;height:18px;object-fit:contain;flex-shrink:0;" alt=""/> Inicio
+  </button>
+  <div class="tb-sep"></div>
+  <div id="tb-wins"></div>
+  <div id="systray">
+    <div id="clock"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     START MENU
+════════════════════════════════════════════ -->
+<div id="start-menu">
+  <div class="sm-header">
+    <div class="sm-avatar"><img src="foto.jpg" alt="Avatar" onerror="this.style.display='none';this.parentNode.innerHTML='👤';"/></div>
+    <div class="sm-uname">Santiago Filippone</div>
+  </div>
+  <div class="sm-body">
+    <!-- LEFT COLUMN: white bg, large icons + name + subtitle -->
+    <div class="sm-left">
+      <div class="sm-item" onclick="openWin('win-proj');closeSM()">
+        <span class="sm-item-ico">📁</span>
+        <div><div class="sm-item-main">Proyectos.exe</div><div class="sm-sub">Ver mi trabajo</div></div>
+      </div>
+      <div class="sm-item" onclick="openWin('win-contact');closeSM()">
+        <span class="sm-item-ico">📧</span>
+        <div><div class="sm-item-main">Contacto.url</div><div class="sm-sub">Escribime un mensaje</div></div>
+      </div>
+      <div class="sm-item" onclick="openWin('win-about');closeSM()">
+        <span class="sm-item-ico">📝</span>
+        <div><div class="sm-item-main">Sobre mí.txt</div><div class="sm-sub">Quién soy</div></div>
+      </div>
+      <div class="sm-item" onclick="openWin('win-skills');closeSM()">
+        <span class="sm-item-ico">📊</span>
+        <div><div class="sm-item-main">Skills.xls</div><div class="sm-sub">Mis habilidades</div></div>
+      </div>
+      <div class="sm-sep"></div>
+      <div class="sm-item" onclick="openWin('win-tn');closeSM()">
+        <span class="sm-item-ico">🎨</span>
+        <div><div class="sm-item-main">TN_Rediseno.exe</div><div class="sm-sub">Rediseño TN 2021–2022</div></div>
+      </div>
+      <div class="sm-item" onclick="openWin('win-aerolab');closeSM()">
+        <span class="sm-item-ico">🔒</span>
+        <div><div class="sm-item-main">Aerolab.exe</div><div class="sm-sub">Trabajo reciente</div></div>
+      </div>
+      <div class="sm-item" onclick="openWin('win-bancosol');closeSM()">
+        <span class="sm-item-ico">🏗️</span>
+        <div><div class="sm-item-main">BancoDelSol.exe</div><div class="sm-sub">Próximamente</div></div>
+      </div>
+      <div class="sm-all-programs" onclick="closeSM()">
+        Todos los programas
+        <span class="sm-all-programs-arrow"></span>
+      </div>
+    </div>
+    <!-- RIGHT COLUMN: light blue bg, medium icons + name only -->
+    <div class="sm-right">
+      <div class="sm-item" onclick="window.open('https://linkedin.com','_blank');closeSM()">
+        <span class="sm-item-ico">💼</span>
+        <div><div class="sm-item-main">LinkedIn</div></div>
+      </div>
+      <div class="sm-item" onclick="window.open('https://www.behance.net/santiagofilippone','_blank');closeSM()">
+        <span class="sm-item-ico">🎨</span>
+        <div><div class="sm-item-main">Behance</div></div>
+      </div>
+      <div class="sm-item" onclick="window.open('https://github.com','_blank');closeSM()">
+        <span class="sm-item-ico">🐙</span>
+        <div><div class="sm-item-main">GitHub</div></div>
+      </div>
+      <div class="sm-sep"></div>
+      <div class="sm-item" onclick="openWin('win-proj');closeSM()">
+        <span class="sm-item-ico">📂</span>
+        <div><div class="sm-item-main">Mis Documentos</div></div>
+      </div>
+      <div class="sm-item" onclick="openWin('win-about');closeSM()">
+        <span class="sm-item-ico">🖥️</span>
+        <div><div class="sm-item-main">Mi PC</div></div>
+      </div>
+      <div class="sm-item" onclick="closeSM()">
+        <span class="sm-item-ico">⚙️</span>
+        <div><div class="sm-item-main">Panel de control</div></div>
+      </div>
+      <div class="sm-sep"></div>
+      <div class="sm-item" onclick="closeSM()">
+        <span class="sm-item-ico">🔍</span>
+        <div><div class="sm-item-main">Buscar...</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sm-footer">
+    <button class="sm-foot-btn" onclick="closeSM()">
+      <span class="sm-foot-icon logoff">🔑</span>
+      Cerrar sesión
+    </button>
+    <button class="sm-foot-btn" onclick="doShutdown()">
+      <span class="sm-foot-icon shutdown">⏻</span>
+      Apagar equipo
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SHUTDOWN SCREEN
+════════════════════════════════════════════ -->
+<div id="shutdown">
+  <div class="sd-logo">⊞</div>
+  <div style="text-align:center">
+    <div class="sd-text" id="sd-msg">Apagando el sistema...</div>
+    <div class="sd-sub" style="margin-top:6px">Espere mientras se guardan los cambios en la sesión</div>
+  </div>
+  <div class="sd-bar-wrap"><div class="sd-bar" id="sd-bar"></div></div>
+  <button class="sd-restart" id="sd-restart" onclick="cancelShutdown()">↩ Volver al portfolio</button>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  SIDEBAR COLLAPSE
+// ════════════════════════════════════════════════════════
+
+function toggleSb(hdr) {
+  hdr.closest('.sb-section').classList.toggle('sb-collapsed');
+}
+
+// ════════════════════════════════════════════════════════
+//  WINDOW MANAGER
+// ════════════════════════════════════════════════════════
+
+let zTop = 200;
+const wins = {};
+
+// Gather all windows
+document.querySelectorAll('.xp-window').forEach(el => {
+  wins[el.id] = { el, minimized: false, maximized: false, savedStyle: {} };
+});
+
+function openWin(id) {
+  const w = wins[id];
+  if (!w) return;
+
+  if (w.minimized) { restoreWin(id); return; }
+
+  if (w.el.classList.contains('is-open')) {
+    raiseWin(id); return;
+  }
+
+  // Position window roughly centered if at default
+  const dw = document.getElementById('desktop').clientWidth;
+  const dh = document.getElementById('desktop').clientHeight;
+  const pw = w.el.offsetWidth  || parseInt(w.el.style.width)  || 600;
+  const ph = w.el.offsetHeight || parseInt(w.el.style.height) || 400;
+
+  const curL = parseInt(w.el.style.left);
+  const curT = parseInt(w.el.style.top);
+  if (!curL || !curT) {
+    w.el.style.left = Math.max(30, (dw - pw) / 2) + 'px';
+    w.el.style.top  = Math.max(20, (dh - ph) / 2) + 'px';
+  }
+
+  w.el.classList.add('is-open');
+  w.el.classList.add('anim-open');
+  setTimeout(() => w.el.classList.remove('anim-open'), 160);
+
+  if (id === 'win-portfolio') maximizeWin(id);
+
+  raiseWin(id);
+  refreshTaskbar();
+}
+
+function closeWin(id) {
+  const w = wins[id];
+  if (!w || !w.el.classList.contains('is-open') && !w.minimized) return;
+
+  if (w.minimized) {
+    w.el.style.display = '';
+    w.minimized = false;
+  }
+
+  w.el.classList.add('anim-close');
+  setTimeout(() => {
+    w.el.classList.remove('is-open', 'anim-close');
+    w.maximized = false;
+    refreshTaskbar();
+  }, 110);
+}
+
+function minimizeWin(id) {
+  const w = wins[id];
+  if (!w || !w.el.classList.contains('is-open') || w.minimized) return;
+
+  // Find target position (taskbar button center)
+  const tbBtn = document.getElementById('tb-' + id);
+  let tx = window.innerWidth / 2, ty = window.innerHeight;
+  if (tbBtn) {
+    const r = tbBtn.getBoundingClientRect();
+    tx = r.left + r.width / 2;
+    ty = r.top + r.height / 2;
+  }
+  const wr = w.el.getBoundingClientRect();
+  const ox = ((tx - wr.left) / wr.width  * 100).toFixed(1) + '%';
+  const oy = ((ty - wr.top)  / wr.height * 100).toFixed(1) + '%';
+  w.el.style.transformOrigin = ox + ' ' + oy;
+
+  w.el.classList.add('anim-minimize');
+  setTimeout(() => {
+    w.el.style.display = 'none';
+    w.el.style.transformOrigin = '';
+    w.el.classList.remove('anim-minimize');
+    w.minimized = true;
+    refreshTaskbar();
+  }, 160);
+}
+
+function restoreWin(id) {
+  const w = wins[id];
+  if (!w) return;
+  w.el.style.display = '';
+  w.minimized = false;
+  w.el.classList.add('anim-open');
+  setTimeout(() => w.el.classList.remove('anim-open'), 160);
+  raiseWin(id);
+  refreshTaskbar();
+}
+
+function maximizeWin(id) {
+  const w = wins[id];
+  if (!w) return;
+  const desktop = document.getElementById('desktop');
+
+  if (w.maximized) {
+    const s = w.savedStyle;
+    w.el.style.left = s.left; w.el.style.top  = s.top;
+    w.el.style.width = s.width; w.el.style.height = s.height;
+    w.el.style.borderRadius = '';
+    w.maximized = false;
+  } else {
+    w.savedStyle = { left: w.el.style.left, top: w.el.style.top, width: w.el.style.width, height: w.el.style.height };
+    w.el.style.left   = '0px';
+    w.el.style.top    = '0px';
+    w.el.style.width  = desktop.clientWidth  + 'px';
+    w.el.style.height = desktop.clientHeight + 'px';
+    w.el.style.borderRadius = '0';
+    w.maximized = true;
+  }
+}
+
+function raiseWin(id) {
+  zTop++;
+  const w = wins[id];
+  if (!w) return;
+  w.el.style.zIndex = zTop;
+  document.querySelectorAll('.xp-window.is-open').forEach(el => {
+    el.classList.toggle('inactive', el.id !== id);
+  });
+}
+
+// ─── Button delegation ───
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  e.stopPropagation();
+  const id = btn.dataset.wid;
+  const act = btn.dataset.action;
+  if (act === 'cls') closeWin(id);
+  else if (act === 'min') minimizeWin(id);
+  else if (act === 'max') maximizeWin(id);
+});
+
+// Clicking a window raises it
+document.addEventListener('mousedown', e => {
+  const win = e.target.closest('.xp-window');
+  if (win && wins[win.id]) {
+    raiseWin(win.id);
+    refreshTaskbar();
+  }
+});
+
+// ════════════════════════════════════════════════════════
+//  DRAG
+// ════════════════════════════════════════════════════════
+
+let drag = null;
+
+document.addEventListener('mousedown', e => {
+  const tb = e.target.closest('.xp-titlebar');
+  if (!tb) return;
+  if (e.target.closest('.xp-btns')) return;
+
+  const win = tb.closest('.xp-window');
+  if (!win || wins[win.id]?.maximized) return;
+
+  const r = win.getBoundingClientRect();
+  drag = { win, sx: e.clientX, sy: e.clientY, wx: r.left, wy: r.top };
+  e.preventDefault();
+}, true);
+
+document.addEventListener('mousemove', e => {
+  if (!drag) return;
+  const nx = drag.wx + e.clientX - drag.sx;
+  const ny = drag.wy + e.clientY - drag.sy;
+  const maxY = window.innerHeight - 60;
+  drag.win.style.left = Math.max(-drag.win.offsetWidth + 120, nx) + 'px';
+  drag.win.style.top  = Math.max(0, Math.min(maxY, ny)) + 'px';
+});
+
+document.addEventListener('mouseup', () => { drag = null; });
+
+// ════════════════════════════════════════════════════════
+//  DESKTOP ICONS
+// ════════════════════════════════════════════════════════
+
+document.querySelectorAll('.desktop-icon').forEach(ico => {
+  let clicks = 0, timer;
+
+  ico.addEventListener('click', e => {
+    document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+    ico.classList.add('selected');
+    clicks++;
+    clearTimeout(timer);
+    if (clicks >= 2) {
+      openWin(ico.dataset.win);
+      clicks = 0;
+    } else {
+      timer = setTimeout(() => { clicks = 0; }, 400);
+    }
+    e.stopPropagation();
+  });
+});
+
+document.getElementById('desktop').addEventListener('click', e => {
+  if (['desktop', 'bliss-svg'].some(id => e.target.id === id) || e.target.tagName === 'svg' || e.target.tagName === 'rect' || e.target.tagName === 'path' || e.target.tagName === 'ellipse' || e.target.tagName === 'line') {
+    document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+  }
+});
+
+// ════════════════════════════════════════════════════════
+//  TASKBAR
+// ════════════════════════════════════════════════════════
+
+function refreshTaskbar() {
+  const container = document.getElementById('tb-wins');
+  container.innerHTML = '';
+
+  Object.entries(wins).forEach(([id, w]) => {
+    const visible = w.el.classList.contains('is-open') || w.minimized;
+    if (!visible) return;
+
+    const titleEl = w.el.querySelector('.xp-title-text');
+    const rawTitle = titleEl ? titleEl.textContent : id;
+    const label = rawTitle.split('—')[0].trim().replace('.exe','').replace('.txt','').replace('.xls','').replace('.url','');
+    const iconEl = w.el.querySelector('.xp-title-icon');
+    const icon = iconEl ? iconEl.textContent : '🗔';
+
+    const isFocused = !w.minimized && parseInt(w.el.style.zIndex) === zTop;
+
+    const btn = document.createElement('button');
+    btn.className = 'tb-win-btn' + (isFocused ? ' tb-active' : '');
+    btn.id = 'tb-' + id;
+    btn.innerHTML = '<span class="tb-win-icon">' + icon + '</span>' + label.slice(0, 18);
+
+    btn.onclick = () => {
+      if (w.minimized) { restoreWin(id); }
+      else if (isFocused) { minimizeWin(id); }
+      else { raiseWin(id); refreshTaskbar(); }
+    };
+
+    container.appendChild(btn);
+  });
+}
+
+// ════════════════════════════════════════════════════════
+//  START MENU
+// ════════════════════════════════════════════════════════
+
+function toggleSM() {
+  document.getElementById('start-menu').classList.toggle('sm-visible');
+}
+function closeSM() {
+  document.getElementById('start-menu').classList.remove('sm-visible');
+}
+document.addEventListener('click', e => {
+  const sm = document.getElementById('start-menu');
+  const sb = document.getElementById('start-btn');
+  if (!sm.contains(e.target) && !sb.contains(e.target)) closeSM();
+});
+
+// ════════════════════════════════════════════════════════
+//  CLOCK
+// ════════════════════════════════════════════════════════
+
+function tickClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const d = now.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  document.getElementById('clock').innerHTML = h + ':' + m + '<br>' + d;
+}
+tickClock();
+setInterval(tickClock, 10000);
+
+// ════════════════════════════════════════════════════════
+//  SHUTDOWN
+// ════════════════════════════════════════════════════════
+
+function doShutdown() {
+  closeSM();
+  const sd = document.getElementById('shutdown');
+  sd.classList.add('sd-on');
+
+  // Animate bar
+  setTimeout(() => {
+    document.getElementById('sd-bar').style.width = '100%';
+  }, 100);
+
+  // Show final state
+  setTimeout(() => {
+    document.getElementById('sd-msg').textContent = 'Es seguro apagar el equipo ahora.';
+    document.getElementById('sd-restart').style.display = 'block';
+  }, 3200);
+}
+
+function cancelShutdown() {
+  const sd = document.getElementById('shutdown');
+  sd.classList.remove('sd-on');
+  document.getElementById('sd-bar').style.width = '0%';
+  document.getElementById('sd-bar').style.transition = 'none';
+  setTimeout(() => {
+    document.getElementById('sd-bar').style.transition = 'width 2.5s linear';
+    document.getElementById('sd-msg').textContent = 'Apagando el sistema...';
+    document.getElementById('sd-restart').style.display = 'none';
+  }, 50);
+}
+
+// ════════════════════════════════════════════════════════
+//  CONTENT: PROYECTOS
+// ════════════════════════════════════════════════════════
+
+// ── CAMBIO 1: Cards estáticas reemplazando Behance fetch ──
+
+const STATIC_PROJECTS = [
+  {
+    name: 'TN — Rediseño Artear',
+    year: '2021–2022',
+    tags: ['Design System', 'Product Design', 'Media'],
+    winId: 'win-tn',
+    thumb: 'img',
+    imgSrc: 'https://mir-s3-cdn-cf.behance.net/projects/404/401c63159738977.Y3JvcCwyMDUwLDE2MDQsNTQ4LDA.png',
+  },
+  {
+    name: 'Aerolab — Product Design',
+    year: '2025–2026',
+    tags: ['Product Design', 'Mobile', 'Web'],
+    winId: 'win-aerolab',
+    thumb: 'div',
+    thumbStyle: 'background:#0A0E1A;',
+    thumbLabel: 'AEROLAB',
+  },
+  {
+    name: 'Banco del Sol — DesignOps',
+    year: '2023–2025',
+    tags: ['DesignOps', 'Design System', 'Banca'],
+    winId: 'win-bancosol',
+    thumb: 'div',
+    thumbStyle: 'background:#001A3A;',
+    thumbLabel: 'BANCO DEL SOL',
+  },
+];
+
+const grid = document.getElementById('proj-grid');
+STATIC_PROJECTS.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'proj-card';
+  card.style.cursor = 'pointer';
+
+  let thumbHTML = '';
+  if (p.thumb === 'img') {
+    thumbHTML = `<div class="proj-thumb" style="padding:0;overflow:hidden;background:#000;">
+      <img src="${p.imgSrc}" alt="${p.name}" style="width:100%;height:108px;object-fit:cover;display:block;"
+        onerror="this.parentNode.innerHTML='<div style=\\'width:100%;height:108px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Courier New,monospace;font-size:11px;letter-spacing:2px;\\'>COPA DEL MUNDO</div>'"/>
+    </div>`;
+  } else {
+    thumbHTML = `<div class="proj-thumb" style="padding:0;overflow:hidden;${p.thumbStyle}">
+      <div style="width:100%;height:108px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:bold;letter-spacing:2px;font-family:Tahoma,Arial,sans-serif;">${p.thumbLabel}</div>
+    </div>`;
+  }
+
+  const tagsHTML = p.tags.map(t => `<span class="proj-tag">${t}</span>`).join(' ');
+
+  card.innerHTML = `
+    ${thumbHTML}
+    <div class="proj-info">
+      <div class="proj-name">${p.name}</div>
+      <div class="proj-meta">${p.year}</div>
+      <div style="margin-top:3px;">${tagsHTML}</div>
+    </div>
+  `;
+  card.onclick = () => openWin(p.winId);
+  grid.appendChild(card);
+});
+
+document.querySelector('#win-proj .xp-status').firstElementChild.textContent = STATIC_PROJECTS.length + ' objetos';
+
+// ════════════════════════════════════════════════════════
+//  CONTENT: SKILLS
+// ════════════════════════════════════════════════════════
+
+const SKILLS = [
+  { n: 'Diseño UI/UX',   cat: 'Diseño',       lvl: 'Experto',     pct: 95 },
+  { n: 'Figma',          cat: 'Herramientas',  lvl: 'Experto',     pct: 92 },
+  { n: 'HTML / CSS',     cat: 'Frontend',      lvl: 'Avanzado',    pct: 88 },
+  { n: 'JavaScript',     cat: 'Frontend',      lvl: 'Avanzado',    pct: 82 },
+  { n: 'React',          cat: 'Frontend',      lvl: 'Avanzado',    pct: 78 },
+  { n: 'Branding',       cat: 'Diseño',        lvl: 'Avanzado',    pct: 85 },
+  { n: 'Motion Design',  cat: 'Diseño',        lvl: 'Intermedio',  pct: 70 },
+  { n: 'After Effects',  cat: 'Herramientas',  lvl: 'Intermedio',  pct: 65 },
+  { n: 'Fotografía',     cat: 'Creativo',      lvl: 'Intermedio',  pct: 60 },
+];
+
+const tbody = document.getElementById('skills-body');
+SKILLS.forEach((s, i) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="xls-row-num">${i + 1}</td>
+    <td><strong>${s.n}</strong></td>
+    <td>${s.cat}</td>
+    <td>${s.lvl}</td>
+    <td><div class="skill-bar"><div class="skill-fill" style="width:${s.pct}%"></div></div></td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// ════════════════════════════════════════════════════════
+//  CONTENT: CONTACTO
+// ════════════════════════════════════════════════════════
+
+function sendContact() {
+  const fields = ['c-name','c-email','c-subject','c-msg'];
+  const empty = fields.some(id => !document.getElementById(id).value.trim());
+  if (empty) { alert('Por favor completá todos los campos.'); return; }
+  alert('¡Mensaje enviado! Te contactaré pronto. 📬');
+  clearContact();
+}
+function clearContact() {
+  ['c-name','c-email','c-subject','c-msg'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════
+
+// Open Proyectos on load
+window.addEventListener('load', () => {
+  // openWin('win-proj');
+});
+</script>
+<div id="tweaks-root"></div>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "luna",
+  "desktop": "bliss",
+  "density": 1.05
+}/*EDITMODE-END*/;
+
+const THEMES = {
+  luna: {
+    title:      'linear-gradient(90deg, #0A246A 0%, #2E6FD4 12%, #245EDC 82%, #1837B0 100%)',
+    titleInact: 'linear-gradient(90deg, #7388AA 0%, #9AB0C8 100%)',
+    taskbar:    'linear-gradient(180deg, #1F3FAC 0%, #2D6BD2 1px, #1E5BBE 2px, #1A4CB2 100%)',
+    taskBorder: '#0A246A',
+    start:      'linear-gradient(180deg, #5EC15A 0%, #3E9E2A 38%, #228808 52%, #3A9C1E 100%)',
+    startHov:   'linear-gradient(180deg, #72D068 0%, #50AE3C 38%, #34880E 52%, #4AAE28 100%)',
+    startBdr:   '#1A5E0A',
+    sidebar:    'linear-gradient(180deg, #3868C8 0%, #2A54B4 100%)',
+    sbHdr:      'linear-gradient(180deg, #1A3EA8 0%, #153292 100%)',
+    sbHdrHov:   'linear-gradient(180deg, #2448B8 0%, #1A3CA4 100%)',
+    sbBdr:      '#0E2880',
+    winBtn:     'radial-gradient(ellipse at 50% 38%, #90BAEE 0%, #4878D8 42%, #1848C0 100%)',
+    winBtnHov:  'radial-gradient(ellipse at 50% 38%, #A8CCFF 0%, #6098F0 42%, #2868E8 100%)',
+    tbWin:      'linear-gradient(180deg, #3C72D0 0%, #2460C0 48%, #1E50B0 50%, #2860C8 100%)',
+    tbWinHov:   'linear-gradient(180deg, #5088E0 0%, #3878D0 48%, #2C68C0 50%, #3A80D8 100%)',
+    tbWinAct:   'linear-gradient(180deg, #1E50B0 0%, #2860C8 100%)',
+    systray:    'linear-gradient(180deg, #1A40AC 0%, #0E2E90 100%)',
+  },
+  silver: {
+    title:      'linear-gradient(90deg, #505050 0%, #8C8C8C 12%, #7A7A7A 82%, #606060 100%)',
+    titleInact: 'linear-gradient(90deg, #909090 0%, #B0B0B0 100%)',
+    taskbar:    'linear-gradient(180deg, #484848 0%, #727272 1px, #646464 2px, #545454 100%)',
+    taskBorder: '#303030',
+    start:      'linear-gradient(180deg, #A0A0A0 0%, #787878 38%, #606060 52%, #707070 100%)',
+    startHov:   'linear-gradient(180deg, #B8B8B8 0%, #909090 38%, #787878 52%, #888888 100%)',
+    startBdr:   '#404040',
+    sidebar:    'linear-gradient(180deg, #707078 0%, #5E5E6A 100%)',
+    sbHdr:      'linear-gradient(180deg, #484850 0%, #3C3C46 100%)',
+    sbHdrHov:   'linear-gradient(180deg, #565660 0%, #484852 100%)',
+    sbBdr:      '#2C2C38',
+    winBtn:     'radial-gradient(ellipse at 50% 38%, #A8A8B0 0%, #787880 42%, #505060 100%)',
+    winBtnHov:  'radial-gradient(ellipse at 50% 38%, #C0C0C8 0%, #909098 42%, #686870 100%)',
+    tbWin:      'linear-gradient(180deg, #808088 0%, #686870 48%, #5C5C68 50%, #707078 100%)',
+    tbWinHov:   'linear-gradient(180deg, #989898 0%, #808080 48%, #707070 50%, #888888 100%)',
+    tbWinAct:   'linear-gradient(180deg, #5C5C68 0%, #707078 100%)',
+    systray:    'linear-gradient(180deg, #505058 0%, #3A3A46 100%)',
+  },
+  olive: {
+    title:      'linear-gradient(90deg, #243A08 0%, #4E8018 12%, #3E7010 82%, #2A500A 100%)',
+    titleInact: 'linear-gradient(90deg, #7A9060 0%, #9AB080 100%)',
+    taskbar:    'linear-gradient(180deg, #2E5010 0%, #507A1E 1px, #406814 2px, #2E5010 100%)',
+    taskBorder: '#1A3808',
+    start:      'linear-gradient(180deg, #7AB028 0%, #5A8818 38%, #3E6808 52%, #548018 100%)',
+    startHov:   'linear-gradient(180deg, #90C838 0%, #70A028 38%, #547810 52%, #689020 100%)',
+    startBdr:   '#2A4808',
+    sidebar:    'linear-gradient(180deg, #507830 0%, #3E6020 100%)',
+    sbHdr:      'linear-gradient(180deg, #2E5010 0%, #243E0A 100%)',
+    sbHdrHov:   'linear-gradient(180deg, #3A6018 0%, #2C4C10 100%)',
+    sbBdr:      '#183008',
+    winBtn:     'radial-gradient(ellipse at 50% 38%, #80B050 0%, #508030 42%, #386018 100%)',
+    winBtnHov:  'radial-gradient(ellipse at 50% 38%, #98C868 0%, #689848 42%, #4A7828 100%)',
+    tbWin:      'linear-gradient(180deg, #5A8828 0%, #487018 48%, #3A5E10 50%, #508020 100%)',
+    tbWinHov:   'linear-gradient(180deg, #6A9830 0%, #588028 48%, #486E18 50%, #608830 100%)',
+    tbWinAct:   'linear-gradient(180deg, #3A5E10 0%, #508020 100%)',
+    systray:    'linear-gradient(180deg, #2E5010 0%, #1E3C08 100%)',
+  },
+  royale: {
+    title:      'linear-gradient(90deg, #06062A 0%, #1A1A70 12%, #121260 82%, #0A0A40 100%)',
+    titleInact: 'linear-gradient(90deg, #303060 0%, #505080 100%)',
+    taskbar:    'linear-gradient(180deg, #080830 0%, #1A1A68 1px, #121250 2px, #0C0C3C 100%)',
+    taskBorder: '#04042A',
+    start:      'linear-gradient(180deg, #2828A8 0%, #181878 38%, #101060 52%, #181880 100%)',
+    startHov:   'linear-gradient(180deg, #3838C0 0%, #282898 38%, #1A1A78 52%, #282898 100%)',
+    startBdr:   '#080848',
+    sidebar:    'linear-gradient(180deg, #181870 0%, #101058 100%)',
+    sbHdr:      'linear-gradient(180deg, #080840 0%, #060630 100%)',
+    sbHdrHov:   'linear-gradient(180deg, #101050 0%, #0A0A3C 100%)',
+    sbBdr:      '#040428',
+    winBtn:     'radial-gradient(ellipse at 50% 38%, #3838A8 0%, #181878 42%, #0C0C58 100%)',
+    winBtnHov:  'radial-gradient(ellipse at 50% 38%, #5050C0 0%, #282890 42%, #181870 100%)',
+    tbWin:      'linear-gradient(180deg, #202080 0%, #181868 48%, #101050 50%, #181870 100%)',
+    tbWinHov:   'linear-gradient(180deg, #303098 0%, #282878 48%, #181860 50%, #282880 100%)',
+    tbWinAct:   'linear-gradient(180deg, #101050 0%, #181870 100%)',
+    systray:    'linear-gradient(180deg, #0C0C50 0%, #080838 100%)',
+  },
+};
+
+const DESKTOPS = {
+  bliss:   { bg: "url('bliss.png') center/cover no-repeat", label: 'Bliss' },
+  teal:    { bg: '#008080', label: 'Teal Clásico' },
+  night:   { bg: 'linear-gradient(180deg, #010108 0%, #050520 45%, #0A0828 100%)', label: 'Noche' },
+  sunset:  { bg: 'linear-gradient(180deg, #E06020 0%, #C83A10 35%, #8C2008 60%, #4A1008 100%)', label: 'Atardecer' },
+};
+
+const DENSITY_SIZES = [
+  { titleH:24, menuH:18, toolH:28, addrH:20, sbFont:10, contentFont:10, winBtnS:18, label:'Compacto' },
+  { titleH:30, menuH:22, toolH:34, addrH:23, sbFont:11, contentFont:11, winBtnS:21, label:'Normal' },
+  { titleH:38, menuH:27, toolH:40, addrH:28, sbFont:13, contentFont:13, winBtnS:26, label:'Editorial' },
+];
+
+function applyTweaks({ theme, desktop, density }) {
+  const t = THEMES[theme] || THEMES.luna;
+  const d = DESKTOPS[desktop] || DESKTOPS.bliss;
+  const dens = DENSITY_SIZES[Math.round(density)] || DENSITY_SIZES[1];
+
+  const css = `
+    .xp-titlebar { background: ${t.title} !important; }
+    .xp-window.inactive .xp-titlebar { background: ${t.titleInact} !important; }
+    #taskbar { background: ${t.taskbar} !important; border-top-color: ${t.taskBorder} !important; }
+    #start-btn { background: ${t.start} !important; border-color: ${t.startBdr} !important; }
+    #start-btn:hover { background: ${t.startHov} !important; }
+    .xp-sidebar { background: ${t.sidebar} !important; border-right-color: ${t.sbBdr} !important; }
+    .sb-hdr { background: ${t.sbHdr} !important; border-color: ${t.sbBdr} !important; }
+    .sb-hdr:hover { background: ${t.sbHdrHov} !important; }
+    .sb-body { border-color: ${t.sbBdr} !important; }
+    .xp-btn { background: ${t.winBtn} !important; border: 2px solid rgba(255,255,255,0.95) !important; }
+    .xp-btn:hover { background: ${t.winBtnHov} !important; }
+    .tb-win-btn { background: ${t.tbWin} !important; border-color: ${t.taskBorder} !important; }
+    .tb-win-btn:hover { background: ${t.tbWinHov} !important; }
+    .tb-win-btn.tb-active { background: ${t.tbWinAct} !important; }
+    #systray { background: ${t.systray} !important; border-left-color: ${t.taskBorder} !important; }
+    .xp-titlebar { height: ${dens.titleH}px !important; }
+    .xp-menubar { height: ${dens.menuH}px !important; font-size: ${dens.sbFont}px !important; }
+    .xp-toolbar { height: ${dens.toolH}px !important; }
+    .xp-addrbar { height: ${dens.addrH}px !important; }
+    .xp-sidebar { font-size: ${dens.sbFont}px !important; }
+    .sb-item { font-size: ${dens.sbFont}px !important; }
+    .xp-btn { width: ${dens.winBtnS}px !important; height: ${dens.winBtnS}px !important; }
+    .proj-grid { gap: ${6 + density * 4}px !important; padding: ${8 + density * 4}px !important; }
+    .proj-name { font-size: ${10 + density}px !important; }
+    .proj-thumb { height: ${90 + density * 20}px !important; }
+    .about-name { font-size: ${16 + density * 4}px !important; }
+    .about-p { font-size: ${10 + density}px !important; line-height: ${1.6 + density * 0.1} !important; }
+    .xls-table { font-size: ${10 + density}px !important; }
+    .contact-hdr { font-size: ${11 + density * 2}px !important; }
+    .xp-inp, .xp-ta { font-size: ${10 + density}px !important; }
+  `;
+
+  document.getElementById('xp-theme-overrides').textContent = css;
+  document.getElementById('desktop').style.background = d.bg;
+}
+
+function TweaksApp() {
+  const [tweaks, setTweaks] = React.useMemo(() => {
+    let initial = { ...TWEAK_DEFAULTS };
+    return [initial, null];
+  }, []);
+
+  const [state, setState] = React.useState(tweaks);
+
+  React.useEffect(() => {
+    applyTweaks(state);
+  }, [state]);
+
+  const update = (key, val) => {
+    const next = { ...state, [key]: val };
+    setState(next);
+    applyTweaks(next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  };
+
+  return (
+    <TweaksPanel title="Tweaks — XP Portfolio">
+      <TweakSection label="Tema de color">
+        <TweakRadio
+          value={state.theme}
+          onChange={v => update('theme', v)}
+          options={[
+            { value: 'luna',   label: '🔵 Luna Azul'    },
+            { value: 'silver', label: '⚪ Plateado'      },
+            { value: 'olive',  label: '🟢 Verde Oliva'  },
+            { value: 'royale', label: '🟣 Royale Oscuro' },
+          ]}
+        />
+      </TweakSection>
+
+      <TweakSection label="Fondo de escritorio">
+        <TweakRadio
+          value={state.desktop}
+          onChange={v => update('desktop', v)}
+          options={[
+            { value: 'bliss',  label: '🌿 Bliss (foto)' },
+            { value: 'teal',   label: '🟦 Teal Clásico' },
+            { value: 'night',  label: '🌌 Noche'        },
+            { value: 'sunset', label: '🌅 Atardecer'    },
+          ]}
+        />
+      </TweakSection>
+
+      <TweakSection label="Densidad de interfaz">
+        <TweakSlider
+          label={DENSITY_SIZES[Math.round(state.density)]?.label}
+          value={state.density}
+          min={0} max={2} step={0.01}
+          onChange={v => update('density', v)}
+        />
+        <div style={{display:'flex',justifyContent:'space-between',fontSize:'10px',color:'#888',marginTop:'2px'}}>
+          <span>Compacto</span><span>Normal</span><span>Editorial</span>
+        </div>
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+</script>
+
+</body>
+</html>
