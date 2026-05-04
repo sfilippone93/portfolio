@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<link rel="icon" type="image/png" href="uploads/win xp logo complete.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Santiago Filippone — Portfolio</title>
@@ -1013,20 +1014,20 @@ input, textarea { cursor: text; }
         <button class="xp-btn x-close" data-action="cls" data-wid="win-portfolio">&#x2715;</button>
       </div>
     </div>
-    <div class="xp-menubar">
+    <div class="xp-menubar" id="pf-menubar">
       <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
       <span class="xp-mi">Ver</span><span class="xp-mi">Favoritos</span>
       <span class="xp-mi">Herramientas</span><span class="xp-mi">Ayuda</span>
     </div>
-    <div class="xp-toolbar">
+    <div class="xp-toolbar" id="pf-toolbar">
       <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
       <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
       <button class="tb-tool-btn disabled"><span class="tbi">🔼</span></button>
       <div class="tb-tool-sep"></div>
       <button class="tb-tool-btn"><span class="tbi">🔄</span> Actualizar</button>
-      <button class="tb-tool-btn"><span class="tbi">🏠</span> Inicio</button>
+      <button class="tb-tool-btn" id="fs-btn" onclick="togglePortfolioFS()"><span class="tbi">⛶</span> Pantalla completa</button>
     </div>
-    <div class="xp-addrbar">
+    <div class="xp-addrbar" id="pf-addrbar">
       <span class="addr-lbl">Dirección</span>
       <div class="addr-box"><span>🌐</span><span>http://santifilippone.com/projects</span></div>
       <button class="addr-go">▶ Ir</button>
@@ -1995,6 +1996,42 @@ function clearContact() {
 }
 
 // ════════════════════════════════════════════════════════
+// ── FULLSCREEN TOGGLE FOR WIN-PORTFOLIO ──
+function togglePortfolioFS() {
+  const win = document.getElementById('win-portfolio');
+  const btn = document.getElementById('fs-btn');
+  const menubar = document.getElementById('pf-menubar');
+  const toolbar = document.getElementById('pf-toolbar');
+  const addrbar = document.getElementById('pf-addrbar');
+  const isFS = win.classList.contains('fs-mode');
+
+  if (!isFS) {
+    win._prevStyle = { width: win.style.width, height: win.style.height, left: win.style.left, top: win.style.top, transform: win.style.transform };
+    win.style.width = '100vw';
+    win.style.height = '100vh';
+    win.style.left = '0';
+    win.style.top = '0';
+    win.style.transform = 'none';
+    win.classList.add('fs-mode');
+    menubar.style.display = 'none';
+    toolbar.style.display = 'none';
+    addrbar.style.display = 'none';
+    btn.innerHTML = '<span class="tbi">⛶</span> Salir';
+  } else {
+    const p = win._prevStyle;
+    win.style.width = p.width;
+    win.style.height = p.height;
+    win.style.left = p.left;
+    win.style.top = p.top;
+    win.style.transform = p.transform;
+    win.classList.remove('fs-mode');
+    menubar.style.display = '';
+    toolbar.style.display = '';
+    addrbar.style.display = '';
+    btn.innerHTML = '<span class="tbi">⛶</span> Pantalla completa';
+  }
+}
+
 //  INIT
 // ════════════════════════════════════════════════════════
 
