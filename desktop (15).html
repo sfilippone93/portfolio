@@ -920,6 +920,31 @@ input, textarea { cursor: text; }
     <div class="d-label">My Projects</div>
   </div>
 
+  <div class="desktop-icon" style="top:264px;left:18px" id="ico-pinball" data-win="win-pinball">
+    <div class="d-icon">
+      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Table background -->
+        <rect x="4" y="2" width="30" height="34" rx="2" fill="#1A3A6A" stroke="#0A1E40" stroke-width="1"/>
+        <!-- Green playfield -->
+        <rect x="6" y="4" width="26" height="28" rx="1" fill="#2A7A2A"/>
+        <!-- Bumpers -->
+        <circle cx="19" cy="12" r="4" fill="#FF6600" stroke="#FF9900" stroke-width="1.5"/>
+        <circle cx="12" cy="17" r="3" fill="#CC0000" stroke="#FF3333" stroke-width="1.2"/>
+        <circle cx="26" cy="17" r="3" fill="#CC0000" stroke="#FF3333" stroke-width="1.2"/>
+        <!-- Ball -->
+        <circle cx="19" cy="25" r="3" fill="#C8C8C8" stroke="#888" stroke-width="1"/>
+        <circle cx="18" cy="24" r="1" fill="#fff" opacity="0.6"/>
+        <!-- Flippers -->
+        <path d="M8 31 L14 29 L8 29 Z" fill="#AAAAAA" stroke="#888" stroke-width="0.8"/>
+        <path d="M30 31 L24 29 L30 29 Z" fill="#AAAAAA" stroke="#888" stroke-width="0.8"/>
+        <!-- Score display -->
+        <rect x="7" y="5" width="24" height="5" rx="1" fill="#000" opacity="0.6"/>
+        <text x="19" y="9.5" font-family="monospace" font-size="4" fill="#FF6600" text-anchor="middle">1000000</text>
+      </svg>
+    </div>
+    <div class="d-label">3D Pinball.exe</div>
+  </div>
+
   <div class="desktop-icon" style="top:182px;left:18px" id="ico-contact" data-win="win-contact">
     <div class="d-icon">
       <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1286,6 +1311,86 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-status"><span>Coming soon</span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       WIN-PINBALL — Space Cadet 3D Pinball
+  ════════════════════════════════════════ -->
+  <div class="xp-window" id="win-pinball" style="width:800px;height:580px;left:120px;top:40px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon">🎮</span>
+      <span class="xp-title-text">3D Pinball for Windows — Space Cadet</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-pinball">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-pinball">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-pinball">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-menubar">
+      <span class="xp-mi">Game</span>
+      <span class="xp-mi">Options</span>
+      <span class="xp-mi">Help</span>
+    </div>
+    <div class="xp-content" style="padding:0;margin:0;border:none;position:relative;background:#000;">
+
+      <!-- Loading overlay — shown while iframe loads -->
+      <div id="pinball-loading" style="
+        position:absolute;inset:0;
+        background:#1A1A2E;
+        display:flex;flex-direction:column;
+        align-items:center;justify-content:center;
+        gap:16px;z-index:10;
+        font-family:Tahoma,Arial,sans-serif;
+      ">
+        <div style="font-size:48px;">🎮</div>
+        <div style="color:#fff;font-size:14px;font-weight:bold;">Loading 3D Pinball for Windows...</div>
+        <div style="color:#8899AA;font-size:11px;">Space Cadet — WebAssembly port</div>
+        <div style="width:200px;height:16px;background:#0A0A1A;border:1px inset #444;overflow:hidden;border-radius:1px;">
+          <div id="pinball-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#1A50CC,#4488EE);transition:width 2s linear;"></div>
+        </div>
+        <div style="color:#556677;font-size:10px;">F5=Left flipper · Enter=Right flipper · Space=Launch</div>
+      </div>
+
+      <!-- Error overlay — shown if iframe fails to load -->
+      <div id="pinball-error" style="
+        position:absolute;inset:0;
+        background:#1A1A2E;
+        display:none;flex-direction:column;
+        align-items:center;justify-content:center;
+        gap:12px;z-index:11;
+        font-family:Tahoma,Arial,sans-serif;
+        text-align:center;padding:32px;
+      ">
+        <div style="font-size:40px;">🚧</div>
+        <div style="color:#fff;font-size:14px;font-weight:bold;">El juego no pudo cargarse</div>
+        <div style="color:#8899AA;font-size:12px;line-height:1.6;max-width:360px;">
+          El servidor externo bloqueó el embed con X-Frame-Options.<br>
+          Podés jugar directamente en el sitio original:
+        </div>
+        <a href="https://alula.github.io/SpaceCadet32/" target="_blank" style="
+          padding:6px 18px;
+          background:linear-gradient(180deg,#F4F4F4 0%,#DCDCDC 100%);
+          border:1px solid;border-color:#fff #808080 #808080 #fff;
+          font-family:Tahoma,Arial,sans-serif;font-size:11px;
+          text-decoration:none;color:#000;
+          display:inline-flex;align-items:center;gap:6px;
+        ">🌐 Abrir Space Cadet 3D Pinball →</a>
+        <div style="color:#334455;font-size:10px;margin-top:8px;">Controles: Z=Flipper izq · / =Flipper der · Espacio=Lanzar</div>
+      </div>
+
+      <iframe
+        id="pinball-frame"
+        src="https://alula.github.io/SpaceCadet32/"
+        style="width:100%;height:100%;border:none;display:block;opacity:0;transition:opacity 0.3s;"
+        title="3D Pinball Space Cadet"
+        allow="autoplay"
+        sandbox="allow-scripts allow-same-origin allow-forms"
+      ></iframe>
+    </div>
+    <div class="xp-status">
+      <span class="xp-status-seg">🎮 Space Cadet</span>
+      <span>Z = Left flipper &nbsp;·&nbsp; / = Right flipper &nbsp;·&nbsp; Space = Launch ball</span>
+    </div>
   </div>
 
 </div><!-- /desktop -->
@@ -1761,6 +1866,64 @@ function togglePortfolioFS() {
 window.addEventListener('load', () => {
   // openWin('win-proj');
 });
+
+// ════════════════════════════════════════════════════════
+//  PINBALL IFRAME LOAD HANDLING
+// ════════════════════════════════════════════════════════
+
+(function() {
+  const frame   = document.getElementById('pinball-frame');
+  const loading = document.getElementById('pinball-loading');
+  const error   = document.getElementById('pinball-error');
+  const bar     = document.getElementById('pinball-bar');
+
+  // Start progress bar animation when window opens
+  const origOpen = window.openWin;
+  window.openWin = function(id) {
+    origOpen(id);
+    if (id === 'win-pinball') {
+      setTimeout(() => { bar.style.width = '90%'; }, 50);
+    }
+  };
+
+  frame.addEventListener('load', () => {
+    // Try to detect if the frame actually loaded content
+    // (X-Frame-Options blocked frames still fire 'load' in some browsers)
+    try {
+      // This throws if cross-origin — which means it loaded fine
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      // If we can access it, it might be an error page
+      if (doc.title === '' || doc.body.innerHTML === '') {
+        throw new Error('empty');
+      }
+    } catch(e) {
+      // Cross-origin error = content loaded successfully from external site
+    }
+
+    bar.style.width = '100%';
+    setTimeout(() => {
+      loading.style.display = 'none';
+      frame.style.opacity = '1';
+    }, 400);
+  });
+
+  // Timeout fallback — if after 8s nothing happened, show error
+  let pinballTimeout;
+  const origOpenWin = window.openWin;
+  window.openWin = function(id) {
+    origOpenWin(id);
+    if (id === 'win-pinball') {
+      clearTimeout(pinballTimeout);
+      pinballTimeout = setTimeout(() => {
+        // If still loading after 8s, show error
+        if (loading.style.display !== 'none') {
+          loading.style.display = 'none';
+          error.style.display = 'flex';
+        }
+      }, 8000);
+    }
+  };
+})();
 </script>
 <div id="tweaks-root"></div>
 
