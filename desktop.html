@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <link rel="icon" type="image/png" href="uploads/win xp logo complete.png">
 <link rel="icon" type="image/png" href="uploads/win xp logo complete.png">
@@ -910,36 +910,17 @@ input, textarea { cursor: text; }
         <line x1="9" y1="24" x2="22" y2="24" stroke="#AAAAAA" stroke-width="1"/>
       </svg>
     </div>
-    <div class="d-label">Sobre mí.txt</div>
+    <div class="d-label">About me.txt</div>
   </div>
 
-  <div class="desktop-icon" style="top:100px;left:18px" id="ico-skills" data-win="win-skills">
-    <div class="d-icon">
-      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="4" width="34" height="30" rx="1" fill="#D0EAD0" stroke="#4A8A4A" stroke-width="1.2"/>
-        <rect x="2" y="4" width="12" height="8" fill="#4A8A4A" rx="0"/>
-        <rect x="14" y="4" width="12" height="8" fill="#5A9A5A"/>
-        <rect x="26" y="4" width="10" height="8" fill="#4A8A4A"/>
-        <line x1="2"  y1="12" x2="36" y2="12" stroke="#4A8A4A" stroke-width="1"/>
-        <line x1="2"  y1="18" x2="36" y2="18" stroke="#4A8A4A" stroke-width="0.8"/>
-        <line x1="2"  y1="24" x2="36" y2="24" stroke="#4A8A4A" stroke-width="0.8"/>
-        <line x1="14" y1="4"  x2="14" y2="34" stroke="#4A8A4A" stroke-width="0.8"/>
-        <line x1="26" y1="4"  x2="26" y2="34" stroke="#4A8A4A" stroke-width="0.8"/>
-        <rect x="3" y="13" width="10" height="5" fill="#AADCAA" opacity="0.7"/>
-        <rect x="15" y="19" width="10" height="5" fill="#AADCAA" opacity="0.7"/>
-      </svg>
-    </div>
-    <div class="d-label">Skills.xls</div>
-  </div>
-
-  <div class="desktop-icon" style="top:182px;left:18px" id="ico-portfolio" data-win="win-portfolio">
+  <div class="desktop-icon" style="top:100px;left:18px" id="ico-portfolio" data-win="win-portfolio">
     <div class="d-icon">
       <img src="uploads/explorer-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="IE">
     </div>
     <div class="d-label">My Projects</div>
   </div>
 
-  <div class="desktop-icon" style="top:264px;left:18px" id="ico-contact" data-win="win-contact">
+  <div class="desktop-icon" style="top:182px;left:18px" id="ico-contact" data-win="win-contact">
     <div class="d-icon">
       <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="3" y="8" width="32" height="22" rx="2" fill="#D8E8F8" stroke="#6090C8" stroke-width="1.2"/>
@@ -948,85 +929,12 @@ input, textarea { cursor: text; }
         <line x1="35" y1="30" x2="24" y2="20" stroke="#6090C8" stroke-width="1"/>
       </svg>
     </div>
-    <div class="d-label">Contacto.url</div>
+    <div class="d-label">Contact.url</div>
   </div>
 
   <!-- ════════════════════════════════════════
        WINDOWS
   ════════════════════════════════════════ -->
-
-  <!-- PROYECTOS -->
-  <div class="xp-window" id="win-proj" style="width:700px;height:520px;left:120px;top:50px;">
-    <div class="xp-titlebar">
-      <span class="xp-title-icon">📁</span>
-      <span class="xp-title-text">Proyectos — Explorador de Windows</span>
-      <div class="xp-btns">
-        <button class="xp-btn" data-action="min"  data-wid="win-proj" title="Minimizar">&#x2013;</button>
-        <button class="xp-btn" data-action="max"  data-wid="win-proj" title="Maximizar">&#x25A1;</button>
-        <button class="xp-btn x-close" data-action="cls" data-wid="win-proj" title="Cerrar">&#x2715;</button>
-      </div>
-    </div>
-    <div class="xp-menubar">
-      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
-      <span class="xp-mi">Ver</span><span class="xp-mi">Favoritos</span>
-      <span class="xp-mi">Ayuda</span>
-    </div>
-    <div class="xp-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
-      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
-      <button class="tb-tool-btn"><span class="tbi">🔼</span></button>
-      <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🔍</span> Buscar</button>
-      <button class="tb-tool-btn"><span class="tbi">📂</span> Carpetas</button>
-      <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">⊞</span> Vistas</button>
-    </div>
-    <div class="xp-addrbar">
-      <span class="addr-lbl">Dirección</span>
-      <div class="addr-box"><span>📁</span><span>Mis documentos\Proyectos</span></div>
-      <button class="addr-go">▶ Ir</button>
-    </div>
-    <div class="xp-explorer">
-      <div class="xp-sidebar">
-        <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Tareas del sistema <span class="sb-toggle">▲</span></div>
-          <div class="sb-body">
-            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🌐</span> Ver en Behance</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📥</span> Descargar CV</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📤</span> Compartir</a>
-          </div>
-        </div>
-        <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Otros sitios <span class="sb-toggle">▲</span></div>
-          <div class="sb-body">
-            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
-            <a class="sb-item" href="https://linkedin.com" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
-            <a class="sb-item" href="#" onclick="openWin('win-contact');return false"><span class="sbi">📧</span> Contacto</a>
-          </div>
-        </div>
-        <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
-          <div class="sb-body">
-            <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
-              <span style="opacity:0.7;font-size:10px">Proyectos</span>
-              <span>10 items</span>
-              <span style="opacity:0.7;font-size:10px;margin-top:4px">Product Designer</span>
-              <span>Santiago Filippone</span>
-              <span style="opacity:0.7;font-size:10px;margin-top:4px">Ubicación</span>
-              <span>Buenos Aires, AR</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="xp-main">
-        <div class="proj-grid" id="proj-grid"></div>
-      </div>
-    </div>
-    <div class="xp-status">
-      <span class="xp-status-seg" id="proj-status">10 objetos</span>
-      <span>Carpeta local</span>
-    </div>
-  </div>
 
   <!-- PORTFOLIO -->
   <div class="xp-window" id="win-portfolio" style="width:900px;height:620px;left:80px;top:30px;">
@@ -1040,28 +948,28 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-menubar" id="pf-menubar">
-      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
-      <span class="xp-mi">Ver</span><span class="xp-mi">Favoritos</span>
-      <span class="xp-mi">Herramientas</span><span class="xp-mi">Ayuda</span>
+      <span class="xp-mi">File</span><span class="xp-mi">Edit</span>
+      <span class="xp-mi">View</span><span class="xp-mi">Favorites</span>
+      <span class="xp-mi">Tools</span><span class="xp-mi">Help</span>
     </div>
     <div class="xp-toolbar" id="pf-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Back</button>
       <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
       <button class="tb-tool-btn disabled"><span class="tbi">🔼</span></button>
       <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🔄</span> Actualizar</button>
-      <button class="tb-tool-btn" id="fs-btn" onclick="togglePortfolioFS()"><span class="tbi">⛶</span> Pantalla completa</button>
+      <button class="tb-tool-btn"><span class="tbi">🔄</span> Refresh</button>
+      <button class="tb-tool-btn" id="fs-btn" onclick="togglePortfolioFS()"><span class="tbi">⛶</span> Full Screen</button>
     </div>
     <div class="xp-addrbar" id="pf-addrbar">
-      <span class="addr-lbl">Dirección</span>
+      <span class="addr-lbl">Address</span>
       <div class="addr-box"><span>🌐</span><span>http://santifilippone.com/projects</span></div>
-      <button class="addr-go">▶ Ir</button>
+      <button class="addr-go">▶ Go</button>
     </div>
     <div class="xp-content" style="padding:0;margin:0;border:none;">
       <iframe src="portfolio.html" style="width:100%;height:100%;border:none;display:block;" title="Portfolio"></iframe>
     </div>
     <div class="xp-status">
-      <span class="xp-status-seg">Listo</span>
+      <span class="xp-status-seg">Ready</span>
       <span>Internet</span>
     </div>
   </div>
@@ -1070,7 +978,7 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-about" style="width:580px;height:460px;left:170px;top:90px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">📝</span>
-      <span class="xp-title-text">Sobre mí.txt — Bloc de notas</span>
+      <span class="xp-title-text">About me.txt — Notepad</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-about">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-about">&#x25A1;</button>
@@ -1078,47 +986,47 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-menubar">
-      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
-      <span class="xp-mi">Formato</span><span class="xp-mi">Ver</span>
+      <span class="xp-mi">File</span><span class="xp-mi">Edit</span>
+      <span class="xp-mi">Format</span><span class="xp-mi">View</span>
     </div>
     <div class="xp-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Back</button>
       <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
       <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🖨️</span> Imprimir</button>
-      <button class="tb-tool-btn"><span class="tbi">✉️</span> Enviar</button>
+      <button class="tb-tool-btn"><span class="tbi">🖨️</span> Print</button>
+      <button class="tb-tool-btn"><span class="tbi">✉️</span> Send</button>
     </div>
     <div class="xp-addrbar">
-      <span class="addr-lbl">Dirección</span>
-      <div class="addr-box"><span>📝</span><span>Mis documentos\Sobre mí.txt</span></div>
-      <button class="addr-go">▶ Ir</button>
+      <span class="addr-lbl">Address</span>
+      <div class="addr-box"><span>📝</span><span>My Documents\About me.txt</span></div>
+      <button class="addr-go">▶ Go</button>
     </div>
     <div class="xp-explorer">
       <div class="xp-sidebar">
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Tareas <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)">Tasks <span class="sb-toggle">▲</span></div>
           <div class="sb-body">
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🖨️</span> Imprimir bio</a>
-            <a class="sb-item" href="#" onclick="openWin('win-contact');return false"><span class="sbi">📧</span> Contactar</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📄</span> Descargar CV</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🖨️</span> Print bio</a>
+            <a class="sb-item" href="#" onclick="openWin('win-contact');return false"><span class="sbi">📧</span> Contact</a>
+            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📄</span> Download CV</a>
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Mis links <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)">My Links <span class="sb-toggle">▲</span></div>
           <div class="sb-body">
             <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
-            <a class="sb-item" href="https://linkedin.com" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
+            <a class="sb-item" href="https://www.linkedin.com/in/santiagofilippone/" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)">Details <span class="sb-toggle">▲</span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
-              <span style="opacity:0.7;font-size:10px">Rol</span>
+              <span style="opacity:0.7;font-size:10px">Role</span>
               <span>Product Designer</span>
-              <span style="opacity:0.7;font-size:10px;margin-top:4px">Empresa</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Company</span>
               <span>Freelance</span>
-              <span style="opacity:0.7;font-size:10px;margin-top:4px">Ciudad</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">City</span>
               <span>Buenos Aires, AR</span>
             </div>
           </div>
@@ -1131,111 +1039,22 @@ input, textarea { cursor: text; }
             <div>
               <div class="about-name">Santiago Filippone</div>
               <div class="about-role">Product Designer · Freelance</div>
-              <div class="about-p">Product Designer con experiencia trabajando en proyectos end-to-end para medios y banca.</div>
+              <div class="about-p">Product Designer with experience working on end-to-end projects for media and banking.</div>
             </div>
           </div>
-          <div class="about-p">Trabajo en la definición, diseño, documentación e implementación de soluciones que busquen mejorar la experiencia del usuario y la eficiencia. Me interesa mejorar los procesos, la colaboración dentro del equipo, facilitar la adopción de buenas prácticas y generar un puente sólido entre diseño y otros equipos.</div>
-          <p style="color:#999;font-size:10px;margin-top:14px;">— Editado: Abril 2026</p>
+          <div class="about-p">I work on the definition, design, documentation, and implementation of solutions aimed at improving user experience and efficiency. I'm interested in improving processes, team collaboration, facilitating the adoption of good practices, and building a solid bridge between design and other teams.</div>
+          <p style="color:#999;font-size:10px;margin-top:14px;">— Last edited: April 2026</p>
         </div>
       </div>
     </div>
-    <div class="xp-status"><span>Listo</span></div>
+    <div class="xp-status"><span>Ready</span></div>
   </div>
 
-  <!-- SKILLS -->
-  <div class="xp-window" id="win-skills" style="width:620px;height:480px;left:200px;top:70px;">
-    <div class="xp-titlebar">
-      <span class="xp-title-icon">📊</span>
-      <span class="xp-title-text">Skills.xls — Microsoft Excel</span>
-      <div class="xp-btns">
-        <button class="xp-btn" data-action="min" data-wid="win-skills">&#x2013;</button>
-        <button class="xp-btn" data-action="max" data-wid="win-skills">&#x25A1;</button>
-        <button class="xp-btn x-close" data-action="cls" data-wid="win-skills">&#x2715;</button>
-      </div>
-    </div>
-    <div class="xp-menubar">
-      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
-      <span class="xp-mi">Ver</span><span class="xp-mi">Insertar</span>
-      <span class="xp-mi">Herramientas</span><span class="xp-mi">Ayuda</span>
-    </div>
-    <div class="xp-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
-      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
-      <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🖨️</span> Imprimir</button>
-      <button class="tb-tool-btn"><span class="tbi">📊</span> Gráfico</button>
-      <button class="tb-tool-btn"><span class="tbi">🔃</span> Ordenar</button>
-    </div>
-    <div class="xp-addrbar">
-      <span class="addr-lbl">Dirección</span>
-      <div class="addr-box"><span>📊</span><span>Mis documentos\Skills.xls</span></div>
-      <button class="addr-go">▶ Ir</button>
-    </div>
-    <div class="xp-explorer">
-      <div class="xp-sidebar">
-        <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Tareas <span class="sb-toggle">▲</span></div>
-          <div class="sb-body">
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📊</span> Ver gráfico</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🔃</span> Ordenar por nivel</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📤</span> Exportar</a>
-          </div>
-        </div>
-        <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Categorías <span class="sb-toggle">▲</span></div>
-          <div class="sb-body">
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🎨</span> Diseño</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">⚙️</span> Herramientas</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">💻</span> Frontend</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">✨</span> Creativo</a>
-          </div>
-        </div>
-        <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
-          <div class="sb-body">
-            <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
-              <span style="opacity:0.7;font-size:10px">Total skills</span>
-              <span style="font-weight:bold">9 registradas</span>
-              <span style="opacity:0.7;font-size:10px;margin-top:4px">Nivel top</span>
-              <span>Experto</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="xp-main">
-        <div class="xls-formula">
-          <span class="fx">fx</span>
-          <span>A1 = "Skill"</span>
-        </div>
-        <div class="excel-wrap">
-          <table class="xls-table">
-            <thead>
-              <tr>
-                <th class="xls-row-num"></th>
-                <th>A — Skill</th>
-                <th>B — Categoría</th>
-                <th>C — Nivel</th>
-                <th>D — Progreso</th>
-              </tr>
-            </thead>
-            <tbody id="skills-body"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div class="xp-status">
-      <span class="xp-status-seg">Listo</span>
-      <span class="xp-status-seg">Hoja 1 de 1</span>
-      <span>NUM</span>
-    </div>
-  </div>
-
-  <!-- CONTACTO -->
   <!-- CONTACTO -->
   <div class="xp-window" id="win-contact" style="width:520px;height:440px;left:240px;top:110px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">📧</span>
-      <span class="xp-title-text">Contacto.url — Internet Explorer</span>
+      <span class="xp-title-text">Contact.url — Internet Explorer</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-contact">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-contact">&#x25A1;</button>
@@ -1243,49 +1062,49 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-menubar">
-      <span class="xp-mi">Archivo</span><span class="xp-mi">Editar</span>
-      <span class="xp-mi">Ver</span><span class="xp-mi">Favoritos</span>
+      <span class="xp-mi">File</span><span class="xp-mi">Edit</span>
+      <span class="xp-mi">View</span><span class="xp-mi">Favorites</span>
     </div>
     <div class="xp-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Atrás</button>
+      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Back</button>
       <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
       <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🏠</span> Inicio</button>
-      <button class="tb-tool-btn"><span class="tbi">⭐</span> Favoritos</button>
+      <button class="tb-tool-btn"><span class="tbi">🏠</span> Home</button>
+      <button class="tb-tool-btn"><span class="tbi">⭐</span> Favorites</button>
     </div>
     <div class="xp-addrbar">
-      <span class="addr-lbl">Dirección</span>
+      <span class="addr-lbl">Address</span>
       <div class="addr-box"><span>🌐</span><span>mailto:hola@santiago.com</span></div>
-      <button class="addr-go">▶ Ir</button>
+      <button class="addr-go">▶ Go</button>
     </div>
     <div class="xp-explorer">
       <div class="xp-sidebar">
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Contacto rápido <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)">Quick Contact <span class="sb-toggle">▲</span></div>
           <div class="sb-body">
             <a class="sb-item" href="mailto:hola@santiago.com"><span class="sbi">📧</span> Email directo</a>
-            <a class="sb-item" href="https://linkedin.com" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
+            <a class="sb-item" href="https://www.linkedin.com/in/santiagofilippone/" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
             <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Disponibilidad <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)">Availability <span class="sb-toggle">▲</span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:3px">
-              <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#4CDB4C;display:inline-block"></span><span style="font-weight:bold">Disponible</span></span>
-              <span style="opacity:0.7;font-size:10px;margin-top:2px">Proyectos freelance</span>
-              <span style="opacity:0.7;font-size:10px">Consultoría UX</span>
-              <span style="opacity:0.7;font-size:10px">Tiempo de respuesta: 24h</span>
+              <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#4CDB4C;display:inline-block"></span><span style="font-weight:bold">Available</span></span>
+              <span style="opacity:0.7;font-size:10px;margin-top:2px">Freelance projects</span>
+              <span style="opacity:0.7;font-size:10px">UX consulting</span>
+              <span style="opacity:0.7;font-size:10px">Response time: 24h</span>
             </div>
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Detalles <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)">Details <span class="sb-toggle">▲</span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
-              <span style="opacity:0.7;font-size:10px">Ubicación</span>
+              <span style="opacity:0.7;font-size:10px">Location</span>
               <span>Buenos Aires, AR</span>
-              <span style="opacity:0.7;font-size:10px;margin-top:4px">Zona horaria</span>
+              <span style="opacity:0.7;font-size:10px;margin-top:4px">Timezone</span>
               <span>GMT-3</span>
             </div>
           </div>
@@ -1293,31 +1112,31 @@ input, textarea { cursor: text; }
       </div>
       <div class="xp-main" style="background:var(--xp-gray);">
         <div class="contact-wrap">
-          <div class="contact-hdr">✉ Escribime un mensaje</div>
+          <div class="contact-hdr">✉ Send me a message</div>
           <div class="f-group">
-            <label class="f-label">Nombre:</label>
-            <input type="text" class="xp-inp" placeholder="Tu nombre" id="c-name"/>
+            <label class="f-label">Name:</label>
+            <input type="text" class="xp-inp" placeholder="Your name" id="c-name"/>
           </div>
           <div class="f-group">
             <label class="f-label">Email:</label>
-            <input type="email" class="xp-inp" placeholder="tu@email.com" id="c-email"/>
+            <input type="email" class="xp-inp" placeholder="you@email.com" id="c-email"/>
           </div>
           <div class="f-group">
-            <label class="f-label">Asunto:</label>
-            <input type="text" class="xp-inp" placeholder="¿De qué se trata?" id="c-subject"/>
+            <label class="f-label">Subject:</label>
+            <input type="text" class="xp-inp" placeholder="What's it about?" id="c-subject"/>
           </div>
           <div class="f-group">
-            <label class="f-label">Mensaje:</label>
-            <textarea class="xp-ta" placeholder="Escribí tu mensaje..." id="c-msg"></textarea>
+            <label class="f-label">Message:</label>
+            <textarea class="xp-ta" placeholder="Write your message..." id="c-msg"></textarea>
           </div>
           <div class="btn-row">
-            <button class="xp-push" onclick="sendContact()">Enviar</button>
-            <button class="xp-push" onclick="clearContact()">Borrar</button>
+            <button class="xp-push" onclick="sendContact()">Send</button>
+            <button class="xp-push" onclick="clearContact()">Clear</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="xp-status"><span>Listo</span></div>
+    <div class="xp-status"><span>Ready</span></div>
   </div>
 
 
@@ -1327,7 +1146,7 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-tn" style="width:860px;height:560px;left:100px;top:40px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">🎨</span>
-      <span class="xp-title-text">TN — Rediseño · Artear 2021–2022</span>
+      <span class="xp-title-text">TN — Redesign · Artear 2021–2022</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-tn">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-tn">&#x25A1;</button>
@@ -1341,67 +1160,67 @@ input, textarea { cursor: text; }
         <div style="font-size:32px;font-weight:bold;margin-bottom:14px;line-height:1;">
           <span style="color:#E8001C;">T</span><span style="color:#1A6FF5;">N</span>
         </div>
-        <div style="color:#fff;font-size:22px;font-weight:bold;margin-bottom:8px;line-height:1.3;">Rediseño del medio de noticias líder de Argentina, de cero a la Copa del Mundo</div>
-        <div style="color:#8899AA;font-size:13px;margin-bottom:28px;">Product Designer · Equipo: 3 diseñadores · 2021–2022 · Figma</div>
+        <div style="color:#fff;font-size:22px;font-weight:bold;margin-bottom:8px;line-height:1.3;">Redesign of Argentina's leading news outlet, from scratch to the World Cup</div>
+        <div style="color:#8899AA;font-size:13px;margin-bottom:28px;">Product Designer · Team: 3 designers · 2021–2022 · Figma</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:420px;">
-          <div><div style="color:#fff;font-size:28px;font-weight:bold;">591K</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">usuarios activos</div></div>
-          <div><div style="color:#fff;font-size:28px;font-weight:bold;">285K</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">usuarios diarios</div></div>
-          <div><div style="color:#fff;font-size:28px;font-weight:bold;">135</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">componentes</div></div>
-          <div><div style="color:#fff;font-size:28px;font-weight:bold;">624</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">variantes</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">591K</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">active users</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">285K</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">daily users</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">135</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">components</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">624</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">variants</div></div>
         </div>
       </div>
 
       <!-- PROBLEMA -->
       <div style="background:#fff;padding:32px;">
-        <div style="font-size:18px;font-weight:bold;color:#000;margin-bottom:12px;">El problema</div>
-        <div style="font-size:14px;color:#444;line-height:1.7;margin-bottom:20px;">TN tenía un sitio viejo sin sistema de diseño. El rediseño completo requería construir todo desde cero — tipografía, color, componentes, bricks — compatibles con el CMS del Washington Post y que funcionaran sin intervención manual del equipo de diseño en cada nota.</div>
-        <img src="portada1.gif" style="width:100%;display:block;" alt="Portada TN 1"/><img src="portada2.gif" style="width:100%;display:block;" alt="Portada TN 2"/>
+        <div style="font-size:18px;font-weight:bold;color:#000;margin-bottom:12px;">The problem</div>
+        <div style="font-size:14px;color:#444;line-height:1.7;margin-bottom:20px;">TN had an outdated site with no design system. The full redesign required building everything from scratch — typography, color, components, bricks — compatible with the Washington Post CMS and able to run without manual intervention from the design team on each article.</div>
+        <img src="portada1.gif" style="width:100%;display:block;" alt="TN Cover 1"/><img src="portada2.gif" style="width:100%;display:block;" alt="TN Cover 2"/>
       </div>
 
       <!-- BRICK UI -->
       <div style="background:#0A0E1A;padding:32px;">
         <div style="font-size:18px;font-weight:bold;color:#fff;margin-bottom:6px;">Brick UI Design System</div>
-        <div style="font-size:14px;color:#1A6FF5;margin-bottom:20px;">El primer design system open source de un medio masivo en Latinoamérica</div>
+        <div style="font-size:14px;color:#1A6FF5;margin-bottom:20px;">The first open source design system from a major media outlet in Latin America</div>
         <div style="display:flex;gap:32px;margin-bottom:20px;">
-          <div><div style="color:#fff;font-size:22px;font-weight:bold;">56</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">estilos</div></div>
-          <div><div style="color:#fff;font-size:22px;font-weight:bold;">135</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">componentes</div></div>
-          <div><div style="color:#fff;font-size:22px;font-weight:bold;">624</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">variantes</div></div>
+          <div><div style="color:#fff;font-size:22px;font-weight:bold;">56</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">styles</div></div>
+          <div><div style="color:#fff;font-size:22px;font-weight:bold;">135</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">components</div></div>
+          <div><div style="color:#fff;font-size:22px;font-weight:bold;">624</div><div style="color:#8899AA;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">variants</div></div>
         </div>
         <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;">
-          <div style="color:#CCDDEE;font-size:13px;">— Benchmark tipográfico: 1 sola fuente para noticias duras y blandas</div>
-          <div style="color:#CCDDEE;font-size:13px;">— Sistema de bricks compatible con CMS Washington Post</div>
-          <div style="color:#CCDDEE;font-size:13px;">— Hand-off a desarrollo con specs CSS directos desde Figma</div>
+          <div style="color:#CCDDEE;font-size:13px;">— Typography benchmark: 1 single typeface for hard and soft news</div>
+          <div style="color:#CCDDEE;font-size:13px;">— Brick system compatible with Washington Post CMS</div>
+          <div style="color:#CCDDEE;font-size:13px;">— Dev handoff with direct CSS specs from Figma</div>
         </div>
         <img src="brick-ds" style="width:100%;height:180px;object-fit:cover;display:block;" alt="Brick UI Design System"/>
       </div>
 
       <!-- PRODUCTO -->
       <div style="background:#fff;padding:32px;">
-        <div style="font-size:18px;font-weight:bold;color:#000;margin-bottom:16px;">Del sistema al producto</div>
+        <div style="font-size:18px;font-weight:bold;color:#000;margin-bottom:16px;">From system to product</div>
         <div style="display:flex;gap:16px;margin-bottom:10px;">
           <img src="app-tn.png" style="width:48%;height:200px;object-fit:cover;display:block;" alt="TN App mobile"/>
           <img src="nota-tn.jpg" style="width:48%;height:200px;object-fit:cover;display:block;" alt="TN web desktop"/>
         </div>
-        <div style="font-size:12px;color:#888;">El mismo sistema funcionando en web y mobile. Probado por primera vez en Elecciones 2021.</div>
+        <div style="font-size:12px;color:#888;">The same system running on web and mobile. First tested during the 2021 Elections.</div>
       </div>
 
       <!-- REMATE -->
       <div style="background:#000821;padding:32px;">
-        <div style="font-size:22px;font-weight:bold;color:#fff;margin-bottom:8px;">El remate</div>
-        <div style="font-size:14px;color:#AABBCC;margin-bottom:24px;">El sistema bancó el evento más visto de la historia argentina.</div>
+        <div style="font-size:22px;font-weight:bold;color:#fff;margin-bottom:8px;">The payoff</div>
+        <div style="font-size:14px;color:#AABBCC;margin-bottom:24px;">The system held up for the most-watched event in Argentine history.</div>
         <div style="display:flex;gap:40px;margin-bottom:24px;">
-          <div><div style="color:#fff;font-size:28px;font-weight:bold;">3.232</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">apreciaciones en Behance</div></div>
-          <div><div style="color:#fff;font-size:28px;font-weight:bold;">3 premios</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Communicator · w3 · EPPY</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">3,232</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">appreciations on Behance</div></div>
+          <div><div style="color:#fff;font-size:28px;font-weight:bold;">3 awards</div><div style="color:#8899AA;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Communicator · w3 · EPPY</div></div>
         </div>
-        <img src="qatar.png" style="width:100%;height:160px;object-fit:cover;display:block;" alt="Copa del Mundo 2022"/>
+        <img src="qatar.png" style="width:100%;height:160px;object-fit:cover;display:block;" alt="World Cup 2022"/>
       </div>
 
       <!-- CIERRE -->
       <div style="background:#F5F5F5;padding:32px;">
-        <div style="font-style:italic;color:#666;font-size:13px;line-height:1.7;margin-bottom:20px;">"Construir un sistema desde cero enseña que las decisiones más pequeñas — una tipografía, un espaciado — son las que escalan o rompen todo."</div>
+        <div style="font-style:italic;color:#666;font-size:13px;line-height:1.7;margin-bottom:20px;">"Building a system from scratch teaches you that the smallest decisions — a typeface, a spacing value — are the ones that scale or break everything."</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <a href="https://www.behance.net/gallery/145754347/tncomar-Brick-UI-Design-System" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">Ver en Behance →</a>
-          <a href="https://www.figma.com/community/file/1093982260596156097" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">Ver Brick UI en Figma →</a>
+          <a href="https://www.behance.net/gallery/145754347/tncomar-Brick-UI-Design-System" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">View on Behance →</a>
+          <a href="https://www.figma.com/community/file/1093982260596156097" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">View Brick UI on Figma →</a>
         </div>
       </div>
 
@@ -1430,19 +1249,19 @@ input, textarea { cursor: text; }
           <path d="M16 22V16a8 8 0 0 1 16 0v6" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
           <circle cx="24" cy="32" r="3" fill="white"/>
         </svg>
-        <div style="color:#fff;font-size:20px;font-weight:bold;margin-bottom:10px;">Proyecto protegido</div>
-        <div style="color:#8899AA;font-size:14px;line-height:1.6;margin-bottom:24px;">Este case study está disponible bajo solicitud. Contiene trabajo confidencial de clientes de Aerolab.</div>
+        <div style="color:#fff;font-size:20px;font-weight:bold;margin-bottom:10px;">Protected project</div>
+        <div style="color:#8899AA;font-size:14px;line-height:1.6;margin-bottom:24px;">This case study is available upon request. It contains confidential client work from Aerolab.</div>
         <div style="text-align:left;margin-bottom:16px;">
-          <label style="color:#8899AA;font-size:11px;display:block;margin-bottom:4px;">Contraseña:</label>
+          <label style="color:#8899AA;font-size:11px;display:block;margin-bottom:4px;">Password:</label>
           <div style="display:flex;gap:6px;">
             <input type="password" class="xp-inp" placeholder="••••••••" style="flex:1;background:#1A2030;color:#fff;border-color:#334455;"/>
-            <button class="xp-push" style="background:linear-gradient(180deg,#2A3A5A,#1A2A4A);color:#fff;border-color:#334455 #1A2030 #1A2030 #334455;">Acceder</button>
+            <button class="xp-push" style="background:linear-gradient(180deg,#2A3A5A,#1A2A4A);color:#fff;border-color:#334455 #1A2030 #1A2030 #334455;">Enter</button>
           </div>
         </div>
-        <div style="color:#556677;font-size:11px;">¿No tenés la contraseña? Escribime a <a href="mailto:santiagofilippone@gmail.com" style="color:#1A6FF5;">santiagofilippone@gmail.com</a></div>
+        <div style="color:#556677;font-size:11px;">Don't have the password? Email me at <a href="mailto:santiagofilippone@gmail.com" style="color:#1A6FF5;">santiagofilippone@gmail.com</a></div>
       </div>
     </div>
-    <div class="xp-status"><span>Acceso restringido</span></div>
+    <div class="xp-status"><span>Access restricted</span></div>
   </div>
 
   <!-- ════════════════════════════════════════
@@ -1451,7 +1270,7 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-bancosol" style="width:700px;height:400px;left:160px;top:100px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">🏗️</span>
-      <span class="xp-title-text">Banco del Sol — DesignOps · Próximamente</span>
+      <span class="xp-title-text">Banco del Sol — DesignOps · Coming Soon</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-bancosol">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-bancosol">&#x25A1;</button>
@@ -1461,12 +1280,12 @@ input, textarea { cursor: text; }
     <div class="xp-content" style="background:#fff;display:flex;align-items:center;justify-content:center;">
       <div style="text-align:center;max-width:340px;padding:32px;">
         <div style="font-size:48px;margin-bottom:16px;">🏗️</div>
-        <div style="font-size:20px;font-weight:bold;color:#000;margin-bottom:10px;">En construcción</div>
-        <div style="font-size:14px;color:#666;line-height:1.6;margin-bottom:24px;">El case study de Banco del Sol está en preparación. Volvé pronto.</div>
-        <a href="https://www.linkedin.com/in/santiagofilippone/" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">Ver LinkedIn →</a>
+        <div style="font-size:20px;font-weight:bold;color:#000;margin-bottom:10px;">Under construction</div>
+        <div style="font-size:14px;color:#666;line-height:1.6;margin-bottom:24px;">The Banco del Sol case study is being prepared. Check back soon.</div>
+        <a href="https://www.linkedin.com/in/santiagofilippone/" target="_blank" class="xp-push" style="text-decoration:none;color:#000;">View LinkedIn →</a>
       </div>
     </div>
-    <div class="xp-status"><span>Próximamente</span></div>
+    <div class="xp-status"><span>Coming soon</span></div>
   </div>
 
 </div><!-- /desktop -->
@@ -1476,7 +1295,7 @@ input, textarea { cursor: text; }
 ════════════════════════════════════════════ -->
 <div id="taskbar">
   <button id="start-btn" onclick="toggleSM()">
-    <img src="winlogo.webp" style="width:18px;height:18px;object-fit:contain;flex-shrink:0;" alt=""/> Inicio
+    <img src="uploads/win xp logo complete.png" style="width:18px;height:18px;object-fit:contain;flex-shrink:0;" alt=""/> Start
   </button>
   <div class="tb-sep"></div>
   <div id="tb-wins"></div>
@@ -1496,43 +1315,23 @@ input, textarea { cursor: text; }
   <div class="sm-body">
     <!-- LEFT COLUMN: white bg, large icons + name + subtitle -->
     <div class="sm-left">
-      <div class="sm-item" onclick="openWin('win-proj');closeSM()">
-        <span class="sm-item-ico">📁</span>
-        <div><div class="sm-item-main">Proyectos.exe</div><div class="sm-sub">Ver mi trabajo</div></div>
-      </div>
       <div class="sm-item" onclick="openWin('win-contact');closeSM()">
         <span class="sm-item-ico">📧</span>
-        <div><div class="sm-item-main">Contacto.url</div><div class="sm-sub">Escribime un mensaje</div></div>
+        <div><div class="sm-item-main">Contact.url</div><div class="sm-sub">Send me a message</div></div>
       </div>
       <div class="sm-item" onclick="openWin('win-about');closeSM()">
         <span class="sm-item-ico">📝</span>
-        <div><div class="sm-item-main">Sobre mí.txt</div><div class="sm-sub">Quién soy</div></div>
+        <div><div class="sm-item-main">About me.txt</div><div class="sm-sub">Who I am</div></div>
       </div>
-      <div class="sm-item" onclick="openWin('win-skills');closeSM()">
-        <span class="sm-item-ico">📊</span>
-        <div><div class="sm-item-main">Skills.xls</div><div class="sm-sub">Mis habilidades</div></div>
-      </div>
-      <div class="sm-sep"></div>
-      <div class="sm-item" onclick="openWin('win-tn');closeSM()">
-        <span class="sm-item-ico">🎨</span>
-        <div><div class="sm-item-main">TN_Rediseno.exe</div><div class="sm-sub">Rediseño TN 2021–2022</div></div>
-      </div>
-      <div class="sm-item" onclick="openWin('win-aerolab');closeSM()">
-        <span class="sm-item-ico">🔒</span>
-        <div><div class="sm-item-main">Aerolab.exe</div><div class="sm-sub">Trabajo reciente</div></div>
-      </div>
-      <div class="sm-item" onclick="openWin('win-bancosol');closeSM()">
-        <span class="sm-item-ico">🏗️</span>
-        <div><div class="sm-item-main">BancoDelSol.exe</div><div class="sm-sub">Próximamente</div></div>
-      </div>
+
       <div class="sm-all-programs" onclick="closeSM()">
-        Todos los programas
+        All Programs
         <span class="sm-all-programs-arrow"></span>
       </div>
     </div>
     <!-- RIGHT COLUMN: light blue bg, medium icons + name only -->
     <div class="sm-right">
-      <div class="sm-item" onclick="window.open('https://linkedin.com','_blank');closeSM()">
+      <div class="sm-item" onclick="window.open('https://www.linkedin.com/in/santiagofilippone/','_blank');closeSM()">
         <span class="sm-item-ico">💼</span>
         <div><div class="sm-item-main">LinkedIn</div></div>
       </div>
@@ -1545,33 +1344,29 @@ input, textarea { cursor: text; }
         <div><div class="sm-item-main">GitHub</div></div>
       </div>
       <div class="sm-sep"></div>
-      <div class="sm-item" onclick="openWin('win-proj');closeSM()">
-        <span class="sm-item-ico">📂</span>
-        <div><div class="sm-item-main">Mis Documentos</div></div>
-      </div>
       <div class="sm-item" onclick="openWin('win-about');closeSM()">
         <span class="sm-item-ico">🖥️</span>
-        <div><div class="sm-item-main">Mi PC</div></div>
+        <div><div class="sm-item-main">My Computer</div></div>
       </div>
       <div class="sm-item" onclick="closeSM()">
         <span class="sm-item-ico">⚙️</span>
-        <div><div class="sm-item-main">Panel de control</div></div>
+        <div><div class="sm-item-main">Control Panel</div></div>
       </div>
       <div class="sm-sep"></div>
       <div class="sm-item" onclick="closeSM()">
         <span class="sm-item-ico">🔍</span>
-        <div><div class="sm-item-main">Buscar...</div></div>
+        <div><div class="sm-item-main">Search...</div></div>
       </div>
     </div>
   </div>
   <div class="sm-footer">
     <button class="sm-foot-btn" onclick="closeSM()">
       <span class="sm-foot-icon logoff">🔑</span>
-      Cerrar sesión
+      Log Off
     </button>
     <button class="sm-foot-btn" onclick="doShutdown()">
       <span class="sm-foot-icon shutdown">⏻</span>
-      Apagar equipo
+      Shut Down
     </button>
   </div>
 </div>
@@ -1582,11 +1377,11 @@ input, textarea { cursor: text; }
 <div id="shutdown">
   <div class="sd-logo">⊞</div>
   <div style="text-align:center">
-    <div class="sd-text" id="sd-msg">Apagando el sistema...</div>
-    <div class="sd-sub" style="margin-top:6px">Espere mientras se guardan los cambios en la sesión</div>
+    <div class="sd-text" id="sd-msg">Shutting down...</div>
+    <div class="sd-sub" style="margin-top:6px">Please wait while your session changes are saved</div>
   </div>
   <div class="sd-bar-wrap"><div class="sd-bar" id="sd-bar"></div></div>
-  <button class="sd-restart" id="sd-restart" onclick="cancelShutdown()">↩ Volver al portfolio</button>
+  <button class="sd-restart" id="sd-restart" onclick="cancelShutdown()">↩ Back to portfolio</button>
 </div>
 
 <script>
@@ -1868,7 +1663,7 @@ function tickClock() {
   const now = new Date();
   const h = String(now.getHours()).padStart(2,'0');
   const m = String(now.getMinutes()).padStart(2,'0');
-  const d = now.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const d = now.toLocaleDateString('en-US',{day:'2-digit',month:'2-digit',year:'numeric'});
   document.getElementById('clock').innerHTML = h + ':' + m + '<br>' + d;
 }
 tickClock();
@@ -1890,7 +1685,7 @@ function doShutdown() {
 
   // Show final state
   setTimeout(() => {
-    document.getElementById('sd-msg').textContent = 'Es seguro apagar el equipo ahora.';
+    document.getElementById('sd-msg').textContent = 'It is now safe to turn off your computer.';
     document.getElementById('sd-restart').style.display = 'block';
   }, 3200);
 }
@@ -1902,108 +1697,10 @@ function cancelShutdown() {
   document.getElementById('sd-bar').style.transition = 'none';
   setTimeout(() => {
     document.getElementById('sd-bar').style.transition = 'width 2.5s linear';
-    document.getElementById('sd-msg').textContent = 'Apagando el sistema...';
+    document.getElementById('sd-msg').textContent = 'Shutting down...';
     document.getElementById('sd-restart').style.display = 'none';
   }, 50);
 }
-
-// ════════════════════════════════════════════════════════
-//  CONTENT: PROYECTOS
-// ════════════════════════════════════════════════════════
-
-// ── CAMBIO 1: Cards estáticas reemplazando Behance fetch ──
-
-const STATIC_PROJECTS = [
-  {
-    name: 'TN — Rediseño Artear',
-    year: '2021–2022',
-    tags: ['Design System', 'Product Design', 'Media'],
-    winId: 'win-tn',
-    thumb: 'img',
-    imgSrc: 'https://mir-s3-cdn-cf.behance.net/projects/404/401c63159738977.Y3JvcCwyMDUwLDE2MDQsNTQ4LDA.png',
-  },
-  {
-    name: 'Aerolab — Product Design',
-    year: '2025–2026',
-    tags: ['Product Design', 'Mobile', 'Web'],
-    winId: 'win-aerolab',
-    thumb: 'div',
-    thumbStyle: 'background:#0A0E1A;',
-    thumbLabel: 'AEROLAB',
-  },
-  {
-    name: 'Banco del Sol — DesignOps',
-    year: '2023–2025',
-    tags: ['DesignOps', 'Design System', 'Banca'],
-    winId: 'win-bancosol',
-    thumb: 'div',
-    thumbStyle: 'background:#001A3A;',
-    thumbLabel: 'BANCO DEL SOL',
-  },
-];
-
-const grid = document.getElementById('proj-grid');
-STATIC_PROJECTS.forEach(p => {
-  const card = document.createElement('div');
-  card.className = 'proj-card';
-  card.style.cursor = 'pointer';
-
-  let thumbHTML = '';
-  if (p.thumb === 'img') {
-    thumbHTML = `<div class="proj-thumb" style="padding:0;overflow:hidden;background:#000;">
-      <img src="${p.imgSrc}" alt="${p.name}" style="width:100%;height:108px;object-fit:cover;display:block;"
-        onerror="this.parentNode.innerHTML='<div style=\\'width:100%;height:108px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Courier New,monospace;font-size:11px;letter-spacing:2px;\\'>COPA DEL MUNDO</div>'"/>
-    </div>`;
-  } else {
-    thumbHTML = `<div class="proj-thumb" style="padding:0;overflow:hidden;${p.thumbStyle}">
-      <div style="width:100%;height:108px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:bold;letter-spacing:2px;font-family:Tahoma,Arial,sans-serif;">${p.thumbLabel}</div>
-    </div>`;
-  }
-
-  const tagsHTML = p.tags.map(t => `<span class="proj-tag">${t}</span>`).join(' ');
-
-  card.innerHTML = `
-    ${thumbHTML}
-    <div class="proj-info">
-      <div class="proj-name">${p.name}</div>
-      <div class="proj-meta">${p.year}</div>
-      <div style="margin-top:3px;">${tagsHTML}</div>
-    </div>
-  `;
-  card.onclick = () => openWin(p.winId);
-  grid.appendChild(card);
-});
-
-document.querySelector('#win-proj .xp-status').firstElementChild.textContent = STATIC_PROJECTS.length + ' objetos';
-
-// ════════════════════════════════════════════════════════
-//  CONTENT: SKILLS
-// ════════════════════════════════════════════════════════
-
-const SKILLS = [
-  { n: 'Diseño UI/UX',   cat: 'Diseño',       lvl: 'Experto',     pct: 95 },
-  { n: 'Figma',          cat: 'Herramientas',  lvl: 'Experto',     pct: 92 },
-  { n: 'HTML / CSS',     cat: 'Frontend',      lvl: 'Avanzado',    pct: 88 },
-  { n: 'JavaScript',     cat: 'Frontend',      lvl: 'Avanzado',    pct: 82 },
-  { n: 'React',          cat: 'Frontend',      lvl: 'Avanzado',    pct: 78 },
-  { n: 'Branding',       cat: 'Diseño',        lvl: 'Avanzado',    pct: 85 },
-  { n: 'Motion Design',  cat: 'Diseño',        lvl: 'Intermedio',  pct: 70 },
-  { n: 'After Effects',  cat: 'Herramientas',  lvl: 'Intermedio',  pct: 65 },
-  { n: 'Fotografía',     cat: 'Creativo',      lvl: 'Intermedio',  pct: 60 },
-];
-
-const tbody = document.getElementById('skills-body');
-SKILLS.forEach((s, i) => {
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td class="xls-row-num">${i + 1}</td>
-    <td><strong>${s.n}</strong></td>
-    <td>${s.cat}</td>
-    <td>${s.lvl}</td>
-    <td><div class="skill-bar"><div class="skill-fill" style="width:${s.pct}%"></div></div></td>
-  `;
-  tbody.appendChild(tr);
-});
 
 // ════════════════════════════════════════════════════════
 //  CONTENT: CONTACTO
@@ -2012,8 +1709,8 @@ SKILLS.forEach((s, i) => {
 function sendContact() {
   const fields = ['c-name','c-email','c-subject','c-msg'];
   const empty = fields.some(id => !document.getElementById(id).value.trim());
-  if (empty) { alert('Por favor completá todos los campos.'); return; }
-  alert('¡Mensaje enviado! Te contactaré pronto. 📬');
+  if (empty) { alert('Please fill in all fields.'); return; }
+  alert('Message sent! I\'ll get back to you soon. 📬');
   clearContact();
 }
 function clearContact() {
@@ -2041,7 +1738,7 @@ function togglePortfolioFS() {
     menubar.style.display = 'none';
     toolbar.style.display = 'none';
     addrbar.style.display = 'none';
-    btn.innerHTML = '<span class="tbi">⛶</span> Salir';
+    btn.innerHTML = '<span class="tbi">⛶</span> Exit';
   } else {
     const p = win._prevStyle;
     win.style.width = p.width;
@@ -2053,7 +1750,7 @@ function togglePortfolioFS() {
     menubar.style.display = '';
     toolbar.style.display = '';
     addrbar.style.display = '';
-    btn.innerHTML = '<span class="tbi">⛶</span> Pantalla completa';
+    btn.innerHTML = '<span class="tbi">⛶</span> Full Screen';
   }
 }
 
@@ -2155,13 +1852,13 @@ const THEMES = {
 
 const DESKTOPS = {
   bliss:   { bg: "url('bliss.png') center/cover no-repeat", label: 'Bliss' },
-  teal:    { bg: '#008080', label: 'Teal Clásico' },
-  night:   { bg: 'linear-gradient(180deg, #010108 0%, #050520 45%, #0A0828 100%)', label: 'Noche' },
-  sunset:  { bg: 'linear-gradient(180deg, #E06020 0%, #C83A10 35%, #8C2008 60%, #4A1008 100%)', label: 'Atardecer' },
+  teal:    { bg: '#008080', label: 'Classic Teal' },
+  night:   { bg: 'linear-gradient(180deg, #010108 0%, #050520 45%, #0A0828 100%)', label: 'Night' },
+  sunset:  { bg: 'linear-gradient(180deg, #E06020 0%, #C83A10 35%, #8C2008 60%, #4A1008 100%)', label: 'Sunset' },
 };
 
 const DENSITY_SIZES = [
-  { titleH:24, menuH:18, toolH:28, addrH:20, sbFont:10, contentFont:10, winBtnS:18, label:'Compacto' },
+  { titleH:24, menuH:18, toolH:28, addrH:20, sbFont:10, contentFont:10, winBtnS:18, label:'Compact' },
   { titleH:30, menuH:22, toolH:34, addrH:23, sbFont:11, contentFont:11, winBtnS:21, label:'Normal' },
   { titleH:38, menuH:27, toolH:40, addrH:28, sbFont:13, contentFont:13, winBtnS:26, label:'Editorial' },
 ];
@@ -2229,33 +1926,33 @@ function TweaksApp() {
 
   return (
     <TweaksPanel title="Tweaks — XP Portfolio">
-      <TweakSection label="Tema de color">
+      <TweakSection label="Color theme">
         <TweakRadio
           value={state.theme}
           onChange={v => update('theme', v)}
           options={[
-            { value: 'luna',   label: '🔵 Luna Azul'    },
-            { value: 'silver', label: '⚪ Plateado'      },
-            { value: 'olive',  label: '🟢 Verde Oliva'  },
-            { value: 'royale', label: '🟣 Royale Oscuro' },
+            { value: 'luna',   label: '🔵 Luna Blue'     },
+            { value: 'silver', label: '⚪ Silver'         },
+            { value: 'olive',  label: '🟢 Olive Green'   },
+            { value: 'royale', label: '🟣 Royale Dark'   },
           ]}
         />
       </TweakSection>
 
-      <TweakSection label="Fondo de escritorio">
+      <TweakSection label="Desktop background">
         <TweakRadio
           value={state.desktop}
           onChange={v => update('desktop', v)}
           options={[
-            { value: 'bliss',  label: '🌿 Bliss (foto)' },
-            { value: 'teal',   label: '🟦 Teal Clásico' },
-            { value: 'night',  label: '🌌 Noche'        },
-            { value: 'sunset', label: '🌅 Atardecer'    },
+            { value: 'bliss',  label: '🌿 Bliss (photo)' },
+            { value: 'teal',   label: '🟦 Classic Teal'  },
+            { value: 'night',  label: '🌌 Night'         },
+            { value: 'sunset', label: '🌅 Sunset'        },
           ]}
         />
       </TweakSection>
 
-      <TweakSection label="Densidad de interfaz">
+      <TweakSection label="Interface density">
         <TweakSlider
           label={DENSITY_SIZES[Math.round(state.density)]?.label}
           value={state.density}
@@ -2263,7 +1960,7 @@ function TweaksApp() {
           onChange={v => update('density', v)}
         />
         <div style={{display:'flex',justifyContent:'space-between',fontSize:'10px',color:'#888',marginTop:'2px'}}>
-          <span>Compacto</span><span>Normal</span><span>Editorial</span>
+          <span>Compact</span><span>Normal</span><span>Editorial</span>
         </div>
       </TweakSection>
     </TweaksPanel>
