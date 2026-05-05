@@ -922,25 +922,7 @@ input, textarea { cursor: text; }
 
   <div class="desktop-icon" style="top:264px;left:18px" id="ico-pinball" data-win="win-pinball">
     <div class="d-icon">
-      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Table background -->
-        <rect x="4" y="2" width="30" height="34" rx="2" fill="#1A3A6A" stroke="#0A1E40" stroke-width="1"/>
-        <!-- Green playfield -->
-        <rect x="6" y="4" width="26" height="28" rx="1" fill="#2A7A2A"/>
-        <!-- Bumpers -->
-        <circle cx="19" cy="12" r="4" fill="#FF6600" stroke="#FF9900" stroke-width="1.5"/>
-        <circle cx="12" cy="17" r="3" fill="#CC0000" stroke="#FF3333" stroke-width="1.2"/>
-        <circle cx="26" cy="17" r="3" fill="#CC0000" stroke="#FF3333" stroke-width="1.2"/>
-        <!-- Ball -->
-        <circle cx="19" cy="25" r="3" fill="#C8C8C8" stroke="#888" stroke-width="1"/>
-        <circle cx="18" cy="24" r="1" fill="#fff" opacity="0.6"/>
-        <!-- Flippers -->
-        <path d="M8 31 L14 29 L8 29 Z" fill="#AAAAAA" stroke="#888" stroke-width="0.8"/>
-        <path d="M30 31 L24 29 L30 29 Z" fill="#AAAAAA" stroke="#888" stroke-width="0.8"/>
-        <!-- Score display -->
-        <rect x="7" y="5" width="24" height="5" rx="1" fill="#000" opacity="0.6"/>
-        <text x="19" y="9.5" font-family="monospace" font-size="4" fill="#FF6600" text-anchor="middle">1000000</text>
-      </svg>
+      <img src="uploads/pinball-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="3D Pinball"/>
     </div>
     <div class="d-label">3D Pinball.exe</div>
   </div>
@@ -1341,6 +1323,7 @@ input, textarea { cursor: text; }
         align-items:center;justify-content:center;
         gap:16px;z-index:10;
         font-family:Tahoma,Arial,sans-serif;
+        transition:opacity 0.4s;
       ">
         <div style="font-size:48px;">🎮</div>
         <div style="color:#fff;font-size:14px;font-weight:bold;">Loading 3D Pinball for Windows...</div>
@@ -1348,7 +1331,7 @@ input, textarea { cursor: text; }
         <div style="width:200px;height:16px;background:#0A0A1A;border:1px inset #444;overflow:hidden;border-radius:1px;">
           <div id="pinball-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#1A50CC,#4488EE);transition:width 2s linear;"></div>
         </div>
-        <div style="color:#556677;font-size:10px;">F5=Left flipper · Enter=Right flipper · Space=Launch</div>
+        <div style="color:#556677;font-size:10px;">Z=Left flipper · C=Right flipper · Space=Launch · R=Restart</div>
       </div>
 
       <!-- Error overlay — shown if iframe fails to load -->
@@ -1367,7 +1350,7 @@ input, textarea { cursor: text; }
           El servidor externo bloqueó el embed con X-Frame-Options.<br>
           Podés jugar directamente en el sitio original:
         </div>
-        <a href="https://alula.github.io/SpaceCadet32/" target="_blank" style="
+        <a href="https://pinball.alula.me/" target="_blank" style="
           padding:6px 18px;
           background:linear-gradient(180deg,#F4F4F4 0%,#DCDCDC 100%);
           border:1px solid;border-color:#fff #808080 #808080 #fff;
@@ -1380,16 +1363,15 @@ input, textarea { cursor: text; }
 
       <iframe
         id="pinball-frame"
-        src="https://alula.github.io/SpaceCadet32/"
-        style="width:100%;height:100%;border:none;display:block;opacity:0;transition:opacity 0.3s;"
+        src="https://pinball.alula.me/"
+        style="width:100%;height:100%;border:none;display:block;"
         title="3D Pinball Space Cadet"
-        allow="autoplay"
-        sandbox="allow-scripts allow-same-origin allow-forms"
+        allow="autoplay; pointer-lock"
       ></iframe>
     </div>
     <div class="xp-status">
       <span class="xp-status-seg">🎮 Space Cadet</span>
-      <span>Z = Left flipper &nbsp;·&nbsp; / = Right flipper &nbsp;·&nbsp; Space = Launch ball</span>
+      <span>Z = Left flipper &nbsp;·&nbsp; C = Right flipper &nbsp;·&nbsp; Space = Launch &nbsp;·&nbsp; R = Restart &nbsp;·&nbsp; T = Sound</span>
     </div>
   </div>
 
@@ -1859,6 +1841,18 @@ function togglePortfolioFS() {
   }
 }
 
+// ════════════════════════════════════════════════════════
+//  PINBALL — dar foco al iframe al hacer click en la ventana
+// ════════════════════════════════════════════════════════
+document.getElementById('win-pinball').addEventListener('mousedown', e => {
+  const frame = document.getElementById('pinball-frame');
+  // Si el click fue dentro del content area (no en titlebar/menubar)
+  if (!e.target.closest('.xp-titlebar') && !e.target.closest('.xp-menubar') && !e.target.closest('.xp-status')) {
+    setTimeout(() => frame.contentWindow?.focus(), 0);
+    frame.focus();
+  }
+});
+
 //  INIT
 // ════════════════════════════════════════════════════════
 
@@ -1887,23 +1881,10 @@ window.addEventListener('load', () => {
   };
 
   frame.addEventListener('load', () => {
-    // Try to detect if the frame actually loaded content
-    // (X-Frame-Options blocked frames still fire 'load' in some browsers)
-    try {
-      // This throws if cross-origin — which means it loaded fine
-      const doc = frame.contentDocument || frame.contentWindow.document;
-      // If we can access it, it might be an error page
-      if (doc.title === '' || doc.body.innerHTML === '') {
-        throw new Error('empty');
-      }
-    } catch(e) {
-      // Cross-origin error = content loaded successfully from external site
-    }
-
     bar.style.width = '100%';
     setTimeout(() => {
-      loading.style.display = 'none';
-      frame.style.opacity = '1';
+      loading.style.opacity = '0';
+      loading.style.pointerEvents = 'none';
     }, 400);
   });
 
@@ -1916,8 +1897,9 @@ window.addEventListener('load', () => {
       clearTimeout(pinballTimeout);
       pinballTimeout = setTimeout(() => {
         // If still loading after 8s, show error
-        if (loading.style.display !== 'none') {
-          loading.style.display = 'none';
+        if (loading.style.pointerEvents !== 'none') {
+          loading.style.opacity = '0';
+          loading.style.pointerEvents = 'none';
           error.style.display = 'flex';
         }
       }, 8000);
