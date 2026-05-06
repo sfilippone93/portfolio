@@ -538,11 +538,17 @@ body {
 }
 
 /* ── LANG SWITCH ── */
-#lang-switch {
+#floating-controls {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#lang-switch {
   display: flex;
   align-items: center;
   border: 1px dashed var(--dash);
@@ -579,6 +585,100 @@ body {
 
 .lang-btn:hover:not(.active) {
   color: var(--fg-mid);
+}
+
+/* ── BACK TO TOP ── */
+.back-to-top {
+  width: 28px;
+  height: 28px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px dashed var(--dash);
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.15s ease;
+  padding: 0;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  color: var(--fg-mid);
+}
+
+.back-to-top svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 720px) {
+  .about-split {
+    grid-template-columns: 1fr;
+  }
+  .about-split-left {
+    border-right: none;
+    border-bottom: 1px dashed var(--dash);
+  }
+  .broadway-hero {
+    height: auto !important;
+    object-fit: contain !important;
+  }
+  .wid-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .wid-grid:has(> .wid-cell:nth-child(7)),
+  .wid-grid:not([style*="1fr 1fr"]) {
+    grid-template-columns: 1fr !important;
+  }
+  .wid-cell {
+    border-right: 1px dashed var(--dash) !important;
+    border-bottom: 1px dashed var(--dash) !important;
+  }
+  .wid-grid > .wid-cell:nth-child(2n) {
+    border-right: none !important;
+  }
+  .wid-grid:not([style*="1fr 1fr"]) > .wid-cell {
+    border-right: none !important;
+  }
+  .wid-cell:last-child {
+    border-bottom: none !important;
+  }
+  /* Results: 4 celdas → 2x2, 3 celdas → apilado */
+  .results-row {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .results-row:has(> .result-cell:nth-child(3):last-child) {
+    grid-template-columns: 1fr !important;
+  }
+  .result-cell {
+    border-right: 1px dashed var(--dash) !important;
+    border-bottom: 1px dashed var(--dash);
+  }
+  .results-row > .result-cell:nth-child(2n) {
+    border-right: none !important;
+  }
+  .results-row:has(> .result-cell:nth-child(3):last-child) > .result-cell {
+    border-right: none !important;
+  }
+  .results-row > .result-cell:last-child {
+    border-bottom: none;
+  }
+  .results-row > .result-cell:nth-last-child(2):nth-child(odd) {
+    border-bottom: none;
+  }
 }
 </style>
 </head>
@@ -669,9 +769,6 @@ body {
     <img src="uploads/ciudad.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Ciudad Magazine">
     <img src="uploads/eltrece.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="El Trece">
   </div>
-  <div class="case-block">
-    <img class="case-img-full" src="uploads/hero-artear.jpg" style="width:100%;height:450px;object-fit:cover;object-position:center;display:block;" alt="Artear Hero">
-  </div>
 
   <div class="section-row"><span class="section-tag" id="t-artear-results-tag">Key Results</span></div>
   <div class="results-row" style="grid-template-columns: 1fr 1fr;">
@@ -716,7 +813,7 @@ body {
   </div>
 
   <div class="case-block">
-    <img class="case-img-full" src="uploads/broadway-hero.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Broadway Hero">
+    <img class="case-img-full broadway-hero" src="uploads/broadway-hero.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Broadway Hero">
   </div>
 
   <div class="section-row"><span class="section-tag" id="t-broadway-about-tag">About</span></div>
@@ -731,7 +828,7 @@ body {
   </div>
 
   <div class="section-row"><span class="section-tag" id="t-broadway-wid-tag">What I did</span></div>
-  <div class="wid-grid">
+  <div class="wid-grid" style="grid-template-columns: 1fr 1fr;">
     <div class="wid-cell">
       <div class="wid-title" id="t-broadway-wid-1-title">Visual identity & landing design</div>
       <div class="wid-desc" id="t-broadway-wid-1-desc">Defined the visual language from scratch: type, color, spacing and overall art direction for a product that didn't exist yet.</div>
@@ -743,14 +840,6 @@ body {
     <div class="wid-cell">
       <div class="wid-title" id="t-broadway-wid-3-title">Interaction design</div>
       <div class="wid-desc" id="t-broadway-wid-3-desc">Designed the carousel, scroll behaviors and micro-interactions that make the page feel alive.</div>
-    </div>
-    <div class="wid-cell">
-      <div class="wid-title" id="t-broadway-wid-4-title">1 week</div>
-      <div class="wid-desc" id="t-broadway-wid-4-desc">Full landing designed and shipped from zero.</div>
-    </div>
-    <div class="wid-cell">
-      <div class="wid-title" id="t-broadway-wid-5-title">Live at askbroadway.com</div>
-      <div class="wid-desc" id="t-broadway-wid-5-desc">In production and collecting waitlist signups.</div>
     </div>
     <div class="wid-cell">
       <div class="wid-title" id="t-broadway-wid-6-title">End-to-end</div>
@@ -799,13 +888,12 @@ body {
   </div>
 
   <div class="case-block">
-    <img class="case-img-full" src="uploads/essen-referrals.jpg" style="width:100%;height:480px;object-fit:cover;object-position:center;display:block;" alt="Essen+ Referrals">
+    <img class="case-img-full broadway-hero" src="uploads/essen-referrals.jpg" style="width:100%;height:480px;object-fit:cover;object-position:center;display:block;" alt="Essen+ Referrals">
   </div>
 
-  <div class="img-row-3">
-    <img src="uploads/essen-screen-1.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Essen+ Screen 1">
+  <div class="img-row-2">
+    <img src="uploads/essen-screen-1.jpg" style="width:100%;height:520px;object-fit:cover;object-position:right center;display:block;" alt="Essen+ Screen 1">
     <img src="uploads/essen-screen-2.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Essen+ Screen 2">
-    <img src="uploads/essen-screen-3.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Essen+ Screen 3">
   </div>
 
   <div class="section-row"><span class="section-tag" id="t-essen-wid-tag">What I did</span></div>
@@ -951,13 +1039,13 @@ body {
 
   <div class="case-block">
     <a href="https://santifportfolio.netlify.app/" target="_blank">
-      <img class="case-img-full" src="uploads/concepts-hero.png" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Concepts Hero">
+      <img class="case-img-full broadway-hero" src="uploads/concepts-hero.png" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Concepts Hero">
     </a>
   </div>
 
   <div class="img-row-2">
     <a href="https://www.figma.com/community/file/1093982260596156097/brick-ui-design-system" target="_blank">
-      <img src="uploads/concepts-1.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Concepts 1">
+      <img src="uploads/concepts-1.jpg" style="width:100%;height:520px;object-fit:cover;object-position:right center;display:block;" alt="Concepts 1">
     </a>
     <a href="https://www.figma.com/community/file/1093982260596156097/brick-ui-design-system" target="_blank">
       <img src="uploads/concepts-2.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Concepts 2">
@@ -979,9 +1067,17 @@ body {
 </script>
 
 <!-- ── LANG SWITCH ── -->
-<div id="lang-switch">
-  <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
-  <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
+<div id="floating-controls">
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+  <div id="lang-switch">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
+  </div>
 </div>
 
 <script>
@@ -1096,6 +1192,28 @@ function setLang(lang) {
     kfErr.textContent = lang === 'es' ? 'Contraseña incorrecta' : 'Incorrect password';
   }
 }
+</script>
+
+<script>
+(function() {
+  const btn = document.getElementById('backToTop');
+  const threshold = 600;
+
+  function onScroll() {
+    if (window.scrollY > threshold) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
 </script>
 
 </body>
