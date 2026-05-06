@@ -28,6 +28,9 @@ html, body {
   font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
   font-size:11px;
 }
+body {
+  zoom: 1.6;
+}
 
 /* ────────────────────────────────────────────────
    CURSOR
@@ -76,10 +79,11 @@ input, textarea { cursor: text; }
 .desktop-icon:hover { background: rgba(12,52,124,0.25); border-color: rgba(12,52,124,0.35); }
 .desktop-icon.selected { background: rgba(12,52,124,0.45); border-color: rgba(12,52,124,0.6); }
 .desktop-icon .d-icon {
-  width: 40px; height: 40px;
+  width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
 }
-.desktop-icon .d-icon svg { width:38px; height:38px; }
+.desktop-icon .d-icon svg { width:46px; height:46px; }
+.desktop-icon .d-icon img { width:48px; height:48px; }
 .desktop-icon .d-label {
   color: #fff;
   font-size: 11px;
@@ -900,44 +904,26 @@ input, textarea { cursor: text; }
   <!-- ─── Desktop Icons ─── -->
   <div class="desktop-icon" style="top:18px;left:18px" id="ico-about" data-win="win-about">
     <div class="d-icon">
-      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="5" y="2" width="26" height="34" rx="1" fill="#FDFDF8" stroke="#CCCCCC" stroke-width="1.2"/>
-        <rect x="5" y="2" width="26" height="34" rx="1" fill="url(#docFold)" stroke="#CCCCCC" stroke-width="1.2"/>
-        <path d="M21 2 L31 12 L21 12 Z" fill="#CCCCCC"/>
-        <path d="M21 2 L21 12 L31 12" fill="#EAEAE0" stroke="#CCCCCC" stroke-width="1.2"/>
-        <line x1="9" y1="16" x2="29" y2="16" stroke="#AAAAAA" stroke-width="1"/>
-        <line x1="9" y1="20" x2="29" y2="20" stroke="#AAAAAA" stroke-width="1"/>
-        <line x1="9" y1="24" x2="22" y2="24" stroke="#AAAAAA" stroke-width="1"/>
-      </svg>
+      <img src="uploads/notepad-icon.png" style="width:48px;height:48px;object-fit:contain;" alt="About me"/>
     </div>
     <div class="d-label">About me.txt</div>
   </div>
 
-  <div class="desktop-icon" style="top:100px;left:18px" id="ico-portfolio" data-win="win-portfolio">
+  <div class="desktop-icon" style="top:103px;left:18px" id="ico-portfolio" data-win="win-portfolio">
     <div class="d-icon">
       <img src="uploads/explorer-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="IE">
     </div>
     <div class="d-label">My Projects</div>
   </div>
 
-  <div class="desktop-icon" style="top:264px;left:18px" id="ico-pinball" data-win="win-pinball">
+  <div class="desktop-icon" style="top:188px;left:18px" id="ico-pinball" data-win="win-pinball">
     <div class="d-icon">
       <img src="uploads/pinball-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="3D Pinball"/>
     </div>
     <div class="d-label">3D Pinball.exe</div>
   </div>
 
-  <div class="desktop-icon" style="top:182px;left:18px" id="ico-contact" data-win="win-contact">
-    <div class="d-icon">
-      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="8" width="32" height="22" rx="2" fill="#D8E8F8" stroke="#6090C8" stroke-width="1.2"/>
-        <path d="M3 10 L19 22 L35 10" stroke="#6090C8" stroke-width="1.2" fill="none"/>
-        <line x1="3"  y1="30" x2="14" y2="20" stroke="#6090C8" stroke-width="1"/>
-        <line x1="35" y1="30" x2="24" y2="20" stroke="#6090C8" stroke-width="1"/>
-      </svg>
-    </div>
-    <div class="d-label">Contact.url</div>
-  </div>
+
 
   <!-- ════════════════════════════════════════
        WINDOWS
@@ -1014,7 +1000,7 @@ input, textarea { cursor: text; }
           <div class="sb-hdr" onclick="toggleSb(this)">Tasks <span class="sb-toggle">▲</span></div>
           <div class="sb-body">
             <a class="sb-item" href="#" onclick="return false"><span class="sbi">🖨️</span> Print bio</a>
-            <a class="sb-item" href="#" onclick="openWin('win-contact');return false"><span class="sbi">📧</span> Contact</a>
+            <a class="sb-item" href="mailto:santiagofilippone@gmail.com"><span class="sbi">📧</span> Contact</a>
             <a class="sb-item" href="#" onclick="return false"><span class="sbi">📄</span> Download CV</a>
           </div>
         </div>
@@ -1302,7 +1288,6 @@ input, textarea { cursor: text; }
       <span class="xp-title-text">3D Pinball for Windows — Space Cadet</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-pinball">&#x2013;</button>
-        <button class="xp-btn" data-action="max" data-wid="win-pinball">&#x25A1;</button>
         <button class="xp-btn x-close" data-action="cls" data-wid="win-pinball">&#x2715;</button>
       </div>
     </div>
@@ -1353,7 +1338,7 @@ input, textarea { cursor: text; }
   <div class="sm-body">
     <!-- LEFT COLUMN: white bg, large icons + name + subtitle -->
     <div class="sm-left">
-      <div class="sm-item" onclick="openWin('win-contact');closeSM()">
+      <div class="sm-item" onclick="closeSM();window.location.href='mailto:santiagofilippone@gmail.com'">
         <span class="sm-item-ico">📧</span>
         <div><div class="sm-item-main">Contact.url</div><div class="sm-sub">Send me a message</div></div>
       </div>
@@ -1804,8 +1789,8 @@ function togglePortfolioFS() {
 
   if (!isFS) {
     win._prevStyle = { width: win.style.width, height: win.style.height, left: win.style.left, top: win.style.top, transform: win.style.transform };
-    win.style.width = '100vw';
-    win.style.height = '100vh';
+    win.style.width = '62.5vw';
+    win.style.height = '62.5vh';
     win.style.left = '0';
     win.style.top = '0';
     win.style.transform = 'none';
