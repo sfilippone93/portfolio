@@ -563,13 +563,113 @@ body {
   .exp-years { text-align: left; }
 }
 
-/* ── PRINT ── */
+/* ── PRINT (A4 single page, no images) ── */
 @media print {
-  body { font-size: 11px; }
-  .col { border: none; max-width: 100%; padding-bottom: 0; }
-  #floating-controls, .cv-actions { display: none !important; }
-  .proj-row { position: static; }
-  .exp-item, .recog-cell, .gcell, .edu-item { break-inside: avoid; }
+  @page {
+    size: A4 portrait;
+    margin: 8mm 9mm;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    overflow: visible !important;
+  }
+
+  body {
+    font-size: 8.5px;
+    line-height: 1.35;
+  }
+
+  .col {
+    max-width: 100% !important;
+    width: 100% !important;
+    border: none !important;
+    padding-bottom: 0 !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide non-essential UI + images */
+  #floating-controls,
+  #backToTop,
+  #lang-switch,
+  .cv-actions,
+  .hero-avatar,
+  img {
+    display: none !important;
+  }
+
+  /* HERO compact */
+  .hero {
+    padding: 4px 10px 6px !important;
+    border-bottom: 1px dashed var(--dash) !important;
+  }
+  .hero-name { font-size: 13px !important; }
+  .hero-role { font-size: 9px !important; margin-top: 1px !important; }
+  .hero-location { font-size: 8px !important; margin-top: 2px !important; }
+
+  /* Section row openers — compact, not sticky */
+  .proj-row {
+    position: static !important;
+    top: auto !important;
+    min-height: 0 !important;
+  }
+  .proj-row .proj-row-info { padding: 4px 10px !important; }
+  .proj-row-name { font-size: 9px !important; letter-spacing: 0.06em !important; }
+  .proj-tagline { font-size: 8px !important; line-height: 1.3 !important; }
+  .proj-row-year { font-size: 8px !important; padding-right: 10px !important; }
+
+  .section-row { padding: 4px 10px !important; }
+  .section-tag { font-size: 7.5px !important; }
+
+  /* About */
+  .about-split-left { padding: 6px 8px 6px 10px !important; }
+  .about-split-right { padding: 6px 10px 6px 8px !important; gap: 2px !important; }
+  .about-text { font-size: 9px !important; line-height: 1.4 !important; }
+  .about-text p + p { margin-top: 3px !important; }
+  .contact-item { padding: 3px 0 !important; }
+  .contact-platform { font-size: 7px !important; }
+  .contact-value { font-size: 8.5px !important; }
+
+  /* Experience */
+  .exp-item {
+    padding: 5px 10px !important;
+    grid-template-columns: 1fr 80px !important;
+    gap: 6px !important;
+    break-inside: avoid;
+  }
+  .exp-role { font-size: 11px !important; line-height: 1.2 !important; }
+  .exp-company { font-size: 8.5px !important; margin-top: 0 !important; }
+  .exp-desc { font-size: 8px !important; line-height: 1.4 !important; margin-top: 3px !important; }
+  .exp-years { font-size: 8px !important; padding-top: 1px !important; }
+
+  /* Skills/Tools/Languages */
+  .grid-3 > .gcell { padding: 5px 10px !important; }
+  .gcell-label { font-size: 7px !important; margin-bottom: 4px !important; }
+  .gcell-list { gap: 1.5px !important; }
+  .gcell-item { font-size: 8.5px !important; line-height: 1.35 !important; }
+  .gcell-sub { font-size: 7.5px !important; }
+
+  /* Recognition */
+  .edu-grid-2 .edu-cell,
+  .edu-grid-3 .edu-cell { padding: 4px 10px !important; break-inside: avoid; }
+  .edu-cell-head { margin-bottom: 1px !important; }
+  .edu-grid-2 .edu-name { font-size: 9px !important; }
+  .edu-grid-2 .edu-sub { font-size: 8px !important; line-height: 1.35 !important; margin-top: 1px !important; }
+  .edu-years { font-size: 7.5px !important; }
+
+  /* Education list */
+  .edu-item { padding: 5px 10px !important; break-inside: avoid; }
+  .edu-name { font-size: 11px !important; line-height: 1.2 !important; }
+  .edu-sub { font-size: 8.5px !important; margin-top: 1px !important; }
+
+  /* Avoid awkward splits */
+  .proj-row, .section-row { break-after: avoid; page-break-after: avoid; }
+  .exp-item, .edu-item, .edu-cell, .gcell, .recog-cell { break-inside: avoid; }
+
+  a[href]::after { content: none !important; }
 }
 </style>
 </head>
@@ -929,6 +1029,16 @@ window.addEventListener('scroll', () => {
 backBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+</script>
+
+<script>
+(async () => {
+  if (document.fonts && document.fonts.ready) {
+    try { await document.fonts.ready; } catch (e) {}
+  }
+  await new Promise(r => setTimeout(r, 600));
+  window.print();
+})();
 </script>
 
 </body>
