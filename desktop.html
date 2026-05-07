@@ -98,10 +98,10 @@ input, textarea { cursor: text; }
 ──────────────────────────────────────────────── */
 .xp-window {
   position: fixed;
-  background: var(--xp-gray);
-  border: 3px solid #1030A0;
-  border-radius: 8px 8px 4px 4px;
-  box-shadow: 3px 3px 10px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.15);
+  background: #ECE9D8;
+  border: 3px solid #002EBE;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 2px 2px 3px rgba(0,0,0,0.5);
   display: none;
   flex-direction: column;
   min-width: 220px; min-height: 180px;
@@ -109,37 +109,47 @@ input, textarea { cursor: text; }
 }
 .xp-window.is-open { display: flex; }
 .xp-window.inactive {
-  border-color: #6A7E9A;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  border-color: #7A91AE;
+  box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
 }
 
-/* Title bar */
+/* Title bar — kit-accurate gradient */
 .xp-titlebar {
-  height: 28px;
-  border-radius: 6px 6px 0 0;
+  height: 29px;
   background: linear-gradient(180deg,
-    #1638C0 0%,
-    #2C68DC 4%,
-    #2060D8 8%,
-    #1C56CC 50%,
-    #1848C0 90%,
-    #1030A8 100%);
+    #3D95FF 7%,
+    #0372FF 10%,
+    #0365F1 14%,
+    #0053E1 26%,
+    #0058EE 56%,
+    #026AFE 74%,
+    #026AFE 85%,
+    #0060FC 91%,
+    #0043CF 96%);
   display: flex; align-items: center;
-  padding: 0 2px 0 5px;
+  padding: 0 5px;
   position: relative;
   flex-shrink: 0;
   user-select: none;
+  box-shadow:
+    inset -8px 0px 5px -5px rgba(0,15,101,0.66),
+    inset 8px 0px 5px -5px rgba(34,36,46,0.54);
 }
-/* Highlight stripe at very top */
-.xp-titlebar::before {
-  content:'';
-  position:absolute; top:1px; left:6px; right:6px; height:10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.05) 100%);
-  border-radius:4px 4px 0 0;
-  pointer-events:none;
-}
+/* Inactive titlebar */
 .xp-window.inactive .xp-titlebar {
-  background: linear-gradient(180deg, #7A8CAA 0%, #9EB0C8 4%, #8EA8C0 50%, #7A9AB8 100%);
+  background: linear-gradient(180deg,
+    #B0C2DA 7%,
+    #92AAC8 10%,
+    #84A0C2 14%,
+    #7A98BC 26%,
+    #7E9CC0 56%,
+    #88A4C6 74%,
+    #88A4C6 85%,
+    #82A0C2 91%,
+    #6E8AAA 96%);
+  box-shadow:
+    inset -8px 0px 5px -5px rgba(50,70,110,0.5),
+    inset 8px 0px 5px -5px rgba(40,50,70,0.4);
 }
 
 .xp-window.fs-mode .xp-titlebar {
@@ -170,7 +180,8 @@ input, textarea { cursor: text; }
 .xp-title-text {
   flex: 1;
   color: #fff;
-  font-weight: bold; font-size: 11px;
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-weight: 700; font-size: 13px;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   z-index:1;
@@ -178,71 +189,41 @@ input, textarea { cursor: text; }
 
 
 
-/* Window control buttons — XP authentic */
+/* Window control buttons — using PNG sprites from kit */
 .xp-btns { display:flex; gap:2px; align-items:center; flex-shrink:0; margin-left:4px; z-index:1; }
 
 .xp-btn {
-  width: 22px; height: 21px;
-  border-radius: 4px;
-  border: 1px solid rgba(10,20,80,0.9);
-  background: linear-gradient(180deg, #5090F0 0%, #3070DC 35%, #1C58CC 50%, #2868D8 100%);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; padding: 0;
-  font-size: 0; color: transparent;
-  position: relative; overflow: visible;
-}
-.xp-btn:hover {
-  background: linear-gradient(180deg, #70A8FF 0%, #4888EE 35%, #2C70DC 50%, #3878E4 100%);
-}
-.xp-btn:active {
-  background: linear-gradient(180deg, #1848B8 0%, #0C3CA8 100%);
-  transform: translateY(1px);
-}
-
-/* Minimize: white bar */
-.xp-btn[data-action="min"]::before {
-  content: '';
-  display: block;
-  width: 8px; height: 2px;
-  background: white;
-  border-radius: 0.5px;
-  margin-top: 6px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.4);
-}
-
-/* Maximize: window frame */
-.xp-btn[data-action="max"]::before {
-  content: '';
-  display: block;
-  width: 9px; height: 8px;
-  border: 2px solid white;
-  border-top-width: 3px;
-  border-radius: 0.5px;
+  width: 22px; height: 22px;
   background: transparent;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-size: 0; color: transparent;
+  image-rendering: -webkit-optimize-contrast;
 }
 
-/* Close: X */
-.xp-btn[data-action="cls"]::before {
-  content: '';
-  display: block;
-  width: 10px; height: 10px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cline x1='1' y1='1' x2='9' y2='9' stroke='white' stroke-width='2.2' stroke-linecap='round'/%3E%3Cline x1='9' y1='1' x2='1' y2='9' stroke='white' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-size: contain; background-repeat: no-repeat;
-}
+/* Minimize */
+.xp-btn[data-action="min"]            { background-image: url("uploads/windows-ui/mini-active.png"); }
+.xp-btn[data-action="min"]:hover      { background-image: url("uploads/windows-ui/mini-hover.png"); }
+.xp-btn[data-action="min"]:active     { background-image: url("uploads/windows-ui/mini-clicked.png"); }
 
-.xp-btn.x-close {
-  background: linear-gradient(180deg, #E86060 0%, #CC2828 35%, #B81818 50%, #CC2828 100%);
-  border-color: rgba(80,0,0,0.7);
-  margin-left: 1px;
-}
-.xp-btn.x-close:hover {
-  background: linear-gradient(180deg, #F07878 0%, #DC4040 35%, #CC2828 50%, #DC3838 100%);
-}
-.xp-btn.x-close:active {
-  background: linear-gradient(180deg, #901010 0%, #780808 100%);
-}
+/* Maximize / Restore (toggle via .is-maximized class on the win) */
+.xp-btn[data-action="max"]            { background-image: url("uploads/windows-ui/maxi-active.png"); }
+.xp-btn[data-action="max"]:hover      { background-image: url("uploads/windows-ui/maxi-hover.png"); }
+.xp-btn[data-action="max"]:active     { background-image: url("uploads/windows-ui/maxi-clicked.png"); }
+
+.xp-window.is-maximized .xp-btn[data-action="max"]            { background-image: url("uploads/windows-ui/resto-active.png"); }
+.xp-window.is-maximized .xp-btn[data-action="max"]:hover      { background-image: url("uploads/windows-ui/resto-hover.png"); }
+.xp-window.is-maximized .xp-btn[data-action="max"]:active     { background-image: url("uploads/windows-ui/resto-clicked.png"); }
+
+/* Close */
+.xp-btn[data-action="cls"]            { background-image: url("uploads/windows-ui/close-active.png"); }
+.xp-btn[data-action="cls"]:hover      { background-image: url("uploads/windows-ui/close-hover.png"); }
+.xp-btn[data-action="cls"]:active     { background-image: url("uploads/windows-ui/close-clicked.png"); }
 
 /* Menubar */
 .xp-menubar {
@@ -330,10 +311,10 @@ input, textarea { cursor: text; }
   height: 28px;
   padding: 0 14px 0 8px;
   margin: 0 2px 0 0;
-  border-radius: 0 14px 14px 0;
+  border-radius: 0 12px 12px 0;
   background: linear-gradient(180deg, #5EC15A 0%, #3E9E2A 38%, #228808 52%, #3A9C1E 100%);
   border: 1px solid #1A5E0A;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 2px 0 5px rgba(0,0,0,0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
   display: flex; align-items: center; gap: 5px;
   color: #fff;
   font-weight: bold; font-size: 14px; font-style: italic;
@@ -728,15 +709,117 @@ input, textarea { cursor: text; }
 /* ────────────────────────────────────────────────
    SCROLLBARS
 ──────────────────────────────────────────────── */
-::-webkit-scrollbar { width:16px; height:16px; }
-::-webkit-scrollbar-track { background: var(--xp-gray); }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #E4E4E4 0%, #C8C4BC 50%, #B8B4AC 100%);
-  border: 1px solid #888;
-  border-radius: 0;
+/* ────────────────────────────────────────────────
+   SCROLLBARS — kit-accurate XP Luna
+──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 17px; height: 17px; }
+
+/* Track: pale beige gradient */
+::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #F3F1EC 0%, #FEFEFB 100%);
+  border-left: 1px solid #EEEDE5;
+  border-right: 1px solid #EEEDE5;
 }
-::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #EAEAEA 0%, #D4D0C8 50%, #C4C0B8 100%); }
-::-webkit-scrollbar-button { background: linear-gradient(180deg, #ECE9D8 0%, #D4D0C8 100%); border:1px solid #888; height:16px; width:16px; }
+::-webkit-scrollbar-track:horizontal {
+  background: linear-gradient(180deg, #F3F1EC 0%, #FEFEFB 100%);
+  border-top: 1px solid #EEEDE5;
+  border-bottom: 1px solid #EEEDE5;
+  border-left: 0; border-right: 0;
+}
+
+/* Thumb: blue gradient with grip in the middle */
+::-webkit-scrollbar-thumb {
+  background-color: #C8D6FB;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='7' height='8' viewBox='0 0 7 8'><g filter='url(%23f)'><rect y='0' width='6' height='1' rx='0.5' fill='%23EEF4FE'/><rect y='2' width='6' height='1' rx='0.5' fill='%23EEF4FE'/><rect y='4' width='6' height='1' rx='0.5' fill='%23EEF4FE'/><rect y='6' width='6' height='1' rx='0.5' fill='%23EEF4FE'/></g><defs><filter id='f' x='0' y='0' width='7' height='8' filterUnits='userSpaceOnUse'><feOffset dx='1' dy='1'/><feColorMatrix values='0 0 0 0 0.549 0 0 0 0 0.69 0 0 0 0 0.972 0 0 0 1 0'/><feBlend in2='SourceGraphic'/></filter></defs></svg>"),
+    linear-gradient(90deg, #C8D6FB 0%, #C8D8FB 30%, #BAD0FC 70%, #B9CBF3 92%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, 0 0;
+  background-size: 7px 8px, 100% 100%;
+  border: 1px solid #FFFFFF;
+  border-right: 2px solid #7C9FD3;
+  border-bottom: 2px solid #7C9FD3;
+  border-radius: 2px;
+  box-shadow:
+    inset 2px 0px 1px rgba(225,234,254,0.5),
+    inset 0px 2px 1px rgba(225,234,254,0.5);
+}
+::-webkit-scrollbar-thumb:horizontal {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='7' viewBox='0 0 8 7'><g filter='url(%23f)'><rect x='0' width='1' height='6' rx='0.5' fill='%23EEF4FE'/><rect x='2' width='1' height='6' rx='0.5' fill='%23EEF4FE'/><rect x='4' width='1' height='6' rx='0.5' fill='%23EEF4FE'/><rect x='6' width='1' height='6' rx='0.5' fill='%23EEF4FE'/></g><defs><filter id='f' x='0' y='0' width='8' height='7' filterUnits='userSpaceOnUse'><feOffset dx='1' dy='1'/><feColorMatrix values='0 0 0 0 0.549 0 0 0 0 0.69 0 0 0 0 0.972 0 0 0 1 0'/><feBlend in2='SourceGraphic'/></filter></defs></svg>"),
+    linear-gradient(180deg, #C8D6FB 0%, #C8D8FB 30%, #BAD0FC 70%, #B9CBF3 92%);
+  background-size: 8px 7px, 100% 100%;
+}
+
+/* Hover: lighter, almost white-blue */
+::-webkit-scrollbar-thumb:hover {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='7' height='8' viewBox='0 0 7 8'><g filter='url(%23f)'><rect y='0' width='6' height='1' rx='0.5' fill='%23E8EFFE'/><rect y='2' width='6' height='1' rx='0.5' fill='%23E8EFFE'/><rect y='4' width='6' height='1' rx='0.5' fill='%23E8EFFE'/><rect y='6' width='6' height='1' rx='0.5' fill='%23E8EFFE'/></g><defs><filter id='f' x='0' y='0' width='7' height='8' filterUnits='userSpaceOnUse'><feOffset dx='1' dy='1'/><feColorMatrix values='0 0 0 0 0.65 0 0 0 0 0.78 0 0 0 0 0.98 0 0 0 1 0'/><feBlend in2='SourceGraphic'/></filter></defs></svg>"),
+    linear-gradient(90deg, #E8EFFE 0%, #DDE8FB 50%, #CBDAF8 100%);
+}
+
+/* Active (pressed): saturated darker blue */
+::-webkit-scrollbar-thumb:active {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='7' height='8' viewBox='0 0 7 8'><g filter='url(%23f)'><rect y='0' width='6' height='1' rx='0.5' fill='%23FFFFFF'/><rect y='2' width='6' height='1' rx='0.5' fill='%23FFFFFF'/><rect y='4' width='6' height='1' rx='0.5' fill='%23FFFFFF'/><rect y='6' width='6' height='1' rx='0.5' fill='%23FFFFFF'/></g><defs><filter id='f' x='0' y='0' width='7' height='8' filterUnits='userSpaceOnUse'><feOffset dx='1' dy='1'/><feColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.35 0 0 0 0 0.7 0 0 0 1 0'/><feBlend in2='SourceGraphic'/></filter></defs></svg>"),
+    linear-gradient(90deg, #7E9CE8 0%, #6F8FE0 50%, #5F88D8 100%);
+  border-right-color: #4A6CC0;
+  border-bottom-color: #4A6CC0;
+}
+
+/* Buttons (arrows): pale blue square with inset highlights */
+::-webkit-scrollbar-button {
+  background: #C1D3FB;
+  border: 1px solid #FFFFFF;
+  border-right: 2px solid #7C9FD3;
+  border-bottom: 2px solid #7C9FD3;
+  border-radius: 2px;
+  box-shadow:
+    inset 4px 4px 3px -2px #E0E9FF,
+    inset -4px -4px 3px -2px #B1CCFA;
+  width: 17px; height: 17px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* Up arrow (vertical) */
+::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 6'><path d='M0.5 5.5 L4.5 0.5 L8.5 5.5 Z' fill='%23295DCE'/></svg>");
+  background-color: #C1D3FB;
+}
+/* Down arrow (vertical) */
+::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 6'><path d='M0.5 0.5 L4.5 5.5 L8.5 0.5 Z' fill='%23295DCE'/></svg>");
+  background-color: #C1D3FB;
+}
+/* Left arrow (horizontal) */
+::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 9'><path d='M5.5 0.5 L0.5 4.5 L5.5 8.5 Z' fill='%23295DCE'/></svg>");
+  background-color: #C1D3FB;
+}
+/* Right arrow (horizontal) */
+::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 9'><path d='M0.5 0.5 L5.5 4.5 L0.5 8.5 Z' fill='%23295DCE'/></svg>");
+  background-color: #C1D3FB;
+}
+::-webkit-scrollbar-button:hover {
+  background-color: #D6E2FC;
+}
+::-webkit-scrollbar-button:active {
+  background-color: #95B2F6;
+  box-shadow:
+    inset -2px -2px 3px -1px #E0E9FF,
+    inset 2px 2px 3px -1px #7C9FD3;
+}
+/* Hide double-end buttons (Chrome shows them by default for some users) */
+::-webkit-scrollbar-button:single-button { display: block; }
+::-webkit-scrollbar-button:start:increment,
+::-webkit-scrollbar-button:end:decrement { display: none; }
+
+/* Corner where vertical and horizontal scrollbars meet */
+::-webkit-scrollbar-corner {
+  background: #F3F1EC;
+}
+
 ::selection { background: #316AC5; color: #fff; }
 
 /* ────────────────────────────────────────────────
@@ -814,74 +897,103 @@ input, textarea { cursor: text; }
 }
 
 /* ────────────────────────────────────────────────
-   XP SIDEBAR — authentic task pane style
+   XP SIDEBAR — kit-accurate task pane
 ──────────────────────────────────────────────── */
 .xp-sidebar {
-  width: 160px; flex-shrink: 0;
-  background: #5578B8;
+  width: 200px; flex-shrink: 0;
+  background: linear-gradient(180deg, #7BA2E7 0%, #6B85DC 100%);
   overflow-y: auto; overflow-x: hidden;
-  border-right: 1px solid #3A5FA0;
-  padding: 5px 5px 8px;
-  display: flex; flex-direction: column; gap: 5px;
+  padding: 20px 10px 10px;
+  display: flex; flex-direction: column; gap: 10px;
+  border-right: 1px solid;
+  border-image: linear-gradient(180deg, rgba(255,255,255,0.33) 0%, rgba(255,255,255,0) 100%) 1;
 }
-.xp-sidebar::-webkit-scrollbar { width: 8px; }
-.xp-sidebar::-webkit-scrollbar-track { background: #4A6AAC; }
-.xp-sidebar::-webkit-scrollbar-thumb { background: #3A5898; border: none; }
+.xp-sidebar::-webkit-scrollbar { width: 17px; }
 
 /* Sidebar card */
 .sb-section {
-  border-radius: 4px 4px 2px 2px;
-  overflow: hidden;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  display: flex; flex-direction: column;
+  align-self: stretch; width: 100%;
 }
 
-/* Card header */
+/* Card header — variant A: blue (default) */
 .sb-hdr {
-  background: #3169C6;
-  color: #fff;
-  font-weight: bold; font-size: 11px;
-  padding: 4px 6px 4px 8px;
   display: flex; align-items: center; justify-content: space-between;
-  user-select: none; min-height: 22px;
-  border-radius: 4px 4px 0 0;
-  cursor: pointer;
+  padding: 3px 4px 4px 6px;
+  background: linear-gradient(90deg, #0049B5 0%, #295DCE 100%);
+  border-radius: 3px 3px 0 0;
+  color: #fff;
+  font-family: 'Arial', Tahoma, sans-serif;
+  font-weight: 700; font-size: 11px;
+  user-select: none; cursor: pointer;
+  min-height: 22px;
 }
-.sb-hdr:hover { background: #3D78D4; }
+.sb-hdr-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
 
-/* Collapse toggle — double chevron icon */
+/* Card header — variant B: white (modifier .sb-hdr-light) */
+.sb-hdr.sb-hdr-light {
+  background: linear-gradient(90deg, #FFFFFF 0%, #C6D3F7 100%);
+  color: #215DC6;
+}
+
+/* Collapse toggle button — double chevron */
 .sb-toggle {
   width: 16px; height: 16px; border-radius: 50%;
-  background: radial-gradient(circle at 40% 30%, #80AAEE, #2858B8);
-  border: 1px solid rgba(255,255,255,0.55);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  border: 1px solid #73A1E2;
+  background: linear-gradient(135deg, #5980D0 0%, #2E60C1 100%);
+  box-shadow: 2px 2px 4px #2557C0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0; line-height: 1; color: transparent;
-  transition: transform 0.15s; flex-shrink: 0;
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.15s;
+}
+.sb-toggle::after {
+  content: '«';
   font-family: Arial, sans-serif;
+  font-weight: 600; font-size: 13px;
+  color: #fff;
+  transform: rotate(90deg);
+  line-height: 1;
 }
-.sb-toggle::after { content: '«'; display: block; font-size: 10px; color: #fff; transform: rotate(-90deg); }
-.sb-section.sb-collapsed .sb-toggle::after { transform: rotate(90deg); }
+.sb-section.sb-collapsed .sb-toggle::after { transform: rotate(-90deg); }
 
-/* Card body */
-.sb-body {
-  background: #D8E4F8;
-  padding: 4px 0;
-  overflow: hidden;
-  max-height: 400px; transition: max-height 0.2s ease-out, padding 0.2s;
+/* Light variant of toggle */
+.sb-hdr-light .sb-toggle {
+  border-color: #AEB8DA;
+  background: linear-gradient(135deg, #FFFFFF 0%, #E7EEF4 100%);
+  box-shadow: 2px 2px 4px #A9B2D7;
 }
-.sb-section.sb-collapsed .sb-body { max-height: 0; padding: 0; }
+.sb-hdr-light .sb-toggle::after { color: #003CA5; }
+
+/* Card body — variant A: pale blue (default) */
+.sb-body {
+  display: flex; flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  background: #EFF3FF;
+  border: 1px solid #FFFFFF;
+  border-top: 0;
+  overflow: hidden;
+  max-height: 600px;
+  transition: max-height 0.2s ease-out, padding 0.2s;
+}
+.sb-section.sb-collapsed .sb-body { max-height: 0; padding: 0 10px; border: 0; }
+
+/* Light header gets a slightly more saturated body */
+.sb-hdr-light + .sb-body { background: #D6DFF7; }
 
 /* Sidebar items */
 .sb-item {
   display: flex; align-items: center; gap: 5px;
-  padding: 3px 8px;
-  color: #000; font-size: 11px;
-  text-decoration: none; line-height: 1.35;
+  color: #215DC6;
+  font-family: 'Tahoma', sans-serif;
+  font-weight: 400; font-size: 11px;
+  text-decoration: none;
   cursor: pointer; user-select: none;
+  line-height: 1.35;
 }
-.sb-item:hover { background: #316AC5; color: #fff; }
-.sb-item:hover .sbi { color: #fff; }
-.sb-item .sbi { font-size: 15px; flex-shrink: 0; line-height: 1; }
+.sb-item:hover { text-decoration: underline; }
+.sb-item .sbi { font-size: 14px; flex-shrink: 0; line-height: 1; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; }
 
 /* Main content pane */
 .xp-main {
@@ -997,7 +1109,7 @@ input, textarea { cursor: text; }
     <div class="xp-explorer">
       <div class="xp-sidebar">
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Tasks <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Tasks</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <a class="sb-item" href="#" onclick="return false"><span class="sbi">🖨️</span> Print bio</a>
             <a class="sb-item" href="mailto:santiagofilippone@gmail.com"><span class="sbi">📧</span> Contact</a>
@@ -1005,14 +1117,14 @@ input, textarea { cursor: text; }
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">My Links <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr sb-hdr-light" onclick="toggleSb(this)"><span class="sb-hdr-text">My Links</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
             <a class="sb-item" href="https://www.linkedin.com/in/santiagofilippone/" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Details <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Details</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
               <span style="opacity:0.7;font-size:10px">Role</span>
@@ -1073,7 +1185,7 @@ input, textarea { cursor: text; }
     <div class="xp-explorer">
       <div class="xp-sidebar">
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Quick Contact <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Quick Contact</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <a class="sb-item" href="mailto:hola@santiago.com"><span class="sbi">📧</span> Email directo</a>
             <a class="sb-item" href="https://www.linkedin.com/in/santiagofilippone/" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
@@ -1081,7 +1193,7 @@ input, textarea { cursor: text; }
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Availability <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr sb-hdr-light" onclick="toggleSb(this)"><span class="sb-hdr-text">Availability</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:3px">
               <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#4CDB4C;display:inline-block"></span><span style="font-weight:bold">Available</span></span>
@@ -1092,7 +1204,7 @@ input, textarea { cursor: text; }
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)">Details <span class="sb-toggle">▲</span></div>
+          <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Details</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
               <span style="opacity:0.7;font-size:10px">Location</span>
@@ -1320,7 +1432,6 @@ input, textarea { cursor: text; }
   <button id="start-btn" onclick="toggleSM()">
     <img src="uploads/win xp logo complete.png" style="width:18px;height:18px;object-fit:contain;flex-shrink:0;" alt=""/> Start
   </button>
-  <div class="tb-sep"></div>
   <div id="tb-wins"></div>
   <div id="systray">
     <div id="clock"></div>
@@ -1540,6 +1651,7 @@ function maximizeWin(id) {
     w.el.style.left = s.left; w.el.style.top  = s.top;
     w.el.style.width = s.width; w.el.style.height = s.height;
     w.el.style.borderRadius = '';
+    w.el.classList.remove('is-maximized');
     w.maximized = false;
   } else {
     w.savedStyle = { left: w.el.style.left, top: w.el.style.top, width: w.el.style.width, height: w.el.style.height };
@@ -1548,6 +1660,7 @@ function maximizeWin(id) {
     w.el.style.width  = desktop.clientWidth  + 'px';
     w.el.style.height = desktop.clientHeight + 'px';
     w.el.style.borderRadius = '0';
+    w.el.classList.add('is-maximized');
     w.maximized = true;
   }
 }
