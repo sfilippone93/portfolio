@@ -368,6 +368,11 @@ body {
 .edu-cell:nth-child(2n) { border-right: none; }
 .edu-cell:nth-last-child(-n+2) { border-bottom: none; }
 
+/* 3-column variant (Recognition) */
+.edu-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.edu-grid-3 .edu-cell { border-bottom: none; border-right: 1px dashed var(--dash); }
+.edu-grid-3 .edu-cell:nth-child(3n) { border-right: none; }
+
 .edu-cell-head {
   display: flex;
   justify-content: space-between;
@@ -701,7 +706,7 @@ body {
     <span class="proj-row-year">2022–2023</span>
   </div>
 
-  <div class="edu-grid-2" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="edu-grid-2 edu-grid-3">
     <div class="edu-cell">
       <div class="edu-cell-head">
         <div class="edu-name">28th Communicator Awards</div>
