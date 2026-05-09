@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Solitaire</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Menu bar ─────────────────────────────────────────── */
+#menubar {
+  background: #ECE9D8;
+  border-bottom: 1px solid #ACA899;
+  height: 20px;
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  user-select: none;
+}
+.menu-item {
+  position: relative;
+  padding: 2px 6px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+}
+.menu-item:hover, .menu-item.open {
+  background: #316AC5;
+  color: #fff;
+}
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ACA899;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+  z-index: 9999;
+  min-width: 140px;
+  padding: 2px 0;
+}
+.menu-item.open .menu-dropdown { display: block; }
+.menu-entry {
+  padding: 3px 20px;
+  cursor: default;
+  white-space: nowrap;
+  color: #000;
+}
+.menu-entry:hover {
+  background: #316AC5;
+  color: #fff;
+}
+.menu-sep {
+  height: 1px;
+  background: #ACA899;
+  margin: 3px 2px;
+}
+
+/* ── Game area ────────────────────────────────────────── */
+#game-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.solitaire {
+  max-width: 800px;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+
+  --card-width: 73px;
+  --card-height: 98px;
+  --hover-card: 0 0 4px 2px #fff;
+  --hover-deck: inset 0 0 0 2px rgba(255,255,255,0.6);
+}
+
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  background-image: url("uploads/solitaire/spritesheet.png");
+  position: absolute;
+  left: 0;
+  top: 0;
+  user-select: none;
+  transition: box-shadow 0.1s;
+  border-radius: 4px;
+}
+.card--back  { background-position: var(--background-position-facing-down); }
+.card--front { background-position: var(--background-position-facing-up); }
+.card--front:last-child:hover { box-shadow: var(--hover-card); }
+.card--moving { position: fixed; z-index: 1; }
+
+.deck__pile {
+  flex-shrink: 0;
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: 4px;
+  background-image: url("uploads/solitaire/spritesheet.png");
+  background-position: calc(var(--card-width) * -3) calc(var(--card-height) * -4);
+  transition: 0.2s;
+}
+.deck__pile:hover {
+  box-shadow: var(--hover-deck), var(--hover-card);
+  background-color: rgba(255,255,255,0.2);
+}
+.deck__pile .card + .card { margin-top: 1px; margin-left: 2px; }
+.deck__pile .card + .card + .card { margin-top: 2px; margin-left: 4px; }
+.deck__pile .card:last-child:hover { box-shadow: var(--hover-card); }
+
+.deck__deal { position: relative; }
+.deck__deal .card:last-child      { left: 36px; }
+.deck__deal .card:nth-last-child(2) { left: 20px; }
+.deck__deal .card:nth-last-child(3) { left: 4px; }
+
+.upper {
+  display: flex;
+  padding-top: 3%;
+  justify-content: space-evenly;
+}
+.upper__spacer { width: var(--card-width); }
+
+.board-deck {
+  display: flex;
+  padding-top: 5%;
+  justify-content: space-evenly;
+}
+.board-deck .card--front > .card--front          { top: 15px; }
+.board-deck .card--back  > .card--front,
+.board-deck .card--back  > .card--back            { top: 8px; }
+
+.seven, .aces {
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: 4px;
+}
+.seven { box-shadow: var(--hover-deck); }
+.aces  { border: 2.5px solid rgba(255,255,255,0.6); transition: 0.2s; }
+.aces:hover { box-shadow: var(--hover-deck); background-color: rgba(255,255,255,0.2); }
+
+.finish-dest { box-shadow: var(--hover-deck) !important; }
+</style>
+</head>
+<body style="background: url('uploads/solitaire/bg.jpg') no-repeat center / cover;">
+
+<div id="menubar">
+  <div class="menu-item" id="menu-game">
+    Game
+    <div class="menu-dropdown">
+      <div class="menu-entry" onclick="resetGame();closeMenus()">New Game</div>
+      <div class="menu-sep"></div>
+      <div class="menu-entry" onclick="closeMenus()">Undo</div>
+      <div class="menu-sep"></div>
+      <div class="menu-entry" onclick="closeMenus()">Options…</div>
+    </div>
+  </div>
+  <div class="menu-item" id="menu-help">
+    Help
+    <div class="menu-dropdown">
+      <div class="menu-entry" onclick="closeMenus()">Help Topics</div>
+    </div>
+  </div>
+</div>
+
+<div id="game-wrapper">
+  <div class="solitaire" id="js-solitaire">
+    <div class="upper" id="js-upper">
+      <div id="js-deck-pile" class="deck__pile upper__spacer"></div>
+      <div id="js-deck-deal" class="deck__deal upper__spacer"></div>
+      <div class="upper__spacer"></div>
+    </div>
+    <div id="js-board" class="board-deck"></div>
+  </div>
+</div>
+
+<script>
+// ── Menu logic ────────────────────────────────────────────
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', e => {
+    e.stopPropagation();
+    const wasOpen = item.classList.contains('open');
+    closeMenus();
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+document.addEventListener('click', closeMenus);
+function closeMenus() {
+  document.querySelectorAll('.menu-item.open').forEach(i => i.classList.remove('open'));
+}
+
+// ── js-solitaire engine ───────────────────────────────────
+const gameEl = document.getElementById("js-solitaire");
+const dealPileEl = document.getElementById("js-deck-pile");
+const dealEl = document.getElementById("js-deck-deal");
+const upperContainerEl = document.getElementById("js-upper");
+const deskContainerEl = document.getElementById("js-board");
+const deckPileEl = document.getElementById("js-deck-pile");
+
+const cardWidth = 73;
+const cardHeight = 98;
+const state = {
+  types: ["c", "d", "h", "s"],
+  colors: { c: 0, d: 1, h: 1, s: 0 },
+  cards: [],
+  deal: {
+    pile: { el: null, cards: [] },
+    deal: { el: null, cards: [] },
+  },
+  finish: [],
+  desk: [],
+  target: null,
+  moving: {
+    card: {},
+    element: null,
+    index: -1,
+    capture: false,
+    container: { cards: [] },
+    target: null,
+    origin: {},
+    offset: { x: 0, y: 0 },
+    destinations: [],
+  },
+};
+
+const getCard = (index) => state.cards[index];
+
+const faceUp = (card) => {
+  state.cards[card].facingUp = true;
+  requestAnimationFrame(() => {
+    state.cards[card].el.classList.add("card--front");
+    state.cards[card].el.classList.remove("card--back");
+  });
+};
+
+const faceDown = (card) => {
+  state.cards[card].facingUp = false;
+  state.cards[card].el.classList.remove("card--front");
+  state.cards[card].el.classList.add("card--back");
+};
+
+const faceUpLastOnDesk = (index) => {
+  const card = getLastOnDesk(index);
+  if (card !== null) faceUp(card);
+};
+
+const appendToCard = (target, card) => {
+  state.cards[target].el.appendChild(state.cards[card].el);
+};
+
+const appendToDesk = (desk, card) => {
+  state.desk[desk].el.appendChild(state.cards[card].el);
+};
+
+const getLastOnDesk = (desk) => {
+  const l = state.desk[desk].cards.length;
+  return l > 0 ? state.desk[desk].cards[l - 1] : null;
+};
+
+const getLastOnPile = (pile, index) => {
+  const l = state[pile][index].cards.length;
+  if (l > 0) return state.cards[state[pile][index].cards[l - 1]];
+  return {};
+};
+
+const getCardLocation = (card) => {
+  for (let i = 0; i < 7; i++) {
+    const index = state.desk[i].cards.indexOf(card);
+    if (index > -1) return { location: "desk", pile: i, index };
+  }
+  for (let i = 0; i < 4; i++) {
+    const index = state.finish[i].cards.indexOf(card);
+    if (index > -1) return { location: "finish", pile: i, index };
+  }
+  for (let i of ["deal", "pile"]) {
+    const index = state.deal[i].cards.indexOf(card);
+    if (index > -1) return { location: "deal", pile: i, index };
+  }
+};
+
+const getSubCards = (card) => {
+  const { location, pile, index } = getCardLocation(card);
+  return state[location][pile].cards.filter((_, i) => i > index);
+};
+
+const getPile = (pile, index) => state[pile][index];
+
+const moveCardTo = (dest, i, card) => {
+  const { location, pile, index } = getCardLocation(card);
+  const moving = state[location][pile].cards.filter((_, j) => j >= index);
+  state[location][pile].cards = state[location][pile].cards.filter(e => !moving.includes(e));
+  state[dest][i].cards = state[dest][i].cards.concat(moving);
+};
+
+const canBePlacedOnCard = (child, parent) => {
+  const { type, number } = getCard(child);
+  const { type: pT, number: pN } = getCard(parent);
+  return pN - 1 === number && state.colors[pT] !== state.colors[type];
+};
+
+const placeCardTo = (dest, index, card) => {
+  state[dest][index].cards.push(card);
+  const i = state.deal.pile.cards.indexOf(card);
+  if (i !== -1) state.deal.pile.cards.splice(i, 1);
+};
+
+function dealCards() {
+  let card = 0;
+  for (let i = 0; i < 7; i++) {
+    for (let j = i; j < 7; j++) {
+      const last = getLastOnDesk(j);
+      if (last !== null) appendToCard(last, card);
+      else appendToDesk(j, card);
+      placeCardTo("desk", j, card);
+      if (j === i) faceUp(card);
+      card++;
+    }
+  }
+}
+
+function shuffleInPlace(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+}
+
+function resetGame() {
+  for (let i = 0; i < 7; i++) state.desk[i].cards = [];
+  for (let i = 0; i < 4; i++) state.finish[i].cards = [];
+  state.deal.pile.cards = [];
+  state.deal.deal.cards = [];
+  shuffleInPlace(state.cards);
+  requestAnimationFrame(() => {
+    for (let i = 0, l = state.cards.length; i < l; i++) {
+      const { facingUp, el } = state.cards[i];
+      state.deal.pile.cards.push(i);
+      el.onmousedown = captureMove(i);
+      el.onmouseup = releaseMove(i);
+      el.ontouchstart = captureMove(i);
+      el.ontouchend = releaseMove(i);
+      if (facingUp) faceDown(i);
+      dealPileEl.appendChild(el);
+    }
+    dealCards();
+  });
+}
+
+const handleClick = (index) => (event) => {
+  event.stopPropagation();
+  if (state.moving.capture) return;
+  const { el, facingUp } = getCard(index);
+  if (facingUp) {
+    const { location, pile } = getCardLocation(index);
+    if (location === "deal" && pile === "deal") {
+      const { el: lastEl } = getLastOnPile("deal", "deal");
+      if (el !== lastEl) return;
+    }
+    const destinations = getAvailableDestinations(index, true);
+    if (destinations.length > 0) {
+      const { target, el: targetEl } = destinations[0];
+      const { dest, pile: pileTarget, card } = target;
+      moveCardTo(dest, pileTarget, card);
+      if (location === "desk") faceUpLastOnDesk(pile);
+      targetEl.appendChild(el);
+    } else return;
+    gameFinish();
+  } else {
+    const { location, pile } = getCardLocation(index);
+    if (location === "deal" && pile === "pile") {
+      const max = state.deal.pile.cards.length - 1;
+      const min = Math.max(-1, max - 3);
+      for (let i = max; i > min; i--) {
+        const card = state.deal.pile.cards[i];
+        const { el } = getCard(card);
+        faceUp(card);
+        moveCardTo("deal", "deal", card);
+        dealEl.appendChild(el);
+      }
+    }
+  }
+};
+
+function restartDeal() {
+  state.deal.pile.cards = state.deal.deal.cards;
+  state.deal.deal.cards = [];
+  for (const card of state.deal.pile.cards) {
+    const { el } = getCard(card);
+    faceDown(card);
+    deckPileEl.appendChild(el);
+  }
+}
+
+function getPointerPosition(event) {
+  if (/touchstart|touchmove/.test(event.type))
+    return { x: event.targetTouches[0].pageX, y: event.targetTouches[0].pageY };
+  if (event.type === "touchend")
+    return { x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY };
+  return { x: event.pageX, y: event.pageY };
+}
+
+const handleMove = (event) => {
+  if (!state.moving.capture) return;
+  const el = state.moving.element;
+  const { x, y } = getPointerPosition(event);
+  el.style.left = `${x - state.moving.offset.x}px`;
+  el.style.top  = `${y - state.moving.offset.y}px`;
+};
+
+const startMovingPosition = (event) => {
+  const el = state.moving.element;
+  const { x, y } = getPointerPosition(event);
+  const { top, left } = el.getBoundingClientRect();
+  el.classList.add("card--moving");
+  state.moving.offset = { x: x - left, y: y - top };
+  el.style.left = `${x - state.moving.offset.x}px`;
+  el.style.top  = `${y - state.moving.offset.y - 5}px`;
+};
+
+let moving;
+const captureMove = (index) => (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  const { el, facingUp } = getCard(index);
+  if (!facingUp) return false;
+  const { location, pile } = getCardLocation(index);
+  if (location === "deal" && pile === "deal") {
+    const { el: lastEl } = getLastOnPile("deal", "deal");
+    if (el !== lastEl) return false;
+  }
+  moving = setTimeout(() => {
+    state.moving.element = event.target;
+    state.moving.capture = true;
+    state.moving.index = index;
+    state.moving.card = getCard(index);
+    state.moving.origin = getCardLocation(index);
+    startMovingPosition(event);
+    const destinations = getAvailableDestinations(index);
+    state.moving.destinations = destinations;
+    for (const dest of destinations) dest.el.classList.add("finish-dest");
+    for (let i = 0, l = destinations.length; i < l; i++) {
+      const { top, left, width, height } = destinations[i].el.getBoundingClientRect();
+      state.moving.destinations[i].offset = { top, left, width, height };
+    }
+  }, 150);
+};
+
+const dropCard = (x, y) => {
+  for (const destination of state.moving.destinations) {
+    const { width, height, left, top } = destination.offset;
+    destination.el.classList.remove("finish-dest");
+    if (x > left && x < left + width && y > top && y < top + height) {
+      const { dest, pile, card } = destination.target;
+      moveCardTo(dest, pile, card);
+      destination.el.appendChild(state.moving.element);
+      gameFinish();
+      const { location: oLoc, pile: oPile } = state.moving.origin;
+      if (oLoc === "desk") faceUpLastOnDesk(oPile);
+    }
+  }
+};
+
+let release;
+const releaseMove = (index) => (event) => {
+  clearTimeout(moving);
+  clearTimeout(release);
+  if (state.moving.capture) {
+    release = setTimeout(() => {
+      const { x, y } = getPointerPosition(event);
+      requestAnimationFrame(() => {
+        dropCard(x, y);
+        state.moving.element.classList.remove("card--moving");
+        state.moving.element.style.left = "";
+        state.moving.element.style.top = "";
+        state.moving.element = null;
+        state.moving.capture = false;
+      });
+    }, 100);
+  } else {
+    handleClick(index)(event);
+  }
+};
+
+const getAvailableDestinations = (index, first = false) => {
+  const { type, number } = getCard(index);
+  const destinations = [];
+  if (number === 1) {
+    for (let i = 0; i < 4; i++) {
+      const { cards, el } = getPile("finish", i);
+      if (cards.length === 0) {
+        destinations.push({ el, target: { dest: "finish", pile: i, card: index } });
+        if (first) return destinations;
+      }
+    }
+  }
+  const subCards = getSubCards(index);
+  if (!subCards.length > 0) {
+    for (let i = 0; i < 4; i++) {
+      const l = state.finish[i].cards.length;
+      if (l + 1 === number) {
+        const { type: lastType } = getLastOnPile("finish", i);
+        if (lastType === type) {
+          destinations.push({ el: state.finish[i].el, target: { dest: "finish", pile: i, card: index } });
+          if (first) return destinations;
+          break;
+        }
+      }
+    }
+  }
+  for (let i = 0; i < 7; i++) {
+    const last = getLastOnDesk(i);
+    if (last !== null) {
+      if (canBePlacedOnCard(index, last)) {
+        destinations.push({ el: state.cards[last].el, target: { dest: "desk", pile: i, card: index } });
+        if (first) return destinations;
+      }
+    } else {
+      if (number === 13) {
+        destinations.push({ el: state.desk[i].el, target: { dest: "desk", pile: i, card: index } });
+        if (first) return destinations;
+      }
+    }
+  }
+  return destinations;
+};
+
+const gameFinish = () => {
+  for (let i = 3; i >= 0; i--)
+    if (state.finish[i].cards.length < 13) return;
+  win();
+};
+
+const spritesheetImage = document.createElement("img");
+spritesheetImage.src = "uploads/solitaire/spritesheet.png";
+
+const win = () => {
+  const boundingRect = gameEl.getBoundingClientRect();
+  const canvas = document.createElement("canvas");
+  canvas.style.position = "absolute";
+  canvas.width = boundingRect.width;
+  canvas.height = boundingRect.height;
+  gameEl.appendChild(canvas);
+  const context = canvas.getContext("2d");
+  let card = 52;
+  const particles = [];
+
+  const drawCard = (x, y, spriteX, spriteY) => {
+    context.drawImage(spritesheetImage, spriteX, spriteY, cardWidth, cardHeight, x, y, cardWidth, cardHeight);
+  };
+
+  const Particle = function (id, x, y, sx, sy) {
+    if (sx === 0) sx = 2;
+    const spriteX = Math.floor(id / 4) * cardWidth;
+    const spriteY = (id % 4) * cardHeight;
+    drawCard(x, y, spriteX, spriteY);
+    this.update = () => {
+      x += sx; y += sy;
+      if (x < -cardWidth || x > canvas.width + cardWidth) {
+        particles.splice(particles.indexOf(this), 1);
+        return false;
+      }
+      if (y > canvas.height - cardHeight) { y = canvas.height - cardHeight; sy = -sy * 0.85; }
+      sy += 0.98;
+      drawCard(Math.floor(x), Math.floor(y), spriteX, spriteY);
+      return true;
+    };
+  };
+
+  const throwCard = (x, y) => {
+    if (card < 1) return;
+    card--;
+    particles.push(new Particle(card, x, y, Math.floor(Math.random() * 6 - 3) * 2, -Math.random() * 16));
+  };
+
+  let throwInterval = [];
+  for (let i = 0; i < 4; i++) {
+    const { left, top } = state.finish[i].el.getBoundingClientRect();
+    throwInterval[i] = setInterval(() => throwCard(left - boundingRect.left, top - boundingRect.top), 1000);
+  }
+
+  const updateInterval = setInterval(() => {
+    let i = 0, l = particles.length;
+    while (i < l) particles[i].update() ? i++ : l--;
+  }, 1000 / 60);
+
+  function removeAnimation(event) {
+    event.preventDefault();
+    clearInterval(updateInterval);
+    for (let i = 0; i < 4; i++) clearInterval(throwInterval[i]);
+    canvas.parentNode.removeChild(canvas);
+    document.removeEventListener("click", removeAnimation);
+  }
+  document.addEventListener("click", removeAnimation, false);
+};
+
+function initSolitaire() {
+  document.body.style.setProperty("--background-position-facing-down", `0 ${cardHeight * -4}px`);
+  for (let i = 0; i < 4; i++) {
+    for (let j = 1; j <= 13; j++) {
+      const el = document.createElement("div");
+      el.classList.add("card", `card--${state.types[i]}-${j}`, "card--back");
+      el.style.setProperty("--background-position-facing-up", `${cardWidth * -(j - 1)}px ${cardHeight * -i}px`);
+      state.cards.push({ el, type: state.types[i], number: j, facingUp: false });
+    }
+  }
+  for (let i = 0; i < 4; i++) {
+    const el = document.createElement("div");
+    el.classList.add("aces", `aces--${i}`);
+    state.finish.push({ el, cards: [] });
+    upperContainerEl.appendChild(el);
+  }
+  for (let i = 0; i < 7; i++) {
+    const el = document.createElement("div");
+    el.classList.add("seven", `seven--${i}`);
+    state.desk.push({ el, cards: [] });
+    deskContainerEl.appendChild(el);
+  }
+  dealPileEl.onclick = restartDeal;
+  window.onmousemove = handleMove;
+  window.ontouchmove = handleMove;
+  resetGame();
+}
+
+window.onload = initSolitaire;
+window.resetGame = resetGame;
+</script>
+</body>
+</html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="uploads/win xp logo complete.png">
-<link rel="icon" type="image/png" href="uploads/win xp logo complete.png">
+<link rel="icon" type="image/png" href="uploads/windows-ui/win xp logo complete.png">
+<link rel="icon" type="image/png" href="uploads/windows-ui/win xp logo complete.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Santiago Filippone — Portfolio</title>
@@ -29,7 +29,7 @@ html, body {
   font-size:11px;
 }
 body {
-  zoom: 1.6;
+  zoom: 1.3;
 }
 
 /* ────────────────────────────────────────────────
@@ -99,41 +99,47 @@ input, textarea { cursor: text; }
 .xp-window {
   position: fixed;
   background: #ECE9D8;
-  border: 3px solid #002EBE;
-  border-radius: 8px 8px 0 0;
-  box-shadow: 2px 2px 3px rgba(0,0,0,0.5);
+  border: none;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.45);
   display: none;
   flex-direction: column;
   min-width: 220px; min-height: 180px;
   overflow: hidden;
 }
 .xp-window.is-open { display: flex; }
+.xp-window::after {
+  content: '';
+  position: absolute;
+  top: 29px; left: 0; right: 0; bottom: 0;
+  box-shadow:
+    inset 2px 0 0 0 #1255E7,
+    inset -2px 0 0 0 #002EBE,
+    inset 0 -2px 0 0 #002EBE;
+  pointer-events: none;
+  z-index: 100;
+}
 .xp-window.inactive {
-  border-color: #7A91AE;
-  box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+}
+.xp-window.inactive::after {
+  box-shadow:
+    inset 3px 0 0 0 #9AB0C8,
+    inset -3px 0 0 0 #7A91AE,
+    inset 0 -3px 0 0 #7A91AE;
 }
 
-/* Title bar — kit-accurate gradient */
+/* Title bar — SVG background */
 .xp-titlebar {
   height: 29px;
-  background: linear-gradient(180deg,
-    #3D95FF 7%,
-    #0372FF 10%,
-    #0365F1 14%,
-    #0053E1 26%,
-    #0058EE 56%,
-    #026AFE 74%,
-    #026AFE 85%,
-    #0060FC 91%,
-    #0043CF 96%);
+  background: url('uploads/windows-ui/Titlebar.svg') no-repeat center / 100% 100%;
   display: flex; align-items: center;
-  padding: 0 5px;
+  padding: 5px;
+  gap: 4px;
   position: relative;
   flex-shrink: 0;
   user-select: none;
-  box-shadow:
-    inset -8px 0px 5px -5px rgba(0,15,101,0.66),
-    inset 8px 0px 5px -5px rgba(34,36,46,0.54);
+  border-radius: 4px 4px 0px 0px;
 }
 /* Inactive titlebar */
 .xp-window.inactive .xp-titlebar {
@@ -182,7 +188,7 @@ input, textarea { cursor: text; }
   color: #fff;
   font-family: 'Trebuchet MS', Tahoma, sans-serif;
   font-weight: 700; font-size: 13px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   z-index:1;
 }
@@ -190,10 +196,10 @@ input, textarea { cursor: text; }
 
 
 /* Window control buttons — using PNG sprites from kit */
-.xp-btns { display:flex; gap:2px; align-items:center; flex-shrink:0; margin-left:4px; z-index:1; }
+.xp-btns { display:flex; gap:4px; align-items:center; flex-shrink:0; margin-left:4px; z-index:1; }
 
 .xp-btn {
-  width: 22px; height: 22px;
+  width: 21px; height: 21px;
   background: transparent;
   border: 0;
   padding: 0;
@@ -225,21 +231,40 @@ input, textarea { cursor: text; }
 .xp-btn[data-action="cls"]:hover      { background-image: url("uploads/windows-ui/close-hover.png"); }
 .xp-btn[data-action="cls"]:active     { background-image: url("uploads/windows-ui/close-clicked.png"); }
 
+/* Bars wrapper (menubar + toolbar) */
+.xp-bars {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(134.13deg, #F3F4F7 0%, #E9E5CB 100%);
+  box-shadow: inset 0px -4px 3px -3px #CBC7B8;
+  flex-shrink: 0;
+}
+
 /* Menubar */
 .xp-menubar {
   height: 22px;
-  background: var(--xp-gray);
-  border-bottom: 1px solid var(--xp-gray-dark);
-  display: flex; align-items: center;
-  padding: 0 4px;
+  background: transparent;
+  border-bottom: 1px solid #CAC6AF;
+  box-shadow: 0 1px 0 #F6F6F4;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 0;
   flex-shrink: 0;
   gap: 0;
 }
+.xp-menubar-items { display: flex; align-items: flex-start; }
+.xp-menubar-sticker { height: 22px; flex-shrink: 0; display: flex; align-items: center; }
 .xp-mi {
-  padding: 1px 6px;
-  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4px 8px;
+  height: 21px;
   border: 1px solid transparent;
+  font-family: 'Tahoma', sans-serif;
   font-size: 11px;
+  font-weight: 400;
+  line-height: 13px;
+  color: #000000;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 .xp-mi:hover { background: #316AC5; color: #fff; border-color: #1A4EA8; }
 
@@ -259,7 +284,7 @@ input, textarea { cursor: text; }
   background: var(--xp-gray);
   border-top: 1px solid var(--xp-gray-dark);
   display: flex; align-items: center;
-  padding: 0 8px;
+  padding: 0 8px 4px;
   font-size: 10px; color: #444;
   flex-shrink: 0;
   gap: 8px;
@@ -295,12 +320,8 @@ input, textarea { cursor: text; }
   position: fixed;
   bottom: 0; left: 0; right: 0;
   height: 30px;
-  background: linear-gradient(180deg,
-    #1F3FAC 0%,
-    #2D6BD2 1px,
-    #1E5BBE 2px,
-    #1A4CB2 100%);
-  border-top: 1px solid #0A246A;
+  background: linear-gradient(180deg, #3168D5 2.8%, #4993E6 6.99%, #286ADD 14.1%, #2359D6 19.93%, #2157D7 36.28%, #245DDB 57.21%, #2662DF 75.35%, #2663E0 90.7%, #1E50C4 94.89%, #3155B0 100%);
+  border-top: none;
   display: flex; align-items: center;
   z-index: 99999;
   gap: 0;
@@ -308,25 +329,24 @@ input, textarea { cursor: text; }
 
 /* Start button */
 #start-btn {
-  height: 28px;
-  padding: 0 14px 0 8px;
+  height: 30px;
+  padding: 0;
   margin: 0 2px 0 0;
-  border-radius: 0 12px 12px 0;
-  background: linear-gradient(180deg, #5EC15A 0%, #3E9E2A 38%, #228808 52%, #3A9C1E 100%);
-  border: 1px solid #1A5E0A;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
-  display: flex; align-items: center; gap: 5px;
-  color: #fff;
-  font-weight: bold; font-size: 14px; font-style: italic;
-  font-family: Tahoma, Arial, sans-serif;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.55);
+  background: none;
+  border: none;
+  box-shadow: none;
+  display: flex; align-items: center;
   user-select: none;
   flex-shrink: 0;
 }
-#start-btn:hover { background: linear-gradient(180deg, #72D068 0%, #50AE3C 38%, #309E14 52%, #4CAC28 100%); }
-#start-btn:active { background: linear-gradient(180deg, #3A9C1E 0%, #268E10 100%); }
-
-.start-icon { width:18px; height:18px; flex-shrink:0; font-style:normal; font-size:14px; }
+#start-btn img { display: block; height: 30px; width: auto; }
+#start-btn .sb-idle  { display: block; }
+#start-btn .sb-hover { display: none; }
+#start-btn .sb-press { display: none; }
+#start-btn:hover .sb-idle  { display: none; }
+#start-btn:hover .sb-hover { display: block; }
+#start-btn:active .sb-hover { display: none; }
+#start-btn:active .sb-press { display: block; }
 
 /* Taskbar separator */
 .tb-sep { width:1px; height:22px; background:rgba(0,0,0,0.35); margin:0 3px; box-shadow:1px 0 0 rgba(255,255,255,0.1); flex-shrink:0; }
@@ -340,36 +360,41 @@ input, textarea { cursor: text; }
   overflow: hidden;
 }
 .tb-win-btn {
-  height: 22px;
-  min-width: 90px; max-width: 160px;
-  padding: 0 8px;
-  background: linear-gradient(180deg, #3C72D0 0%, #2460C0 48%, #1E50B0 50%, #2860C8 100%);
-  border: 1px solid #0A246A;
-  border-radius: 2px;
+  height: 25px;
+  min-width: 36px; max-width: 160px; width: 160px;
+  padding: 4px 15px 5px 10px;
+  gap: 3px;
+  background: linear-gradient(180deg, #4892F7 0%, #397DF3 29.8%, #3980F4 66.35%, #3981F4 100%);
+  border: 2px solid rgba(8, 41, 111, 0.6);
+  box-shadow: inset -1px -0.5px 3px #2652B0, inset 2px 0px 2px rgba(155, 197, 255, 0.5);
+  border-radius: 3px;
   color: #fff; font-size: 11px;
   font-family: Tahoma, Arial, sans-serif;
-  display: flex; align-items: center; gap: 4px;
+  display: flex; align-items: center;
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
   user-select: none; flex-shrink: 0;
 }
-.tb-win-btn:hover { background: linear-gradient(180deg, #5088E0 0%, #3878D0 48%, #2C68C0 50%, #3A80D8 100%); }
-.tb-win-btn.tb-active { background: linear-gradient(180deg, #1E50B0 0%, #2860C8 100%); box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3); }
+.tb-win-btn:hover { background: linear-gradient(180deg, #5AA4FF 0%, #4A8DF5 29.8%, #4890F6 66.35%, #4891F6 100%); }
+.tb-win-btn.tb-active {
+  padding: 5px 15px 4px 10px;
+  background: linear-gradient(180deg, #164DBC 0%, #184EB8 100%);
+  box-shadow: inset 1px 0.5px 2px rgba(0, 0, 0, 0.5), inset -1px -1px 3px #2A5DB6;
+}
 .tb-win-icon { font-size: 12px; flex-shrink:0; }
 
 /* System tray */
 #systray {
   height: 100%;
-  padding: 0 10px;
+  padding: 3px 8px 3px 11px;
   display: flex; align-items: center; gap: 6px;
-  background: linear-gradient(180deg, #1A40AC 0%, #0E2E90 100%);
-  border-left: 1px solid #0A246A;
-  box-shadow: inset 1px 0 0 rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, #095BC9 2.45%, #19B9F3 5.41%, #19B9F3 9.78%, #149EED 10.59%, #1290E8 19.47%, #0D8DEA 60.17%, #0F9EEF 80.89%, #119DEB 90.27%, #226BCE 97.21%);
+  border-left: none;
+  box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.5);
   flex-shrink: 0;
 }
 #clock {
   color: #fff;
-  font-size: 11px;
+  font-size: 10px;
   text-align: right;
   line-height: 1.35;
   font-family: Tahoma, Arial, sans-serif;
@@ -383,10 +408,10 @@ input, textarea { cursor: text; }
   bottom: 30px; left: 0;
   width: 380px;
   background: #fff;
-  border: 1px solid #0A246A;
-  border-bottom: none;
-  box-shadow: 4px -2px 14px rgba(0,0,0,0.55);
-  border-radius: 8px 8px 0 0;
+  border: none;
+  outline: 1px solid #215CC5;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.5), inset -4px 0px 4px -1px rgba(0,46,137,0.25);
+  border-radius: 6px 6px 0 0;
   display: none;
   z-index: 99998;
   overflow: hidden;
@@ -396,63 +421,82 @@ input, textarea { cursor: text; }
 
 /* Header — dark blue gradient with avatar + name */
 .sm-header {
-  background: linear-gradient(180deg, #1638AA 0%, #3A72D4 50%, #2461CE 100%);
-  padding: 8px 10px 8px 8px;
-  display: flex; align-items: center; gap: 8px;
-  border-radius: 8px 8px 0 0;
-  border-bottom: 2px solid #0A246A;
-  min-height: 58px;
+  background: linear-gradient(180deg, #74AAE8 0%, #1969D2 0.78%, #2174DB 6.39%, #4792EC 13.18%, #448BE3 91.95%, #2577DF 95.86%, #0D5BC7 100%);
+  box-shadow: inset 5px 0px 6px -4px #91A3D9, inset 0px -5px 40px 10px rgba(9,74,189,0.66);
+  padding: 6px;
+  display: flex; align-items: center; gap: 10px;
+  height: 64px;
+  box-sizing: border-box;
 }
 .sm-avatar {
-  width: 48px; height: 48px;
+  width: 42px; height: 42px;
   background: #C8D8F0;
-  border: 3px solid #fff;
-  border-radius: 2px;
+  border: 2px solid #CCD6EB;
+  border-radius: 5px;
   display: flex; align-items: center; justify-content: center;
   font-size: 28px; flex-shrink: 0;
   overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
 }
 .sm-avatar img { width:100%; height:100%; object-fit:cover; }
 .sm-uname {
   color: #fff;
-  font-weight: bold; font-size: 13px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.65);
-  letter-spacing: 0.2px;
+  font-weight: 400; font-size: 16px;
+  font-family: 'Inter', Tahoma, sans-serif;
+  text-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+  letter-spacing: 0.02em;
 }
 
 /* Body — two columns */
-.sm-body { display: flex; min-height: 300px; }
+.sm-body {
+  display: flex; min-height: 320px;
+  position: relative;
+}
+.sm-body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(255,138,29,0) 0%, #FF8A1D 50%, rgba(255,138,29,0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
 
 /* Left column — white */
 .sm-left {
-  width: 210px; flex-shrink: 0;
+  width: 188px; flex-shrink: 0;
   background: #fff;
-  border-right: 1px solid #9CAFD4;
   display: flex; flex-direction: column;
+  padding: 6px;
+  gap: 4px;
 }
 
 /* Right column — light blue */
 .sm-right {
   flex: 1;
-  background: #C8D9ED;
+  background: #D3E5FA;
+  border-left: 1px solid #95BDEE;
   display: flex; flex-direction: column;
+  padding: 8px 6px 2px;
+  gap: 4px;
 }
 
 /* Items — shared */
 .sm-item {
-  display: flex; align-items: center; gap: 6px;
-  padding: 5px 8px;
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px;
   border: 1px solid transparent;
+  border-radius: 2px;
   cursor: default;
   user-select: none;
 }
 .sm-item:hover {
-  background: linear-gradient(180deg, #3B6ED0 0%, #2458BC 50%, #1E4EB4 100%);
+  background: linear-gradient(180deg, #4880E0 0%, #2B5FCC 50%, #2256C0 100%);
   color: #fff;
   border-color: #1A3FAA;
+  border-radius: 2px;
 }
-.sm-item:hover .sm-sub { color: rgba(255,255,255,0.8); }
+.sm-item:hover .sm-sub { color: rgba(255,255,255,0.82); }
 .sm-item:hover .sm-item-main { color: #fff; }
 
 /* Left column item icons — 32px */
@@ -466,86 +510,118 @@ input, textarea { cursor: text; }
 
 /* Right column item icons — 24px */
 .sm-right .sm-item-ico {
-  font-size: 22px;
-  width: 26px; height: 26px;
+  font-size: 20px;
+  width: 24px; height: 24px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
   line-height: 1;
 }
 
-.sm-item-main { font-weight: bold; font-size: 11px; color: #000; line-height: 1.25; }
-.sm-sub { font-size: 10px; color: #555; margin-top: 1px; line-height: 1.2; }
+.sm-item-main { font-weight: bold; font-size: 11px; color: #000; line-height: 1.25; letter-spacing: 0.02em; }
+.sm-right .sm-item-main { color: #0A236A; font-weight: normal; }
+.sm-sub { font-size: 11px; color: rgba(0,0,0,0.5); margin-top: 0; line-height: 13px; }
+
+/* Thin divider after top 2 pinned items in left col */
+.sm-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(211,211,200,0) 0%, #D3D3C8 50%, rgba(211,211,200,0) 100%);
+  margin: 2px 0;
+  flex-shrink: 0;
+}
 
 /* Separator */
 .sm-sep {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #9CAFD4 15%, #9CAFD4 85%, transparent 100%);
-  margin: 4px 0;
+  background: linear-gradient(90deg, rgba(211,211,200,0) 0%, #D3D3C8 50%, rgba(211,211,200,0) 100%);
+  margin: 2px 0;
+  flex-shrink: 0;
 }
 .sm-right .sm-sep {
-  background: linear-gradient(90deg, transparent 0%, #7A9EC8 15%, #7A9EC8 85%, transparent 100%);
+  background: linear-gradient(90deg, #BAD6FD 0%, #80B6FF 50%, #B5D3FC 100%);
 }
 
 /* "All Programs" row at bottom of left */
 .sm-all-programs {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 8px 6px 44px;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 2px 4px 2px 2px;
+  gap: 8px;
   font-weight: bold; font-size: 11px;
-  border-top: 1px solid #9CAFD4;
-  margin-top: auto;
+  font-family: Tahoma, Arial, sans-serif;
+  letter-spacing: 0.02em;
   cursor: default;
   user-select: none;
 }
 .sm-all-programs:hover {
-  background: linear-gradient(180deg, #3B6ED0 0%, #2458BC 50%, #1E4EB4 100%);
+  background: linear-gradient(180deg, #4880E0 0%, #2B5FCC 50%, #2256C0 100%);
   color: #fff;
-}
-.sm-all-programs-arrow {
-  width: 0; height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-left: 10px solid #3A8A1A;
-  flex-shrink: 0;
-}
-.sm-all-programs:hover .sm-all-programs-arrow {
-  border-left-color: #fff;
+  border-radius: 2px;
 }
 
-/* Footer — blue gradient, Log Off + Shut Down centered */
+/* Footer — blue gradient, Log Off + Shut Down */
 .sm-footer {
   display: flex; justify-content: flex-end; align-items: center;
-  padding: 6px 10px;
-  background: linear-gradient(180deg, #3A6CCE 0%, #2456B8 40%, #1E4AAE 100%);
-  border-top: 1px solid #0A246A;
-  gap: 6px;
+  padding: 10px;
+  height: 40px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #2577DF 0%, #0D5BC7 100%);
+  border-top: none;
+  gap: 10px;
 }
 .sm-foot-btn {
   display: flex; align-items: center; gap: 5px;
-  padding: 4px 12px;
-  background: linear-gradient(180deg, #4D84DC 0%, #3068C4 45%, #2860BC 100%);
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 3px;
+  padding: 2px;
+  background: none;
+  border: none;
   font-size: 11px; font-family: Tahoma, Arial, sans-serif;
   color: #fff;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.5);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
 }
-.sm-foot-btn:hover {
-  background: linear-gradient(180deg, #5A90E8 0%, #3A78D4 45%, #3070CC 100%);
-  border-color: rgba(255,255,255,0.5);
-}
-.sm-foot-btn:active {
-  background: linear-gradient(180deg, #2050A8 0%, #1A44A0 100%);
-  transform: translateY(1px);
-}
+.sm-foot-btn:hover { opacity: 0.85; }
+.sm-foot-btn:active { opacity: 0.7; }
 .sm-foot-icon {
-  width: 20px; height: 20px; flex-shrink: 0;
+  width: 22px; height: 22px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 2px;
-  font-size: 13px;
 }
-.sm-foot-icon.logoff { background: radial-gradient(circle at 40% 35%, #F4D848, #E0A820); color: #7A4400; }
-.sm-foot-icon.shutdown { background: radial-gradient(circle at 40% 35%, #F47848, #CC2010); color: #fff; }
+
+/* ────────────────────────────────────────────────
+   IMAGE VIEWER
+──────────────────────────────────────────────── */
+#win-viewer { background: #2B2B2B; }
+.viewer-stage {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  background: #2B2B2B;
+  overflow: hidden;
+  position: relative;
+}
+.viewer-stage img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  transition: transform 0.15s ease;
+}
+.viewer-bar {
+  height: 46px;
+  background: #ECE9D8;
+  border-top: 1px solid #ACA899;
+  display: flex; align-items: center; justify-content: center;
+  gap: 2px;
+  flex-shrink: 0;
+  padding: 0 10px;
+}
+.viewer-sep { width: 1px; height: 28px; background: #ACA899; margin: 0 6px; flex-shrink:0; }
+.viewer-btn {
+  width: 30px; height: 30px;
+  background: none; border: 1px solid transparent;
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.viewer-btn:hover { background: #ddd8c8; border-color: #ACA899; }
+.viewer-btn:active { background: #C0BAA8; border-color: #8A8478; }
+.viewer-counter {
+  font-size: 11px; font-family: Tahoma, sans-serif;
+  color: #000; padding: 0 10px; white-space: nowrap;
+}
 
 /* ────────────────────────────────────────────────
    SHUTDOWN SCREEN
@@ -826,70 +902,91 @@ input, textarea { cursor: text; }
    XP EXPLORER TOOLBAR
 ──────────────────────────────────────────────── */
 .xp-toolbar {
-  height: 36px;
-  background: linear-gradient(180deg, #EDE8DC 0%, #D6D0C4 100%);
-  border-bottom: 1px solid #ACA899;
+  height: 38px;
+  background: transparent;
+  border-bottom: none;
   display: flex; align-items: center;
-  padding: 0 4px; gap: 2px;
+  padding: 0 4px; gap: 4px;
   flex-shrink: 0;
 }
 .tb-tool-btn {
-  height: 30px; padding: 0 8px;
-  background: none; border: 1px solid transparent; border-radius: 2px;
-  display: flex; align-items: center; gap: 4px;
-  font-size: 11px; font-family: Tahoma, Arial, sans-serif; color: #222;
+  height: 30px; padding: 1px 5px;
+  background: none; border: 1px solid transparent; border-radius: 4px;
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; font-family: 'Tahoma', Arial, sans-serif; color: #000000;
   white-space: nowrap;
 }
 .tb-tool-btn:hover {
-  background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(220,216,208,0.6) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(220,216,208,0.7) 100%);
   border-color: #B0A898;
 }
 .tb-tool-btn:active {
   background: linear-gradient(180deg, rgba(180,176,168,0.5) 0%, rgba(200,196,188,0.4) 100%);
   border-color: #888;
 }
-.tb-tool-btn .tbi { font-size:16px; }
-.tb-tool-sep { width:1px; height:24px; background: linear-gradient(180deg,transparent,#B0A898,transparent); margin:0 3px; flex-shrink:0; }
+.tb-tool-btn .tbi { font-size:18px; width:24px; height:24px; display:flex; align-items:center; justify-content:center; }
+.tb-tool-sep { width:1px; height:24px; background: #CAC6AF; border:none; flex-shrink:0; align-self:center; }
 .tb-tool-btn.disabled { opacity:0.45; pointer-events:none; }
 
 /* Nav buttons (Back/Forward) with dropdown arrow */
 .tb-nav-btn {
-  height: 30px;
-  background: none; border: 1px solid transparent; border-radius: 2px;
+  height: 38px;
+  background: none; border: 1px solid transparent; border-radius: 4px;
   display: flex; align-items: center;
-  font-size: 11px; font-family: Tahoma, Arial, sans-serif; color: #222;
-  overflow:hidden;
+  font-size: 11px; font-family: 'Tahoma', Arial, sans-serif; color: #000000;
+  overflow: hidden;
 }
-.tb-nav-btn:hover { background: linear-gradient(180deg,rgba(255,255,255,0.8),rgba(220,216,208,0.6)); border-color:#B0A898; }
-.tb-nav-main { display:flex; align-items:center; gap:4px; padding:0 6px; height:100%; }
-.tb-nav-drop { width:12px; height:100%; border-left:1px solid #C0BAB0; display:flex; align-items:center; justify-content:center; font-size:7px; padding:0 2px; }
-.tb-nav-btn.disabled { opacity:0.45; pointer-events:none; }
+.tb-nav-btn:hover { background: linear-gradient(180deg,rgba(255,255,255,0.9),rgba(220,216,208,0.7)); border-color:#B0A898; }
+.tb-nav-main { display:flex; align-items:center; gap:5px; padding:0 4px 0 9px; height:100%; }
+.tb-nav-main .tbi { font-size:18px; width:24px; height:24px; display:flex; align-items:center; justify-content:center; }
+.tb-nav-drop { width:14px; height:100%; border-left:none; display:flex; align-items:center; justify-content:center; font-size:11px; padding:0 2px 0 0; margin-left:0; }
+.tb-nav-btn.disabled { opacity:0.45; pointer-events:none; border:none; }
+
+/* Bars separator */
+.xp-bars-sep { width: 100%; height: 1px; background: #CAC6AF; flex-shrink: 0; }
 
 /* XP Explorer address bar */
 .xp-addrbar {
-  height: 25px;
-  background: var(--xp-gray);
-  border-bottom: 1px solid #ACA899;
+  height: 22px;
+  background: transparent;
   display: flex; align-items: center;
-  padding: 2px 4px; gap: 4px;
-  flex-shrink: 0; font-size:11px;
+  padding: 0 6px; gap: 6px;
+  flex-shrink: 0;
 }
-.addr-lbl { color:#333; flex-shrink:0; font-size:11px; }
+.addr-lbl {
+  color: #7F7C73; flex-shrink: 0;
+  font-size: 11px; font-family: 'Tahoma', sans-serif;
+  padding: 4px 0;
+}
 .addr-box {
-  flex:1; height:19px;
-  border:1px solid; border-color:#7A7A7A #DFDFDF #DFDFDF #7A7A7A;
-  background:white; padding:0 4px;
-  font-size:11px; font-family:Tahoma,Arial,sans-serif;
-  display:flex; align-items:center; gap:4px; overflow:hidden;
+  flex: 1; height: 20px;
+  border: 1px solid #7F9DB9;
+  background: white; padding: 0 2px 0 4px;
+  font-size: 11px; font-family: Tahoma, Arial, sans-serif;
+  display: flex; align-items: center; gap: 4px; overflow: hidden;
+}
+.addr-box-content { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px; }
+.addr-box-drop {
+  flex-shrink: 0; width: 17px; height: 19px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
 }
 .addr-go {
-  height:19px; padding:0 8px;
-  background:linear-gradient(180deg,#F0EDE4 0%,#D8D4CC 100%);
-  border:1px solid; border-color:#fff #808080 #808080 #fff;
-  font-size:11px; color:#006600; font-family:Tahoma,Arial,sans-serif;
-  display:flex; align-items:center; gap:3px; font-weight:bold;
+  flex-shrink: 0; height: 22px; padding: 1px 6px;
+  background: none; border: none;
+  font-size: 11px; font-family: 'Tahoma', sans-serif; color: #000;
+  display: flex; align-items: center; gap: 4px;
+  white-space: nowrap;
 }
-.addr-go:hover { background:linear-gradient(180deg,#FAFAF4 0%,#E4E0D8 100%); }
+.addr-go-icon {
+  width: 20px; height: 20px; border-radius: 2px;
+  background: linear-gradient(180deg, #55A754 0%, #3CA03C 100%);
+  border: 1px solid #fff;
+  box-shadow: inset -2px -3px 5px #028B03, inset 10px 2px 8px -2px rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 12px; font-weight: bold;
+}
+.addr-go:hover .addr-go-icon { background: linear-gradient(180deg, #66B865 0%, #4DB04D 100%); }
 
 /* Explorer body: sidebar + main */
 .xp-explorer {
@@ -900,7 +997,7 @@ input, textarea { cursor: text; }
    XP SIDEBAR — kit-accurate task pane
 ──────────────────────────────────────────────── */
 .xp-sidebar {
-  width: 200px; flex-shrink: 0;
+  width: 230px; flex-shrink: 0;
   background: linear-gradient(180deg, #7BA2E7 0%, #6B85DC 100%);
   overflow-y: auto; overflow-x: hidden;
   padding: 20px 10px 10px;
@@ -1016,23 +1113,35 @@ input, textarea { cursor: text; }
   <!-- ─── Desktop Icons ─── -->
   <div class="desktop-icon" style="top:18px;left:18px" id="ico-about" data-win="win-about">
     <div class="d-icon">
-      <img src="uploads/notepad-icon.png" style="width:48px;height:48px;object-fit:contain;" alt="About me"/>
+      <img src="uploads/windows-ui/notepad-icon.png" style="width:48px;height:48px;object-fit:contain;" alt="About me"/>
     </div>
-    <div class="d-label">About me.txt</div>
+    <div class="d-label">About Me</div>
   </div>
 
   <div class="desktop-icon" style="top:103px;left:18px" id="ico-portfolio" data-win="win-portfolio">
     <div class="d-icon">
-      <img src="uploads/explorer-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="IE">
+      <img src="uploads/windows-ui/explorer-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="IE">
     </div>
     <div class="d-label">My Projects</div>
   </div>
 
-  <div class="desktop-icon" style="top:188px;left:18px" id="ico-pinball" data-win="win-pinball">
+  <div class="desktop-icon" style="top:188px;left:18px" id="ico-resume" onclick="window.open('curriculum.html','_blank')">
     <div class="d-icon">
-      <img src="uploads/pinball-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="3D Pinball"/>
+      <img src="uploads/windows-ui/pdf.png" style="width:48px;height:48px;object-fit:contain;" alt="My Resume"/>
     </div>
-    <div class="d-label">3D Pinball.exe</div>
+    <div class="d-label">My Resume</div>
+  </div>
+
+  <div class="desktop-icon" style="top:273px;left:18px" id="ico-pinball" data-win="win-pinball">
+    <div class="d-icon">
+      <img src="uploads/windows-ui/pinball-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="3D Pinball"/>
+    </div>
+    <div class="d-label">3D Pinball</div>
+  </div>
+
+  <div class="desktop-icon" style="top:358px;left:18px" id="ico-solitaire" data-win="win-solitaire">
+    <div class="d-icon"><img src="uploads/windows-ui/Solitaire.png" style="width:32px;height:32px;object-fit:contain;" alt=""/></div>
+    <div class="d-label">Solitaire</div>
   </div>
 
 
@@ -1044,31 +1153,37 @@ input, textarea { cursor: text; }
   <!-- PORTFOLIO -->
   <div class="xp-window" id="win-portfolio" style="width:900px;height:620px;left:80px;top:30px;">
     <div class="xp-titlebar">
-      <span class="xp-title-icon">🌐</span>
-      <span class="xp-title-text">Projects — Internet Explorer</span>
+      <span class="xp-title-icon"><img src="uploads/windows-ui/explorer-icon.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span>
+      <span class="xp-title-text">Projects</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-portfolio">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-portfolio">&#x25A1;</button>
         <button class="xp-btn x-close" data-action="cls" data-wid="win-portfolio">&#x2715;</button>
       </div>
     </div>
+    <div class="xp-bars">
     <div class="xp-menubar" id="pf-menubar">
-      <span class="xp-mi">File</span><span class="xp-mi">Edit</span>
-      <span class="xp-mi">View</span><span class="xp-mi">Favorites</span>
-      <span class="xp-mi">Tools</span><span class="xp-mi">Help</span>
+      <div class="xp-menubar-items"><span class="xp-mi">File</span><span class="xp-mi">Edit</span><span class="xp-mi">View</span><span class="xp-mi">Favorites</span><span class="xp-mi">Tools</span><span class="xp-mi">?</span></div>
+      <div class="xp-menubar-sticker"><img src="uploads/windows-ui/windowssticker.svg" style="height:22px;width:auto;" alt=""/></div>
     </div>
     <div class="xp-toolbar" id="pf-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Back</button>
-      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
-      <button class="tb-tool-btn disabled"><span class="tbi">🔼</span></button>
+      <div class="tb-nav-btn"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/backfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Back</div><div class="tb-nav-drop">▾</div></div>
+      <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/gofolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/openfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></button>
       <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🔄</span> Refresh</button>
-      <button class="tb-tool-btn" id="fs-btn" onclick="togglePortfolioFS()"><span class="tbi">⛶</span> Full Screen</button>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/Search.png" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Search</button>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/foldersss.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Folders</button>
+      <div class="tb-tool-sep" style="width:1px;"></div>
+      <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/nosedisabled.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
+      <div class="tb-tool-sep" style="width:1px;"></div>
+      <button class="tb-tool-btn" id="fs-btn" onclick="togglePortfolioFS()"><span class="tbi"><img src="uploads/windows-ui/Projector.png" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Full Screen</button>
     </div>
+    <div class="xp-bars-sep"></div>
     <div class="xp-addrbar" id="pf-addrbar">
       <span class="addr-lbl">Address</span>
-      <div class="addr-box"><span>🌐</span><span>http://santifilippone.com/projects</span></div>
-      <button class="addr-go">▶ Go</button>
+      <div class="addr-box"><div class="addr-box-content"><span><img src="uploads/windows-ui/explorer-icon.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span><span>http://santifilippone.com/projects</span></div><span class="addr-box-drop"><img src="uploads/windows-ui/arrowdownblue.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span></div>
+      <button class="addr-go"><img src="uploads/windows-ui/arrowgosmall.png" style="width:20px;height:20px;object-fit:contain;" alt=""/> Go</button>
+    </div>
     </div>
     <div class="xp-content" style="padding:0;margin:0;border:none;">
       <iframe src="portfolio.html" style="width:100%;height:100%;border:none;display:block;" title="Portfolio"></iframe>
@@ -1080,51 +1195,56 @@ input, textarea { cursor: text; }
   </div>
 
   <!-- SOBRE MÍ -->
-  <div class="xp-window" id="win-about" style="width:580px;height:460px;left:170px;top:90px;">
+  <div class="xp-window" id="win-about" style="width:720px;height:560px;left:130px;top:60px;">
     <div class="xp-titlebar">
-      <span class="xp-title-icon">📝</span>
-      <span class="xp-title-text">About me.txt — Notepad</span>
+      <span class="xp-title-icon"><img src="uploads/windows-ui/notepad-icon.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span>
+      <span class="xp-title-text">About Me</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-about">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-about">&#x25A1;</button>
         <button class="xp-btn x-close" data-action="cls" data-wid="win-about">&#x2715;</button>
       </div>
     </div>
+    <div class="xp-bars">
     <div class="xp-menubar">
-      <span class="xp-mi">File</span><span class="xp-mi">Edit</span>
-      <span class="xp-mi">Format</span><span class="xp-mi">View</span>
+      <div class="xp-menubar-items"><span class="xp-mi">File</span><span class="xp-mi">Edit</span><span class="xp-mi">Format</span><span class="xp-mi">View</span></div>
+      <div class="xp-menubar-sticker"><img src="uploads/windows-ui/windowssticker.svg" style="height:22px;width:auto;" alt=""/></div>
     </div>
     <div class="xp-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Back</button>
-      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
+      <div class="tb-nav-btn"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/backfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Back</div><div class="tb-nav-drop">▾</div></div>
+      <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/gofolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/openfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></button>
       <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🖨️</span> Print</button>
-      <button class="tb-tool-btn"><span class="tbi">✉️</span> Send</button>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/Search.png" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Search</button>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/foldersss.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Folders</button>
+      <div class="tb-tool-sep" style="width:1px;"></div>
+      <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/nosedisabled.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
     </div>
+    <div class="xp-bars-sep"></div>
     <div class="xp-addrbar">
       <span class="addr-lbl">Address</span>
-      <div class="addr-box"><span>📝</span><span>My Documents\About me.txt</span></div>
-      <button class="addr-go">▶ Go</button>
+      <div class="addr-box"><div class="addr-box-content"><span><img src="uploads/windows-ui/my_documents.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span><span>My Documents\About me.txt</span></div><span class="addr-box-drop"><img src="uploads/windows-ui/arrowdownblue.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span></div>
+      <button class="addr-go"><img src="uploads/windows-ui/arrowgosmall.png" style="width:20px;height:20px;object-fit:contain;" alt=""/> Go</button>
+    </div>
     </div>
     <div class="xp-explorer">
       <div class="xp-sidebar">
         <div class="sb-section">
           <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Tasks</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">🖨️</span> Print bio</a>
-            <a class="sb-item" href="/cdn-cgi/l/email-protection#0271636c766b63656d646b6e6b72726d6c6742656f636b6e2c616d6f"><span class="sbi">📧</span> Contact</a>
-            <a class="sb-item" href="#" onclick="return false"><span class="sbi">📄</span> Download CV</a>
+<a class="sb-item" href="/cdn-cgi/l/email-protection#0271636c766b63656d646b6e6b72726d6c6742656f636b6e2c616d6f"><span class="sbi"><img src="uploads/windows-ui/contact.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span> Contact</a>
+            <a class="sb-item" href="curriculum.html" target="_blank"><span class="sbi"><img src="uploads/windows-ui/pdf.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span> Download CV</a>
           </div>
         </div>
         <div class="sb-section">
           <div class="sb-hdr sb-hdr-light" onclick="toggleSb(this)"><span class="sb-hdr-text">My Links</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
-            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi">🎨</span> Behance</a>
-            <a class="sb-item" href="https://www.linkedin.com/in/santiagofilippone/" target="_blank"><span class="sbi">💼</span> LinkedIn</a>
+            <a class="sb-item" href="https://www.behance.net/santiagofilippone" target="_blank"><span class="sbi"><img src="uploads/windows-ui/behance.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span> Behance</a>
+            <a class="sb-item" href="https://www.linkedin.com/in/santiagofilippone/" target="_blank"><span class="sbi"><img src="uploads/windows-ui/linkedin.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span> LinkedIn</a>
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Details</span><span class="sb-toggle"></span></div>
+          <div class="sb-hdr sb-hdr-light" onclick="toggleSb(this)"><span class="sb-hdr-text">Details</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
               <span style="opacity:0.7;font-size:10px">Role</span>
@@ -1159,28 +1279,34 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-contact" style="width:520px;height:440px;left:240px;top:110px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">📧</span>
-      <span class="xp-title-text">Contact.url — Internet Explorer</span>
+      <span class="xp-title-text">Contact</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-contact">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-contact">&#x25A1;</button>
         <button class="xp-btn x-close" data-action="cls" data-wid="win-contact">&#x2715;</button>
       </div>
     </div>
+    <div class="xp-bars">
     <div class="xp-menubar">
-      <span class="xp-mi">File</span><span class="xp-mi">Edit</span>
-      <span class="xp-mi">View</span><span class="xp-mi">Favorites</span>
+      <div class="xp-menubar-items"><span class="xp-mi">File</span><span class="xp-mi">Edit</span><span class="xp-mi">View</span><span class="xp-mi">Favorites</span></div>
+      <div class="xp-menubar-sticker"><img src="uploads/windows-ui/windowssticker.svg" style="height:22px;width:auto;" alt=""/></div>
     </div>
     <div class="xp-toolbar">
-      <button class="tb-tool-btn disabled"><span class="tbi">◀</span> Back</button>
-      <button class="tb-tool-btn disabled"><span class="tbi">▶</span></button>
+      <div class="tb-nav-btn"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/backfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Back</div><div class="tb-nav-drop">▾</div></div>
+      <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/gofolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/openfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></button>
       <div class="tb-tool-sep"></div>
-      <button class="tb-tool-btn"><span class="tbi">🏠</span> Home</button>
-      <button class="tb-tool-btn"><span class="tbi">⭐</span> Favorites</button>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/Search.png" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Search</button>
+      <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/foldersss.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Folders</button>
+      <div class="tb-tool-sep" style="width:1px;"></div>
+      <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/nosedisabled.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
     </div>
+    <div class="xp-bars-sep"></div>
     <div class="xp-addrbar">
       <span class="addr-lbl">Address</span>
-      <div class="addr-box"><span>🌐</span><span>mailto:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d2babdbeb392a1b3bca6bbb3b5bdfcb1bdbf">[email&#160;protected]</a></span></div>
-      <button class="addr-go">▶ Go</button>
+      <div class="addr-box"><div class="addr-box-content"><span>📧</span><span>mailto:santi@filippone.com</span></div><span class="addr-box-drop"><img src="uploads/windows-ui/arrowdownblue.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span></div>
+      <button class="addr-go"><img src="uploads/windows-ui/arrowgosmall.png" style="width:20px;height:20px;object-fit:contain;" alt=""/> Go</button>
+    </div>
     </div>
     <div class="xp-explorer">
       <div class="xp-sidebar">
@@ -1204,7 +1330,7 @@ input, textarea { cursor: text; }
           </div>
         </div>
         <div class="sb-section">
-          <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Details</span><span class="sb-toggle"></span></div>
+          <div class="sb-hdr sb-hdr-light" onclick="toggleSb(this)"><span class="sb-hdr-text">Details</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
             <div class="sb-item" style="flex-direction:column;align-items:flex-start;gap:2px">
               <span style="opacity:0.7;font-size:10px">Location</span>
@@ -1251,7 +1377,7 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-tn" style="width:860px;height:560px;left:100px;top:40px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">🎨</span>
-      <span class="xp-title-text">TN — Redesign · Artear 2021–2022</span>
+      <span class="xp-title-text">TN Redesign · Artear</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-tn">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-tn">&#x25A1;</button>
@@ -1339,7 +1465,7 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-aerolab" style="width:700px;height:480px;left:140px;top:80px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">🔒</span>
-      <span class="xp-title-text">Aerolab — Product Design 2025–2026</span>
+      <span class="xp-title-text">Aerolab</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-aerolab">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-aerolab">&#x25A1;</button>
@@ -1375,7 +1501,7 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-bancosol" style="width:700px;height:400px;left:160px;top:100px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">🏗️</span>
-      <span class="xp-title-text">Banco del Sol — DesignOps · Coming Soon</span>
+      <span class="xp-title-text">Banco del Sol</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-bancosol">&#x2013;</button>
         <button class="xp-btn" data-action="max" data-wid="win-bancosol">&#x25A1;</button>
@@ -1397,16 +1523,15 @@ input, textarea { cursor: text; }
   <div class="xp-window" id="win-pinball" style="width:800px;height:580px;left:120px;top:40px;">
     <div class="xp-titlebar">
       <span class="xp-title-icon">🎮</span>
-      <span class="xp-title-text">3D Pinball for Windows — Space Cadet</span>
+      <span class="xp-title-text">3D Pinball</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-pinball">&#x2013;</button>
         <button class="xp-btn x-close" data-action="cls" data-wid="win-pinball">&#x2715;</button>
       </div>
     </div>
     <div class="xp-menubar">
-      <span class="xp-mi">Game</span>
-      <span class="xp-mi">Options</span>
-      <span class="xp-mi">Help</span>
+      <div class="xp-menubar-items"><span class="xp-mi">Game</span><span class="xp-mi">Options</span><span class="xp-mi">Help</span></div>
+      <div class="xp-menubar-sticker"><img src="uploads/windows-ui/windowssticker.svg" style="height:22px;width:auto;" alt=""/></div>
     </div>
     <div class="xp-content" style="padding:0;margin:0;border:none;position:relative;background:#000;">
       <iframe
@@ -1423,6 +1548,23 @@ input, textarea { cursor: text; }
     </div>
   </div>
 
+  <!-- WIN-SOLITAIRE -->
+  <div class="xp-window" id="win-solitaire" style="width:680px;height:520px;left:100px;top:40px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon"><img src="uploads/windows-ui/Solitaire.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span>
+      <span class="xp-title-text">Solitaire</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-solitaire">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-solitaire">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-solitaire">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-content" style="padding:0;flex:1;overflow:hidden;">
+      <iframe src="solitaire.html" style="width:100%;height:100%;border:none;display:block;" title="Solitaire"></iframe>
+    </div>
+    <div class="xp-status"><span>Click a card to auto-move &nbsp;|&nbsp; Drag to place &nbsp;|&nbsp; Click stock pile to reset</span></div>
+  </div>
+
 </div><!-- /desktop -->
 
 <!-- ════════════════════════════════════════════
@@ -1430,10 +1572,13 @@ input, textarea { cursor: text; }
 ════════════════════════════════════════════ -->
 <div id="taskbar">
   <button id="start-btn" onclick="toggleSM()">
-    <img src="uploads/win xp logo complete.png" style="width:18px;height:18px;object-fit:contain;flex-shrink:0;" alt=""/> Start
+    <img class="sb-idle"  src="uploads/windows-ui/StartIdle.svg"    alt="Start"/>
+    <img class="sb-hover" src="uploads/windows-ui/StartHover.svg"   alt="Start"/>
+    <img class="sb-press" src="uploads/windows-ui/StartPressed.svg" alt="Start"/>
   </button>
   <div id="tb-wins"></div>
   <div id="systray">
+    <img src="uploads/windows-ui/Projector.png" style="width:16px;height:16px;object-fit:contain;cursor:pointer;" alt="" title="Toggle Fullscreen" onclick="document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()"/>
     <div id="clock"></div>
   </div>
 </div>
@@ -1450,58 +1595,108 @@ input, textarea { cursor: text; }
     <!-- LEFT COLUMN: white bg, large icons + name + subtitle -->
     <div class="sm-left">
       <div class="sm-item" onclick="closeSM();window.location.href='mailto:santiagofilippone@gmail.com'">
-        <span class="sm-item-ico">📧</span>
-        <div><div class="sm-item-main">Contact.url</div><div class="sm-sub">Send me a message</div></div>
+        <span class="sm-item-ico"><img src="uploads/windows-ui/contact.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main">Contact</div><div class="sm-sub">Send me a message</div></div>
       </div>
       <div class="sm-item" onclick="openWin('win-about');closeSM()">
-        <span class="sm-item-ico">📝</span>
-        <div><div class="sm-item-main">About me.txt</div><div class="sm-sub">Who I am</div></div>
+        <span class="sm-item-ico"><img src="uploads/windows-ui/notepad-icon.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main">About me</div><div class="sm-sub">Who I am</div></div>
+      </div>
+      <div class="sm-item" onclick="openWin('win-portfolio');closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/explorer-icon.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main">My Projects</div><div class="sm-sub">Design & work</div></div>
       </div>
 
+      <div class="sm-divider"></div>
+
+      <div class="sm-item" onclick="openWin('win-pinball');closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/pinball-icon.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main" style="font-weight:normal;">3D Pinball</div></div>
+      </div>
+
+      <div class="sm-item" onclick="openWin('win-solitaire');closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/Solitaire.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main" style="font-weight:normal;">Solitaire</div></div>
+      </div>
+
+      <div class="sm-sep" style="margin-top:auto;"></div>
       <div class="sm-all-programs" onclick="closeSM()">
         All Programs
-        <span class="sm-all-programs-arrow"></span>
+        <img src="uploads/windows-ui/Programarrow.png" style="width:16px;height:22px;object-fit:contain;" alt=""/>
       </div>
     </div>
     <!-- RIGHT COLUMN: light blue bg, medium icons + name only -->
     <div class="sm-right">
       <div class="sm-item" onclick="window.open('https://www.linkedin.com/in/santiagofilippone/','_blank');closeSM()">
-        <span class="sm-item-ico">💼</span>
-        <div><div class="sm-item-main">LinkedIn</div></div>
+        <span class="sm-item-ico"><img src="uploads/windows-ui/linkedin.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main" style="font-weight:bold;color:#000;">LinkedIn</div></div>
       </div>
       <div class="sm-item" onclick="window.open('https://www.behance.net/santiagofilippone','_blank');closeSM()">
-        <span class="sm-item-ico">🎨</span>
-        <div><div class="sm-item-main">Behance</div></div>
-      </div>
-      <div class="sm-item" onclick="window.open('https://github.com','_blank');closeSM()">
-        <span class="sm-item-ico">🐙</span>
-        <div><div class="sm-item-main">GitHub</div></div>
+        <span class="sm-item-ico"><img src="uploads/windows-ui/behance.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main" style="font-weight:bold;color:#000;">Behance</div></div>
       </div>
       <div class="sm-sep"></div>
       <div class="sm-item" onclick="openWin('win-about');closeSM()">
-        <span class="sm-item-ico">🖥️</span>
+        <span class="sm-item-ico"><img src="uploads/windows-ui/Computer.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
         <div><div class="sm-item-main">My Computer</div></div>
       </div>
       <div class="sm-item" onclick="closeSM()">
-        <span class="sm-item-ico">⚙️</span>
+        <span class="sm-item-ico"><img src="uploads/windows-ui/ControlPanel.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
         <div><div class="sm-item-main">Control Panel</div></div>
       </div>
       <div class="sm-sep"></div>
-      <div class="sm-item" onclick="closeSM()">
-        <span class="sm-item-ico">🔍</span>
-        <div><div class="sm-item-main">Search...</div></div>
+      <div class="sm-item" onclick="openWin('win-viewer');closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/PictureViewer.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main">Image Viewer</div></div>
+      </div>
+      <div class="sm-item" onclick="window.open('curriculum.html','_blank');closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/pdf.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main">My Resume</div></div>
       </div>
     </div>
   </div>
   <div class="sm-footer">
     <button class="sm-foot-btn" onclick="closeSM()">
-      <span class="sm-foot-icon logoff">🔑</span>
+      <span class="sm-foot-icon logoff"><img src="uploads/windows-ui/LogOff.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
       Log Off
     </button>
     <button class="sm-foot-btn" onclick="doShutdown()">
-      <span class="sm-foot-icon shutdown">⏻</span>
+      <span class="sm-foot-icon shutdown"><img src="uploads/windows-ui/PowerOff.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
       Shut Down
     </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     IMAGE VIEWER
+════════════════════════════════════════════ -->
+<div class="xp-window" id="win-viewer" style="width:680px;height:500px;left:160px;top:50px;">
+  <div class="xp-titlebar">
+    <span class="xp-title-icon" style="font-size:12px;">🖼️</span>
+    <span class="xp-title-text" id="viewer-title">Windows Picture and Fax Viewer</span>
+    <div class="xp-btns">
+      <button class="xp-btn" data-action="min" data-wid="win-viewer">&#x2013;</button>
+      <button class="xp-btn" data-action="max" data-wid="win-viewer">&#x25A1;</button>
+      <button class="xp-btn" data-action="cls" data-wid="win-viewer">&#x2715;</button>
+    </div>
+  </div>
+  <div class="viewer-stage">
+    <img id="viewer-img" src="" alt="" draggable="false"/>
+  </div>
+  <div class="viewer-bar">
+    <button class="viewer-btn" onclick="viewerFirst()" title="First">⏮</button>
+    <button class="viewer-btn" onclick="viewerPrev()" title="Previous">◀</button>
+    <button class="viewer-btn" onclick="viewerNext()" title="Next">▶</button>
+    <button class="viewer-btn" onclick="viewerLast()" title="Last">⏭</button>
+    <div class="viewer-sep"></div>
+    <button class="viewer-btn" onclick="viewerZoomIn()" title="Zoom In">🔍</button>
+    <button class="viewer-btn" onclick="viewerZoomOut()" title="Zoom Out">🔎</button>
+    <button class="viewer-btn" onclick="viewerFit()" title="Best Fit">⊡</button>
+    <div class="viewer-sep"></div>
+    <button class="viewer-btn" onclick="viewerRotateCCW()" title="Rotate Left">↩</button>
+    <button class="viewer-btn" onclick="viewerRotateCW()" title="Rotate Right">↪</button>
+    <div class="viewer-sep"></div>
+    <span class="viewer-counter" id="viewer-counter">1 / 7</span>
   </div>
 </div>
 
@@ -1567,6 +1762,9 @@ function openWin(id) {
   setTimeout(() => w.el.classList.remove('anim-open'), 160);
 
   if (id === 'win-portfolio') maximizeWin(id);
+
+  // Inicializa el image viewer
+  if (id === 'win-viewer') viewerShow(0);
 
   // Restaura el iframe del pinball si fue cerrado
   if (id === 'win-pinball') {
@@ -1770,7 +1968,7 @@ function refreshTaskbar() {
     const rawTitle = titleEl ? titleEl.textContent : id;
     const label = rawTitle.split('—')[0].trim().replace('.exe','').replace('.txt','').replace('.xls','').replace('.url','');
     const iconEl = w.el.querySelector('.xp-title-icon');
-    const icon = iconEl ? iconEl.textContent : '🗔';
+    const icon = iconEl ? iconEl.innerHTML : '🗔';
 
     const isFocused = !w.minimized && parseInt(w.el.style.zIndex) === zTop;
 
@@ -1832,12 +2030,52 @@ function togglePinballMute() {
   }
 }
 
+// ════════════════════════════════════════════════════════
+//  IMAGE VIEWER
+// ════════════════════════════════════════════════════════
+const VIEWER_IMAGES = [
+  { src: 'uploads/wallpapers/0bfd8fdf-457f-43c8-9253-a2346d37d26a_9064.jpeg',           name: 'Painting I' },
+  { src: 'uploads/wallpapers/8084274A-0B11-42C2-807D-E7A156AFE82C_1_201_a.jpeg',        name: 'Painting II' },
+  { src: 'uploads/wallpapers/A Sunday on La Grande Jatte - Georges Seurat.jpg',          name: 'A Sunday on La Grande Jatte' },
+  { src: 'uploads/wallpapers/Vincent_Willem_van_Gogh_127.jpeg',                          name: 'Vincent van Gogh' },
+  { src: 'uploads/wallpapers/dezoomify-result (24) copy.jpeg',                           name: 'Painting V' },
+  { src: 'uploads/wallpapers/download (1).jpeg',                                          name: 'Painting VI' },
+  { src: 'uploads/wallpapers/self-portrait_1998.74.5.jpeg',                               name: 'Self Portrait' },
+];
+
+let viewerIdx = 0;
+let viewerScale = 1;
+let viewerRotation = 0;
+
+function viewerShow(idx) {
+  viewerIdx = (idx + VIEWER_IMAGES.length) % VIEWER_IMAGES.length;
+  const item = VIEWER_IMAGES[viewerIdx];
+  viewerScale = 1; viewerRotation = 0;
+  const img = document.getElementById('viewer-img');
+  img.style.transform = '';
+  img.src = item.src;
+  document.getElementById('viewer-counter').textContent = (viewerIdx + 1) + ' / ' + VIEWER_IMAGES.length;
+  document.getElementById('viewer-title').textContent = item.name + ' - Windows Picture and Fax Viewer';
+}
+function viewerNext()     { viewerShow(viewerIdx + 1); }
+function viewerPrev()     { viewerShow(viewerIdx - 1); }
+function viewerFirst()    { viewerShow(0); }
+function viewerLast()     { viewerShow(VIEWER_IMAGES.length - 1); }
+function viewerZoomIn()   { viewerScale = Math.min(viewerScale * 1.25, 6); viewerApplyTransform(); }
+function viewerZoomOut()  { viewerScale = Math.max(viewerScale / 1.25, 0.1); viewerApplyTransform(); }
+function viewerFit()      { viewerScale = 1; viewerRotation = 0; viewerApplyTransform(); }
+function viewerRotateCW() { viewerRotation = (viewerRotation + 90) % 360; viewerApplyTransform(); }
+function viewerRotateCCW(){ viewerRotation = (viewerRotation - 90 + 360) % 360; viewerApplyTransform(); }
+function viewerApplyTransform() {
+  document.getElementById('viewer-img').style.transform = `scale(${viewerScale}) rotate(${viewerRotation}deg)`;
+}
+
 function tickClock() {
   const now = new Date();
   const h = String(now.getHours()).padStart(2,'0');
   const m = String(now.getMinutes()).padStart(2,'0');
   const d = now.toLocaleDateString('en-US',{day:'2-digit',month:'2-digit',year:'numeric'});
-  document.getElementById('clock').innerHTML = h + ':' + m + '<br>' + d;
+  document.getElementById('clock').innerHTML = h + ':' + m;
 }
 tickClock();
 setInterval(tickClock, 10000);
@@ -1946,23 +2184,23 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 
 const THEMES = {
   luna: {
-    title:      'linear-gradient(90deg, #0A246A 0%, #2E6FD4 12%, #245EDC 82%, #1837B0 100%)',
+    title:      "url('uploads/windows-ui/Titlebar.svg') no-repeat center / 100% 100%",
     titleInact: 'linear-gradient(90deg, #7388AA 0%, #9AB0C8 100%)',
-    taskbar:    'linear-gradient(180deg, #1F3FAC 0%, #2D6BD2 1px, #1E5BBE 2px, #1A4CB2 100%)',
-    taskBorder: '#0A246A',
+    taskbar:    'linear-gradient(180deg, #3168D5 2.8%, #4993E6 6.99%, #286ADD 14.1%, #2359D6 19.93%, #2157D7 36.28%, #245DDB 57.21%, #2662DF 75.35%, #2663E0 90.7%, #1E50C4 94.89%, #3155B0 100%)',
+    taskBorder: 'rgba(8, 41, 111, 0.6)',
     start:      'linear-gradient(180deg, #5EC15A 0%, #3E9E2A 38%, #228808 52%, #3A9C1E 100%)',
     startHov:   'linear-gradient(180deg, #72D068 0%, #50AE3C 38%, #34880E 52%, #4AAE28 100%)',
     startBdr:   '#1A5E0A',
-    sidebar:    'linear-gradient(180deg, #3868C8 0%, #2A54B4 100%)',
-    sbHdr:      'linear-gradient(180deg, #1A3EA8 0%, #153292 100%)',
-    sbHdrHov:   'linear-gradient(180deg, #2448B8 0%, #1A3CA4 100%)',
+    sidebar:    'linear-gradient(180deg, #7BA2E7 0%, #6B85DC 100%)',
+    sbHdr:      'linear-gradient(90deg, #0049B5 0%, #295DCE 100%)',
+    sbHdrHov:   'linear-gradient(90deg, #1059C5 0%, #3A6DDE 100%)',
     sbBdr:      '#0E2880',
     winBtn:     'radial-gradient(ellipse at 50% 38%, #90BAEE 0%, #4878D8 42%, #1848C0 100%)',
     winBtnHov:  'radial-gradient(ellipse at 50% 38%, #A8CCFF 0%, #6098F0 42%, #2868E8 100%)',
-    tbWin:      'linear-gradient(180deg, #3C72D0 0%, #2460C0 48%, #1E50B0 50%, #2860C8 100%)',
-    tbWinHov:   'linear-gradient(180deg, #5088E0 0%, #3878D0 48%, #2C68C0 50%, #3A80D8 100%)',
-    tbWinAct:   'linear-gradient(180deg, #1E50B0 0%, #2860C8 100%)',
-    systray:    'linear-gradient(180deg, #1A40AC 0%, #0E2E90 100%)',
+    tbWin:      'linear-gradient(180deg, #4892F7 0%, #397DF3 29.8%, #3980F4 66.35%, #3981F4 100%)',
+    tbWinHov:   'linear-gradient(180deg, #5AA4FF 0%, #4A8DF5 29.8%, #4890F6 66.35%, #4891F6 100%)',
+    tbWinAct:   'linear-gradient(180deg, #164DBC 0%, #184EB8 100%)',
+    systray:    'linear-gradient(180deg, #095BC9 2.45%, #19B9F3 5.41%, #19B9F3 9.78%, #149EED 10.59%, #1290E8 19.47%, #0D8DEA 60.17%, #0F9EEF 80.89%, #119DEB 90.27%, #226BCE 97.21%)',
   },
   silver: {
     title:      'linear-gradient(90deg, #505050 0%, #8C8C8C 12%, #7A7A7A 82%, #606060 100%)',
@@ -2045,12 +2283,13 @@ function applyTweaks({ theme, desktop, density }) {
     .xp-titlebar { background: ${t.title} !important; }
     .xp-window.inactive .xp-titlebar { background: ${t.titleInact} !important; }
     #taskbar { background: ${t.taskbar} !important; border-top-color: ${t.taskBorder} !important; }
-    #start-btn { background: ${t.start} !important; border-color: ${t.startBdr} !important; }
-    #start-btn:hover { background: ${t.startHov} !important; }
     .xp-sidebar { background: ${t.sidebar} !important; border-right-color: ${t.sbBdr} !important; }
     .sb-hdr { background: ${t.sbHdr} !important; border-color: ${t.sbBdr} !important; }
     .sb-hdr:hover { background: ${t.sbHdrHov} !important; }
+    .sb-hdr.sb-hdr-light { background: linear-gradient(90deg, #FFFFFF 0%, #C6D3F7 100%) !important; color: #215DC6 !important; border-color: transparent !important; }
+    .sb-hdr.sb-hdr-light:hover { background: linear-gradient(90deg, #F0F4FF 0%, #B8CCEF 100%) !important; }
     .sb-body { border-color: ${t.sbBdr} !important; }
+    .sb-hdr-light + .sb-body { background: #D6DFF7 !important; border-color: #FFFFFF !important; }
     .tb-win-btn { background: ${t.tbWin} !important; border-color: ${t.taskBorder} !important; }
     .tb-win-btn:hover { background: ${t.tbWinHov} !important; }
     .tb-win-btn.tb-active { background: ${t.tbWinAct} !important; }

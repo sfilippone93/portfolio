@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls *.pdf)",
+      "Bash(ls uploads/*.pdf)",
+      "Bash(ls *.pdf *.PDF)",
+      "Bash(ls uploads/*.jpg uploads/*.png uploads/*.gif)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(curl:*)"
+    ]
+  }
+}
