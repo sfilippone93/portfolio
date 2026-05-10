@@ -320,7 +320,7 @@ body {
 .edu-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 12px 16px;
   border-bottom: 1px dashed var(--dash);
   gap: 12px;
@@ -370,7 +370,7 @@ body {
 
 /* 3-column variant (Recognition) */
 .edu-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
-.edu-grid-3 .edu-cell { border-bottom: none; border-right: 1px dashed var(--dash); }
+.edu-grid-3 .edu-cell { border-bottom: none; border-right: 1px dashed var(--dash) !important; }
 .edu-grid-3 .edu-cell:nth-child(3n) { border-right: none; }
 
 .edu-cell-head {
@@ -557,6 +557,8 @@ body {
   }
   .edu-cell:nth-last-child(-n+2) { border-bottom: 1px dashed var(--dash); }
   .edu-cell:last-child { border-bottom: none; }
+  .edu-grid-3 .edu-cell { border-right: none !important; border-bottom: 1px dashed var(--dash) !important; }
+  .edu-grid-3 .edu-cell:last-child { border-bottom: none !important; }
   .exp-item {
     grid-template-columns: 1fr;
   }
@@ -654,9 +656,9 @@ body {
       <div>
         <div class="exp-role" id="t-exp1-role">Product Designer</div>
         <div class="exp-company">Aerolab</div>
-        <div class="exp-desc" id="t-exp1-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Worked end-to-end on product design for Kauffman Fellows (KF Connect), Essen+, and Santillana: from discovery and UX audits to final delivery.</li><li>Took KF Connect from a desktop-only platform to a mobile-first experience, restructuring the information architecture and redesigning key flows: onboarding, fellows directory, profiles, and events.</li><li>Ran UX audits to identify navigation, flow, and structure issues, then turned complex requirements into clear, scalable solutions.</li><li>Defined reusable patterns and component guidelines to bring order to the work and make the team faster.</li><li>Built and maintained design system components, tokens, and documentation across projects.</li><li>Improved handoff with development through clear documentation and direct alignment with the frontend team.</li><li>Worked closely with PMs and engineers to define scope, prioritize features, and keep things moving in fast-changing contexts.</li></ul></div>
+        <div class="exp-desc" id="t-exp1-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Worked end-to-end on product design for Kauffman Fellows, Essen+, and Santillana from discovery to final delivery.</li><li>Took KF Connect from a desktop-only platform to a mobile-first experience, restructuring the information architecture and redesigning key flows: onboarding, fellows directory, profiles, and events.</li><li>First role working fully in English with an international client (Kauffman Fellows, based in the US), with weekly syncs and ongoing async communication across time zones.</li><li>Integrated AI tools into the design process: used Stitch and Figma Make for rapid prototyping and concept testing, and Claude Code to generate documentation, automate repetitive tasks, and speed up iteration.</li><li>Built and maintained design system components, tokens, and documentation across projects.</li><li>Improved handoff with development through clear documentation and direct alignment with the frontend team.</li><li>Worked closely with PMs and engineers to define scope, prioritize features, and keep things moving in fast-changing contexts.</li></ul></div>
       </div>
-      <div class="exp-years">2025 — 2026</div>
+      <div class="exp-years">2025–2026</div>
     </div>
 
     <div class="exp-item">
@@ -665,16 +667,16 @@ body {
         <div class="exp-company">Banco del Sol</div>
         <div class="exp-desc" id="t-exp2-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Owned the design systems for both Retail Banking and Business Banking products, used by a team of 8+ designers across multiple squads.</li><li>Managed the full component lifecycle: intake, design, implementation review, updates to existing screens, and communication to the team.</li><li>Defined governance, Storybook documentation, and design token structure to standardize patterns across products.</li><li>Acted as the main point of contact between design and development for anything related to system consistency and implementation.</li><li>Supported designers in adopting the system, resolved doubts, aligned criteria, and pushed continuous improvements to the component library.</li></ul></div>
       </div>
-      <div class="exp-years">2023 — 2025</div>
+      <div class="exp-years">2023–2025</div>
     </div>
 
     <div class="exp-item">
       <div>
         <div class="exp-role" id="t-exp3-role">UX / UI Designer</div>
         <div class="exp-company">Artear</div>
-        <div class="exp-desc" id="t-exp3-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Took part in the redesign and launch of four large-scale digital media products: Todo Noticias (TN), eltrece, Ciudad Magazine, and the TN mobile app, with 285K+ daily active users across Android and iOS.</li><li>Was part of the team that built Brick UI from scratch: a design system to unify visual and interaction standards across all Artear products, connected to the CMS and adapted to high editorial demand.</li><li>Designed and adjusted components and screens to keep things consistent and scalable within the system.</li><li>Worked on high-pressure live coverage scenarios: the 2021 Argentine Elections (live blog reached 61% of daily audience, ranked #3 most-visited page that day) and the Qatar 2022 FIFA World Cup.</li><li>The eltrece.tv redesign involved migrating 140K+ images, 10K+ full episodes, and 17K+ hours of video content.</li><li>The work was recognized with three international awards: 28th Communicator Awards, w3 Awards, and EPPY Awards (2022–2023).</li></ul></div>
+        <div class="exp-desc" id="t-exp3-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Took part in the redesign and launch of four large-scale digital media products: Todo Noticias (TN), eltrece, Ciudad Magazine, and the TN mobile app, with 285K+ daily active users across Android and iOS.</li><li>Was part of the team that built Brick UI from scratch: a design system to unify visual and interaction standards across all Artear products, connected to the CMS and adapted to high editorial demand.</li><li>Designed and adjusted components and screens to keep things consistent and scalable within the system.</li><li>The work was recognized with three international awards: 28th Communicator Awards, w3 Awards, and EPPY Awards (2022–2023).</li></ul></div>
       </div>
-      <div class="exp-years">2021 — 2023</div>
+      <div class="exp-years">2021–2023</div>
     </div>
 
     <div class="exp-item">
@@ -683,7 +685,7 @@ body {
         <div class="exp-company" id="t-exp4-company">Government of the City of Buenos Aires</div>
         <div class="exp-desc" id="t-exp4-desc">Taught Graphic Design and Computer Skills at a professional training center; developed course materials and provided individualized student support.</div>
       </div>
-      <div class="exp-years">2017 — 2021</div>
+      <div class="exp-years">2017–2021</div>
     </div>
 
   </div>
@@ -751,8 +753,8 @@ body {
     <div class="gcell">
       <div class="gcell-label" id="t-langs-label">Languages</div>
       <div class="gcell-list">
-        <div class="gcell-item" id="t-lang-es">Spanish <span class="gcell-sub" id="t-lang-es-sub">— Native</span></div>
-        <div class="gcell-item" id="t-lang-en">English <span class="gcell-sub" id="t-lang-en-sub">— Professional</span></div>
+        <div class="gcell-item" id="t-lang-es">Spanish <span class="gcell-sub" id="t-lang-es-sub">· Native</span></div>
+        <div class="gcell-item" id="t-lang-en">English <span class="gcell-sub" id="t-lang-en-sub">· Professional</span></div>
       </div>
     </div>
   </div>
@@ -770,38 +772,38 @@ body {
         <div class="edu-name" id="t-edu1-name">Universidad de Palermo</div>
         <div class="edu-sub" id="t-edu1-sub">Graphic Design · Degree</div>
       </div>
-      <div class="edu-years">2012 — 2015</div>
+      <div class="edu-years">2012–2015</div>
     </div>
   </div>
 
   <div class="edu-grid-2">
     <div class="edu-cell">
       <div class="edu-cell-head">
-        <div class="edu-name" id="t-cert1-name">Design Systems: Strategy &amp; Practical Foundations</div>
+        <div class="edu-name" id="t-cert1-sub">Somos Edison</div>
         <div class="edu-years">2024</div>
       </div>
-      <div class="edu-sub" id="t-cert1-sub">Somos Edison</div>
+      <div class="edu-sub" id="t-cert1-name">Design Systems: Strategy &amp; Practical Foundations</div>
     </div>
     <div class="edu-cell">
       <div class="edu-cell-head">
-        <div class="edu-name" id="t-cert2-name">Product Design for UX Designers</div>
+        <div class="edu-name" id="t-cert2-sub">Somos Edison</div>
         <div class="edu-years">2023</div>
       </div>
-      <div class="edu-sub" id="t-cert2-sub">Somos Edison</div>
+      <div class="edu-sub" id="t-cert2-name">Product Design for UX Designers</div>
     </div>
     <div class="edu-cell">
       <div class="edu-cell-head">
-        <div class="edu-name" id="t-cert3-name">UI Design Patterns for Successful Software</div>
+        <div class="edu-name" id="t-cert3-sub">Interaction Design Foundation (IxDF)</div>
         <div class="edu-years">2023</div>
       </div>
-      <div class="edu-sub" id="t-cert3-sub">Interaction Design Foundation (IxDF)</div>
+      <div class="edu-sub" id="t-cert3-name">UI Design Patterns for Successful Software</div>
     </div>
     <div class="edu-cell">
       <div class="edu-cell-head">
-        <div class="edu-name" id="t-cert4-name">UX &amp; Interaction Design Expert</div>
+        <div class="edu-name" id="t-cert4-sub">UTN FRBA · e-Learning Center</div>
         <div class="edu-years">2022</div>
       </div>
-      <div class="edu-sub" id="t-cert4-sub">UTN FRBA · e-Learning Center</div>
+      <div class="edu-sub" id="t-cert4-name">UX &amp; Interaction Design Expert</div>
     </div>
   </div>
 
@@ -842,13 +844,13 @@ const TRANSLATIONS = {
   'exp-tagline':       { en: 'Five roles, end-to-end design across products, systems and editorial.', es: 'Cinco roles, diseño end-to-end entre producto, sistemas y editorial.' },
 
   'exp1-role':         { en: 'Product Designer', es: 'Product Designer' },
-  'exp1-desc':         { en: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Worked end-to-end on product design for Kauffman Fellows (KF Connect), Essen+, and Santillana: from discovery and UX audits to final delivery.</li><li>Took KF Connect from a desktop-only platform to a mobile-first experience, restructuring the information architecture and redesigning key flows: onboarding, fellows directory, profiles, and events.</li><li>Ran UX audits to identify navigation, flow, and structure issues, then turned complex requirements into clear, scalable solutions.</li><li>Defined reusable patterns and component guidelines to bring order to the work and make the team faster.</li><li>Built and maintained design system components, tokens, and documentation across projects.</li><li>Improved handoff with development through clear documentation and direct alignment with the frontend team.</li><li>Worked closely with PMs and engineers to define scope, prioritize features, and keep things moving in fast-changing contexts.</li></ul>', es: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Trabajé end-to-end en el diseño de producto para Kauffman Fellows (KF Connect), Essen+ y Santillana: desde discovery y UX audits hasta entrega final.</li><li>Transformé KF Connect de una plataforma solo desktop a una experiencia mobile-first, reestructurando la arquitectura de información y rediseñando flujos clave: onboarding, directorio de fellows, perfiles y eventos.</li><li>Corrí UX audits para identificar problemas de navegación, flujo y estructura, y convertí requerimientos complejos en soluciones claras y escalables.</li><li>Definí patrones reutilizables y guías de componentes para ordenar el trabajo y hacer al equipo más eficiente.</li><li>Construí y mantuve componentes de design system, tokens y documentación en distintos proyectos.</li><li>Mejoré el handoff con desarrollo mediante documentación clara y alineación directa con el equipo de frontend.</li><li>Trabajé de cerca con PMs e ingenieros para definir alcance, priorizar features y mantener el avance en contextos de cambio constante.</li></ul>' },
+  'exp1-desc':         { en: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Worked end-to-end on product design for Kauffman Fellows, Essen+, and Santillana from discovery to final delivery.</li><li>Took KF Connect from a desktop-only platform to a mobile-first experience, restructuring the information architecture and redesigning key flows: onboarding, fellows directory, profiles, and events.</li><li>First role working fully in English with an international client (Kauffman Fellows, based in the US), with weekly syncs and ongoing async communication across time zones.</li><li>Integrated AI tools into the design process: used Stitch and Figma Make for rapid prototyping and concept testing, and Claude Code to generate documentation, automate repetitive tasks, and speed up iteration.</li><li>Built and maintained design system components, tokens, and documentation across projects.</li><li>Improved handoff with development through clear documentation and direct alignment with the frontend team.</li><li>Worked closely with PMs and engineers to define scope, prioritize features, and keep things moving in fast-changing contexts.</li></ul>', es: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Trabajé end-to-end en el diseño de producto para Kauffman Fellows, Essen+ y Santillana desde el discovery hasta la entrega final.</li><li>Transformé KF Connect de una plataforma solo desktop a una experiencia mobile-first, reestructurando la arquitectura de información y rediseñando flujos clave: onboarding, directorio de fellows, perfiles y eventos.</li><li>Primer rol trabajando completamente en inglés con un cliente internacional (Kauffman Fellows, con base en EE.UU.), con syncs semanales y comunicación async continua.</li><li>Integré herramientas de IA en el proceso de diseño: usé Stitch y Figma Make para prototipado rápido y pruebas de concepto, y Claude Code para generar documentación, automatizar tareas repetitivas y acelerar la iteración.</li><li>Construí y mantuve componentes de design system, tokens y documentación en distintos proyectos.</li><li>Mejoré el handoff con desarrollo mediante documentación clara y alineación directa con el equipo de frontend.</li><li>Trabajé de cerca con PMs e ingenieros para definir alcance, priorizar features y mantener el avance en contextos de cambio constante.</li></ul>' },
 
   'exp2-role':         { en: 'DesignOps · UI', es: 'DesignOps · UI' },
   'exp2-desc':         { en: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Owned the design systems for both Retail Banking and Business Banking products, used by a team of 8+ designers across multiple squads.</li><li>Managed the full component lifecycle: intake, design, implementation review, updates to existing screens, and communication to the team.</li><li>Defined governance, Storybook documentation, and design token structure to standardize patterns across products.</li><li>Acted as the main point of contact between design and development for anything related to system consistency and implementation.</li><li>Supported designers in adopting the system, resolved doubts, aligned criteria, and pushed continuous improvements to the component library.</li></ul>', es: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Responsable de los design systems de los productos de Retail Banking y Business Banking, usados por un equipo de 8+ diseñadores en múltiples squads.</li><li>Gestioné el ciclo completo de componentes: intake, diseño, revisión de implementación, actualización en pantallas existentes y comunicación al equipo.</li><li>Definí governance, documentación en Storybook y estructura de design tokens para estandarizar patrones entre productos.</li><li>Actué como principal punto de contacto entre diseño y desarrollo para todo lo relacionado con consistencia e implementación del sistema.</li><li>Acompañé a diseñadores en la adopción del sistema, resolví dudas, alineé criterios e impulsé mejoras continuas a la librería de componentes.</li></ul>' },
 
   'exp3-role':         { en: 'UX / UI Designer', es: 'Diseñador UX / UI' },
-  'exp3-desc':         { en: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Took part in the redesign and launch of four large-scale digital media products: Todo Noticias (TN), eltrece, Ciudad Magazine, and the TN mobile app, with 285K+ daily active users across Android and iOS.</li><li>Was part of the team that built Brick UI from scratch: a design system to unify visual and interaction standards across all Artear products, connected to the CMS and adapted to high editorial demand.</li><li>Designed and adjusted components and screens to keep things consistent and scalable within the system.</li><li>Worked on high-pressure live coverage scenarios: the 2021 Argentine Elections (live blog reached 61% of daily audience, ranked #3 most-visited page that day) and the Qatar 2022 FIFA World Cup.</li><li>The eltrece.tv redesign involved migrating 140K+ images, 10K+ full episodes, and 17K+ hours of video content.</li><li>The work was recognized with three international awards: 28th Communicator Awards, w3 Awards, and EPPY Awards (2022–2023).</li></ul>', es: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Participé en el rediseño y lanzamiento de cuatro productos digitales de medios a gran escala: Todo Noticias (TN), eltrece, Ciudad Magazine y la app mobile de TN, con 285K+ usuarios activos diarios en Android e iOS.</li><li>Fui parte del equipo que construyó Brick UI desde cero: un design system para unificar estándares visuales e interactivos en todos los productos de Artear, conectado al CMS y adaptado a la alta demanda editorial.</li><li>Diseñé y ajusté componentes y pantallas para mantener consistencia y escalabilidad dentro del sistema.</li><li>Trabajé en escenarios de cobertura en vivo de alta presión: las Elecciones Argentinas 2021 (el live blog alcanzó el 61% de la audiencia diaria, posición #3 de páginas más visitadas ese día) y el Mundial de Qatar 2022.</li><li>El rediseño de eltrece.tv implicó migrar más de 140K imágenes, 10K+ episodios completos y 17K+ horas de contenido de video.</li><li>El trabajo fue reconocido con tres premios internacionales: 28th Communicator Awards, w3 Awards y EPPY Awards (2022–2023).</li></ul>' },
+  'exp3-desc':         { en: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Took part in the redesign and launch of four large-scale digital media products: Todo Noticias (TN), eltrece, Ciudad Magazine, and the TN mobile app, with 285K+ daily active users across Android and iOS.</li><li>Was part of the team that built Brick UI from scratch: a design system to unify visual and interaction standards across all Artear products, connected to the CMS and adapted to high editorial demand.</li><li>Designed and adjusted components and screens to keep things consistent and scalable within the system.</li><li>The work was recognized with three international awards: 28th Communicator Awards, w3 Awards, and EPPY Awards (2022–2023).</li></ul>', es: '<ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Participé en el rediseño y lanzamiento de cuatro productos digitales de medios a gran escala: Todo Noticias (TN), eltrece, Ciudad Magazine y la app mobile de TN, con 285K+ usuarios activos diarios en Android e iOS.</li><li>Fui parte del equipo que construyó Brick UI desde cero: un design system para unificar estándares visuales e interactivos en todos los productos de Artear, conectado al CMS y adaptado a la alta demanda editorial.</li><li>Diseñé y ajusté componentes y pantallas para mantener consistencia y escalabilidad dentro del sistema.</li><li>El trabajo fue reconocido con tres premios internacionales: 28th Communicator Awards, w3 Awards y EPPY Awards (2022–2023).</li></ul>' },
 
   'exp4-role':         { en: 'Instructor', es: 'Docente' },
   'exp4-company':      { en: 'Government of the City of Buenos Aires', es: 'Gobierno de la Ciudad de Buenos Aires' },
@@ -865,8 +867,8 @@ const TRANSLATIONS = {
   'skills-label':      { en: 'Skills', es: 'Skills' },
   'tools-label':       { en: 'Tools', es: 'Herramientas' },
   'langs-label':       { en: 'Languages', es: 'Idiomas' },
-  'lang-es':           { en: 'Spanish <span class="gcell-sub">— Native</span>', es: 'Español <span class="gcell-sub">— Nativo</span>' },
-  'lang-en':           { en: 'English <span class="gcell-sub">— Professional</span>', es: 'Inglés <span class="gcell-sub">— Profesional</span>' },
+  'lang-es':           { en: 'Spanish <span class="gcell-sub">· Native</span>', es: 'Español <span class="gcell-sub">· Nativo</span>' },
+  'lang-en':           { en: 'English <span class="gcell-sub">· Professional</span>', es: 'Inglés <span class="gcell-sub">· Profesional</span>' },
 
   'edu-name':          { en: 'Education', es: 'Educación' },
   'edu-tagline':       { en: 'Formal training and continuous learning.', es: 'Formación formal y aprendizaje continuo.' },
