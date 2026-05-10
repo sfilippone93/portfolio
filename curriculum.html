@@ -595,7 +595,7 @@ body {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       <span id="t-back-label">Back to Portfolio</span>
     </a>
-    <a href="Santiago_Filippone_CV.pdf" download="Santiago_Filippone_CV.pdf" class="cv-download" id="t-download">
+    <a href="uploads/Santiago_Filippone_CV_EN.pdf" download="Santiago_Filippone_CV_EN.pdf" class="cv-download" id="t-download">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
       <span id="t-download-label">Download PDF</span>
     </a>
@@ -738,11 +738,9 @@ body {
       <div class="gcell-label" id="t-skills-label">Skills</div>
       <div class="gcell-list">
         <div class="gcell-item">Product Design</div>
-        <div class="gcell-item">UI Design</div>
-        <div class="gcell-item">UX Design</div>
+        <div class="gcell-item">UX/UI Design</div>
         <div class="gcell-item">Design Systems</div>
         <div class="gcell-item">DesignOps</div>
-        <div class="gcell-item">Prototyping</div>
         <div class="gcell-item">UX Research</div>
         <div class="gcell-item">AI Workflows</div>
       </div>
@@ -753,7 +751,7 @@ body {
         <div class="gcell-item">Figma</div>
         <div class="gcell-item">Claude Code / Design</div>
         <div class="gcell-item">MCP / Skills</div>
-        <div class="gcell-item">Lovable</div>
+
         <div class="gcell-item">Framer</div>
         <div class="gcell-item">Storybook</div>
         <div class="gcell-item">GitHub</div>
@@ -911,6 +909,9 @@ function setLang(lang) {
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-es').classList.toggle('active', lang === 'es');
   document.documentElement.lang = lang;
+  const cvFile = lang === 'es' ? 'uploads/Santiago_Filippone_CV_ES.pdf' : 'uploads/Santiago_Filippone_CV_EN.pdf';
+  const downloadBtn = document.getElementById('t-download');
+  if (downloadBtn) { downloadBtn.href = cvFile; downloadBtn.download = cvFile; }
   try { localStorage.setItem('cv-lang', lang); } catch(e) {}
 }
 

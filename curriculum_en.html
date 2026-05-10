@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santiago Filippone · CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@page { size: A4 portrait; margin: 10mm 13mm; }
+
+:root {
+  --fg: #111110;
+  --fg-mid: #6b6860;
+  --fg-dim: #aaa89f;
+  --dash: #C0C0C0;
+  --border: rgba(0,0,0,0.12);
+}
+
+body {
+  background: #fff;
+  color: var(--fg);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 9.5px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 185mm;
+  margin: 0 auto;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0 8px;
+  border-bottom: 1px dashed var(--dash);
+}
+.hero-name     { font-size: 16px; font-weight: 600; letter-spacing: -0.02em; }
+.hero-role     { font-size: 10px; color: #575757; margin-top: 3px; }
+.hero-location { font-size: 8.5px; color: var(--fg-dim); margin-top: 3px; letter-spacing: 0.04em; }
+
+/* SECTION HEADER */
+.proj-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px dashed var(--dash);
+}
+.proj-row-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px 8px;
+}
+.proj-row-name {
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.proj-tagline  { font-size: 9px; color: var(--fg-mid); }
+.proj-row-year { font-size: 8.5px; color: var(--fg-dim); white-space: nowrap; padding-right: 8px; }
+
+/* SECTION TAG */
+.section-row {
+  padding: 5px 8px;
+  border-bottom: 1px dashed var(--dash);
+}
+.section-tag {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ABOUT */
+.about-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px dashed var(--dash);
+}
+.about-split-left  { padding: 6px 8px; border-right: 1px dashed var(--dash); }
+.about-split-right { padding: 6px 8px; }
+
+.about-text { font-size: 10px; color: #000; line-height: 1.5; }
+.about-text p + p  { margin-top: 4px; }
+
+.contact-items { display: flex; flex-direction: column; }
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  border-bottom: 1px dashed var(--dash);
+  gap: 6px;
+}
+.contact-item:last-child { border-bottom: none; }
+.contact-platform { font-size: 7.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-dim); }
+.contact-value    { font-size: 9px; font-weight: 500; color: var(--fg); text-decoration: none; text-align: right; }
+
+/* EXPERIENCE */
+.exp-block { border-bottom: 1px dashed var(--dash); }
+.exp-item {
+  padding: 5px 8px;
+  border-bottom: 1px dashed var(--dash);
+  display: grid;
+  grid-template-columns: 1fr 68px;
+  gap: 6px;
+  align-items: start;
+}
+.exp-item:last-child { border-bottom: none; }
+.exp-role    { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+.exp-company { font-size: 9px; font-weight: 500; color: var(--fg-mid); margin-top: 1px; }
+.exp-desc    { font-size: 9px; color: var(--fg-mid); line-height: 1.55; margin-top: 4px; }
+.exp-years   { font-size: 8.5px; color: var(--fg-dim); text-align: right; white-space: nowrap; padding-top: 2px; }
+
+/* 3-COL GRID */
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px dashed var(--dash);
+}
+.grid-3 > .gcell { padding: 5px 8px; border-right: 1px dashed var(--dash); }
+.grid-3 > .gcell:last-child { border-right: none; }
+.gcell-label { font-size: 7.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 6px; }
+.gcell-list  { display: flex; flex-direction: column; gap: 3px; }
+.gcell-item  { font-size: 9px; color: var(--fg); }
+.gcell-sub   { font-size: 8.5px; color: var(--fg-dim); margin-left: 3px; }
+
+/* EDUCATION */
+.edu-block { border-bottom: 1px dashed var(--dash); }
+.edu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px dashed var(--dash);
+  gap: 6px;
+}
+.edu-item:last-child { border-bottom: none; }
+.edu-name { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+.edu-sub  { font-size: 9px; color: var(--fg-mid); margin-top: 2px; }
+.edu-years{ font-size: 8.5px; color: var(--fg-dim); white-space: nowrap; }
+
+.edu-grid-2       { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px dashed var(--dash); }
+.edu-grid-2 .edu-name { font-size: 10px; }
+.edu-grid-2 .edu-sub  { font-size: 9px; }
+
+.edu-cell {
+  padding: 4px 8px;
+  border-right: 1px dashed var(--dash);
+  border-bottom: 1px dashed var(--dash);
+}
+.edu-cell:nth-child(2n)        { border-right: none; }
+.edu-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+.edu-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.edu-grid-3 .edu-cell { border-bottom: none; border-right: 1px dashed var(--dash); }
+.edu-grid-3 .edu-cell:nth-child(3n) { border-right: none; }
+
+.edu-cell-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 1px;
+}
+
+@media print {
+  .wrap { max-width: 100%; border: none; }
+  .exp-item, .gcell, .edu-item, .edu-cell { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-name">Santiago Filippone</div>
+    <div class="hero-role">Product Designer · UX, AI &amp; Design Systems</div>
+    <div class="hero-location">Buenos Aires, Argentina</div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="proj-row">
+    <div class="proj-row-info">
+      <span class="proj-row-name">Curriculum Vitae</span>
+      <span class="proj-tagline">Product Designer with 5+ years across fintech, media and high-traffic platforms.</span>
+    </div>
+    <span class="proj-row-year">2026</span>
+  </div>
+
+  <div class="section-row"><span class="section-tag">About</span></div>
+  <div class="about-split">
+    <div class="about-split-left">
+      <div class="about-text">
+        <p>Product Designer with 5+ years of experience designing complex digital products across fintech, media, and high-traffic platforms.</p>
+        <p>Specialized in design systems, DesignOps, and end-to-end product thinking.</p>
+        <p>I use AI tools as part of my daily workflow to document, prototype, and move faster.</p>
+      </div>
+    </div>
+    <div class="about-split-right">
+      <div class="contact-items">
+        <div class="contact-item">
+          <span class="contact-platform">Email</span>
+          <a class="contact-value" href="mailto:santiagofilippone@gmail.com">santiagofilippone@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-platform">LinkedIn</span>
+          <a class="contact-value" href="https://linkedin.com/in/santiagofilippone" target="_blank">linkedin.com/in/santiagofilippone</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-platform">Website</span>
+          <a class="contact-value" href="https://santiagofilippone.com.ar" target="_blank">santiagofilippone.com.ar</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-platform">Location</span>
+          <span class="contact-value">Buenos Aires, Argentina</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="proj-row">
+    <div class="proj-row-info">
+      <span class="proj-row-name">Experience</span>
+    </div>
+    <span class="proj-row-year">2017–2026</span>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Product Designer</div>
+        <div class="exp-company">Aerolab</div>
+        <div class="exp-desc">Worked end-to-end on the redesign of KF Connect, the portal for Kauffman Fellows, a global network of venture capital investors. The main focus was transforming a desktop platform into a mobile-first experience by reorganizing the information architecture and redesigning key flows such as the student section, fellows directory, profiles, and events. Also contributed to other projects such as the redesign of the Essen+ benefits platform, working on sections with complex use cases and sensitive data collection.</div>
+      </div>
+      <div class="exp-years">2025 — 2026</div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">DesignOps · UI</div>
+        <div class="exp-company">Banco del Sol</div>
+        <div class="exp-desc">Responsible for the design systems of both Retail Banking and Business Banking products, used by a team of 8+ designers. My work included component creation and maintenance, governance definition, Storybook documentation, and design token management. I coordinated the full lifecycle of new components: request, development, implementation review, updates in existing designs, and team communication. Acted as the main point of contact between design and development for everything related to system consistency and implementation.</div>
+      </div>
+      <div class="exp-years">2023 — 2025</div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">UX / UI Designer</div>
+        <div class="exp-company">Artear</div>
+        <div class="exp-desc">Participated in the redesign and launch of four large-scale digital media products. Worked from definition to final design in high editorial demand environments and live coverage scenarios such as the 2021 Elections and the Qatar 2022 World Cup. Contributed to the development of a design system that served as a foundation across all products, enabling component reuse and scalable visual and interaction standards.</div>
+      </div>
+      <div class="exp-years">2021 — 2023</div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Instructor</div>
+        <div class="exp-company">Government of the City of Buenos Aires</div>
+        <div class="exp-desc">Taught Graphic Design and Computer Skills courses at a professional training center, developing materials and supporting each student's learning process.</div>
+      </div>
+      <div class="exp-years">2017 — 2021</div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-role">Web Designer</div>
+        <div class="exp-company">Freelance</div>
+        <div class="exp-desc">Designed and developed e-commerce and web platforms for clients across different industries, managing projects from brief to launch.</div>
+      </div>
+      <div class="exp-years">2017 — 2021</div>
+    </div>
+  </div>
+
+  <!-- RECOGNITION -->
+  <div class="proj-row">
+    <div class="proj-row-info">
+      <span class="proj-row-name">Recognition</span>
+    </div>
+    <span class="proj-row-year">2022–2023</span>
+  </div>
+
+  <div class="edu-grid-2 edu-grid-3">
+    <div class="edu-cell">
+      <div class="edu-cell-head">
+        <div class="edu-name">28th Communicator Awards</div>
+        <div class="edu-years">2022</div>
+      </div>
+      <div class="edu-sub">Excellence in digital media design and user experience.</div>
+    </div>
+    <div class="edu-cell">
+      <div class="edu-cell-head">
+        <div class="edu-name">The w3 Awards</div>
+        <div class="edu-years">2022</div>
+      </div>
+      <div class="edu-sub">Awarded by the Academy of Interactive and Visual Arts.</div>
+    </div>
+    <div class="edu-cell">
+      <div class="edu-cell-head">
+        <div class="edu-name">EPPY™ Awards</div>
+        <div class="edu-years">2023</div>
+      </div>
+      <div class="edu-sub">International journalism awards for the best in digital publishing.</div>
+    </div>
+  </div>
+
+  <!-- SKILLS / TOOLS / LANGUAGES -->
+  <div class="section-row"><span class="section-tag">Skills, Tools &amp; Languages</span></div>
+
+  <div class="grid-3">
+    <div class="gcell">
+      <div class="gcell-label">Skills</div>
+      <div class="gcell-list">
+        <div class="gcell-item">Product Design</div>
+        <div class="gcell-item">UX/UI Design</div>
+        <div class="gcell-item">Design Systems</div>
+        <div class="gcell-item">DesignOps</div>
+        <div class="gcell-item">UX Research</div>
+        <div class="gcell-item">AI Workflows</div>
+      </div>
+    </div>
+    <div class="gcell">
+      <div class="gcell-label">Tools</div>
+      <div class="gcell-list">
+        <div class="gcell-item">Figma</div>
+        <div class="gcell-item">Claude Code / Design</div>
+        <div class="gcell-item">MCP / Skills</div>
+
+        <div class="gcell-item">Framer</div>
+        <div class="gcell-item">Storybook</div>
+        <div class="gcell-item">GitHub</div>
+        <div class="gcell-item">Jira</div>
+      </div>
+    </div>
+    <div class="gcell">
+      <div class="gcell-label">Languages</div>
+      <div class="gcell-list">
+        <div class="gcell-item">Spanish <span class="gcell-sub">— Native</span></div>
+        <div class="gcell-item">English <span class="gcell-sub">— Professional</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="proj-row">
+    <div class="proj-row-info">
+      <span class="proj-row-name">Education</span>
+    </div>
+    <span class="proj-row-year">2012–2024</span>
+  </div>
+
+  <div class="edu-block">
+    <div class="edu-item">
+      <div>
+        <div class="edu-name">Universidad de Palermo</div>
+        <div class="edu-sub">Graphic Design · Degree</div>
+      </div>
+      <div class="edu-years">2012 — 2015</div>
+    </div>
+  </div>
+
+  <div class="edu-grid-2">
+    <div class="edu-cell">
+      <div class="edu-cell-head">
+        <div class="edu-name">Design Systems: Strategy &amp; Practical Foundations</div>
+        <div class="edu-years">2024</div>
+      </div>
+      <div class="edu-sub">Somos Edison</div>
+    </div>
+    <div class="edu-cell">
+      <div class="edu-cell-head">
+        <div class="edu-name">Product Design for UX Designers</div>
+        <div class="edu-years">2023</div>
+      </div>
+      <div class="edu-sub">Somos Edison</div>
+    </div>
+    <div class="edu-cell">
+      <div class="edu-cell-head">
+        <div class="edu-name">UI Design Patterns for Successful Software</div>
+        <div class="edu-years">2023</div>
+      </div>
+      <div class="edu-sub">Interaction Design Foundation (IxDF)</div>
+    </div>
+    <div class="edu-cell">
+      <div class="edu-cell-head">
+        <div class="edu-name">UX &amp; Interaction Design Expert</div>
+        <div class="edu-years">2022</div>
+      </div>
+      <div class="edu-sub">UTN FRBA · e-Learning Center</div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+</body>
+</html>
