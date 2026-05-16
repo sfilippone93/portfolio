@@ -517,7 +517,7 @@ input, textarea { cursor: text; }
   line-height: 1;
 }
 
-.sm-item-main { font-weight: bold; font-size: 11px; color: #000; line-height: 1.25; letter-spacing: 0.02em; }
+.sm-item-main { font-weight: bold; font-size: 11px; color: #000; line-height: 1.25; letter-spacing: -0.05em; }
 .sm-right .sm-item-main { color: #0A236A; font-weight: normal; }
 .sm-sub { font-size: 11px; color: rgba(0,0,0,0.5); margin-top: 0; line-height: 13px; }
 
@@ -1096,6 +1096,40 @@ input, textarea { cursor: text; }
 .xp-main {
   flex:1; overflow:auto; background:#fff;
 }
+
+/* ── MOBILE ── */
+@media (max-width: 480px) {
+  #desktop {
+    zoom: 0.9;
+  }
+  #start-menu {
+    left: 0;
+    right: 24px;
+    width: auto;
+    border-radius: 6px 6px 0 0;
+    box-shadow: none;
+  }
+  .sm-left {
+    width: 48%;
+    flex-shrink: 0;
+  }
+  .sm-right {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .sm-item-main,
+  .sm-sub {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sm-footer {
+    justify-content: flex-end;
+    gap: 10px;
+    padding-right: 10px;
+  }
+}
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -1595,7 +1629,7 @@ input, textarea { cursor: text; }
     <div class="sm-left">
       <div class="sm-item" onclick="closeSM();window.location.href='mailto:santiagofilippone@gmail.com'">
         <span class="sm-item-ico"><img src="uploads/windows-ui/contact.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
-        <div><div class="sm-item-main">Contact</div><div class="sm-sub">Send me a message</div></div>
+        <div><div class="sm-item-main">Contact</div><div class="sm-sub">@gmail.com</div></div>
       </div>
       <div class="sm-item" onclick="openWin('win-about');closeSM()">
         <span class="sm-item-ico"><img src="uploads/windows-ui/notepad-icon.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
@@ -1760,7 +1794,7 @@ function openWin(id) {
   w.el.classList.add('anim-open');
   setTimeout(() => w.el.classList.remove('anim-open'), 160);
 
-  if (id === 'win-portfolio') maximizeWin(id);
+  if (id === 'win-portfolio' || window.innerWidth <= 480) maximizeWin(id);
 
   // Inicializa el image viewer
   if (id === 'win-viewer') viewerShow(0);
