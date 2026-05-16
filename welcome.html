@@ -321,6 +321,90 @@
   #fade-out.active {
     opacity: 1;
   }
+
+  /* ── MOBILE ── */
+  @media (max-width: 720px) {
+    .xp-welcome-layout {
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 30px !important;
+    }
+
+    .xp-left {
+      align-items: center !important;
+      padding-right: 0 !important;
+      margin-top: 0 !important;
+      text-align: center !important;
+      flex: none !important;
+    }
+
+    .xp-logo-wrap {
+      align-items: center !important;
+      padding-right: 0 !important;
+    }
+
+    .xp-tagline {
+      align-self: center !important;
+      text-align: center !important;
+    }
+
+    .xp-instruction {
+      display: none !important;
+    }
+
+    .xp-divider {
+      width: 80% !important;
+      height: 1px !important;
+      margin: 28px 0 !important;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.6) 80%, transparent 100%) !important;
+    }
+
+    .xp-right {
+      align-items: center !important;
+      padding-left: 0 !important;
+      justify-content: center !important;
+      flex: none !important;
+    }
+
+    .xp-user {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 12px !important;
+      margin-top: 0 !important;
+    }
+
+    .xp-user-avatar {
+      width: 80px !important;
+      height: 80px !important;
+    }
+
+    .xp-user-info {
+      align-items: center !important;
+    }
+
+    .xp-user-name {
+      text-align: center !important;
+      font-size: 22px !important;
+    }
+
+    .xp-user-role {
+      text-align: center !important;
+      font-weight: bold !important;
+    }
+
+    .xp-restart-btn {
+      display: none !important;
+    }
+
+    .xp-bottom-text {
+      text-align: center !important;
+      max-width: 100% !important;
+      margin: 0 auto !important;
+      font-size: 13px !important;
+      color: rgba(255,255,255,0.9) !important;
+    }
+  }
 </style>
 </head>
 <body>

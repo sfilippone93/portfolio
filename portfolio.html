@@ -624,8 +624,43 @@ body {
   height: 14px;
 }
 
+#mundial-img-row > div {
+  border-right: 1px dashed #C0C0C0;
+}
+
 /* ── MOBILE ── */
 @media (max-width: 720px) {
+  #brick-img-row {
+    grid-template-columns: 1fr;
+  }
+  #brick-img-row img {
+    border-right: none;
+    border-bottom: 1px dashed #C0C0C0;
+  }
+  #brick-img-row img:last-child {
+    border-bottom: none;
+  }
+  #mundial-img-row {
+    grid-template-columns: 1fr;
+  }
+  #mundial-img-row > * {
+    border-bottom: 1px dashed #C0C0C0;
+  }
+  #mundial-img-row > *:last-child {
+    border-bottom: none;
+  }
+  #mundial-img-row img {
+    border-right: none;
+  }
+  #mundial-img-row > div {
+    border-right: none;
+  }
+  #broadway-feature-2 {
+    display: none !important;
+  }
+  #broadway-features-row {
+    grid-template-columns: 1fr 1fr;
+  }
   .about-split {
     grid-template-columns: 1fr;
   }
@@ -735,7 +770,7 @@ body {
   <div class="case-block" style="background:#000821;padding:20px;">
     <img class="case-img-full" src="uploads/brick-full.gif" style="width:100%;display:block;" alt="Brick UI">
   </div>
-  <div class="img-row-2">
+  <div class="img-row-2" id="brick-img-row">
     <img src="uploads/brick-tokens.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Brick UI Tokens">
     <img src="uploads/brick-components.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="Brick UI Components">
   </div>
@@ -794,7 +829,7 @@ body {
     </div>
   </div>
 
-  <div class="img-row-2">
+  <div class="img-row-2" id="mundial-img-row">
     <div style="background:#E9E9E9;">
       <img src="uploads/mundial2.jpg" style="width:100%;height:500px;object-fit:cover;object-position:center;display:block;" alt="Mundial 2022">
     </div>
@@ -808,7 +843,7 @@ body {
     </div>
     <div class="proj-row-info">
       <span class="proj-row-name">Broadway</span>
-      <span class="proj-tagline" id="t-broadway-tagline">Landing design for an AI-powered synthetic research tool. Shipped in one week.</span>
+      <span class="proj-tagline" id="t-broadway-tagline">Landing page shipped in one week.</span>
     </div>
     <span class="proj-row-year">2023</span>
   </div>
@@ -852,11 +887,11 @@ body {
     <img class="case-img-full" src="uploads/broadway-full.jpg" style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;" alt="Broadway Full">
   </div>
 
-  <div class="img-row-3">
+  <div class="img-row-3" id="broadway-features-row">
     <div style="background:#000000;height:400px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-right:1px dashed #C0C0C0;">
       <img src="uploads/broadway-feature-1.gif" style="max-width:100%;max-height:400px;width:auto;height:auto;display:block;" alt="Broadway Feature 1">
     </div>
-    <img src="uploads/broadway-feature-2.jpg" style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;" alt="Broadway Feature 2">
+    <img id="broadway-feature-2" src="uploads/broadway-feature-2.jpg" style="width:100%;height:400px;object-fit:cover;object-position:top;display:block;" alt="Broadway Feature 2">
     <div style="background:#000000;height:400px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
       <img src="uploads/broadway-feature-3.gif" style="max-width:100%;max-height:400px;width:auto;height:auto;display:block;" alt="Broadway Feature 3">
     </div>
@@ -869,7 +904,7 @@ body {
     </div>
     <div class="proj-row-info">
       <span class="proj-row-name">Essen+</span>
-      <span class="proj-tagline" id="t-essen-tagline">Loyalty, referrals and gamification for Essen's community.</span>
+      <span class="proj-tagline" id="t-essen-tagline">Loyalty portal for Essen's community.</span>
     </div>
     <span class="proj-row-year">2025</span>
   </div>
@@ -1122,7 +1157,7 @@ const TRANSLATIONS = {
   'artear-r3-desc':       { en: "TN's digital coverage became one of the highest-impact projects on Behance (3.2K appreciations), ranking among the most viewed design works in the region.", es: 'La cobertura digital de TN se convirtió en uno de los proyectos de mayor impacto en Behance (3.2K apreciaciones), entre los más vistos de la región.' },
   'artear-r4-stat':       { en: 'Breaking news & live events', es: 'Último momento y eventos en vivo' },
   'artear-r4-desc':       { en: 'Interfaces designed to handle real traffic spikes during high-demand, real-time coverage.', es: 'Interfaces diseñadas para soportar picos reales de tráfico durante coberturas de alta demanda en tiempo real.' },
-  'broadway-tagline':     { en: 'Landing design for an AI-powered synthetic research tool. Shipped in one week.', es: 'Diseño de landing para una herramienta de investigación sintética con IA. Entregado en una semana.' },
+  'broadway-tagline':     { en: 'Landing page shipped in one week.', es: 'Landing page entregada en una semana.' },
   'broadway-about-tag':   { en: 'About', es: 'Sobre el proyecto' },
   'broadway-p1':          { en: "Broadway is an AI-powered synthetic research tool that lets product teams test ideas with simulated users before going live. I designed and conceptualized the full landing page as the product's main communication vehicle, working within an extremely tight timeline of one week and with a product still in early stages.", es: 'Broadway es una herramienta de investigación sintética con IA que permite a equipos de producto testear ideas con usuarios simulados antes de salir al mercado. Diseñé y conceptualicé la landing page completa como principal vehículo de comunicación del producto, trabajando con un plazo extremadamente ajustado de una semana y con un producto aún en etapas tempranas.' },
   'broadway-p2':          { en: "The challenge was translating complex technology into a clear, credible and differentiated proposition, aimed at agencies and potential partners, with one single goal: capture leads and generate immediate interest. I worked from a product thinking perspective applied to acquisition, prioritizing impact and clarity over complexity. The result was a landing with a distinct narrative that communicates the product's value in seconds.", es: 'El desafío fue traducir tecnología compleja en una propuesta clara, creíble y diferenciada, dirigida a agencias y potenciales socios, con un único objetivo: captar leads y generar interés inmediato. Trabajé desde una perspectiva de product thinking aplicada a la adquisición, priorizando impacto y claridad sobre complejidad. El resultado fue una landing con una narrativa distintiva que comunica el valor del producto en segundos.' },
@@ -1139,7 +1174,7 @@ const TRANSLATIONS = {
   'broadway-wid-5-desc':  { en: 'In production and collecting waitlist signups.', es: 'En producción y recolectando inscripciones a la waitlist.' },
   'broadway-wid-6-title': { en: 'End-to-end', es: 'End-to-end' },
   'broadway-wid-6-desc':  { en: 'Identity, copy, layout and interactions, solo.', es: 'Identidad, copy, layout e interacciones, en solitario.' },
-  'essen-tagline':        { en: "Loyalty, referrals and gamification for Essen's community.", es: 'Fidelización, referidos y gamificación para la comunidad de Essen.' },
+  'essen-tagline':        { en: "Loyalty portal for Essen's community.", es: 'Portal de fidelización para la comunidad de Essen.' },
   'essen-about-tag':      { en: 'About', es: 'Sobre el proyecto' },
   'essen-p1':             { en: "Essen+ is a loyalty and referral platform for Essen's community of clients and entrepreneurs. Users sign up, earn points through referrals and purchases, and unlock benefits across three levels: Bronze, Silver and Gold.", es: 'Essen+ es una plataforma de fidelización y referidos para la comunidad de clientes y emprendedores de Essen. Los usuarios se registran, acumulan puntos mediante referidos y compras, y desbloquean beneficios en tres niveles: Bronce, Plata y Oro.' },
   'essen-p2':             { en: "I joined the UI phase to apply and extend the existing design system, contributing new components, tokens and definitions while resolving complex screens around sign-up, identity validation, referrals and gamification. The wireframes were defined but many screens needed significant UI work to actually function — that's where I came in.", es: 'Me incorporé en la fase de UI para aplicar y extender el design system existente, contribuyendo con nuevos componentes, tokens y definiciones mientras resolvía pantallas complejas de registro, validación de identidad, referidos y gamificación. Los wireframes estaban definidos pero muchas pantallas necesitaban trabajo significativo de UI para funcionar — ahí fue donde entré.' },
