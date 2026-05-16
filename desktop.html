@@ -1120,7 +1120,7 @@ input, textarea { cursor: text; }
 
   <div class="desktop-icon" style="top:103px;left:18px" id="ico-portfolio" data-win="win-portfolio">
     <div class="d-icon">
-      <img src="uploads/windows-ui/explorer-icon.png" style="width:38px;height:38px;object-fit:contain;" alt="IE">
+      <img src="uploads/windows-ui/WebPage.svg" style="width:38px;height:38px;object-fit:contain;" alt="IE">
     </div>
     <div class="d-label">My Projects</div>
   </div>
@@ -1153,7 +1153,7 @@ input, textarea { cursor: text; }
   <!-- PORTFOLIO -->
   <div class="xp-window" id="win-portfolio" style="width:900px;height:620px;left:80px;top:30px;">
     <div class="xp-titlebar">
-      <span class="xp-title-icon"><img src="uploads/windows-ui/explorer-icon.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span>
+      <span class="xp-title-icon"><img src="uploads/windows-ui/WebPage.svg" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span>
       <span class="xp-title-text">Projects</span>
       <div class="xp-btns">
         <button class="xp-btn" data-action="min" data-wid="win-portfolio">&#x2013;</button>
@@ -1169,19 +1169,18 @@ input, textarea { cursor: text; }
     <div class="xp-toolbar" id="pf-toolbar">
       <div class="tb-nav-btn"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/backfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Back</div><div class="tb-nav-drop">▾</div></div>
       <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/gofolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
+      <button class="tb-tool-btn" id="fs-btn" onclick="togglePortfolioFS()"><span class="tbi"><img src="uploads/windows-ui/Projector.png" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Full Screen</button>
       <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/openfolder.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></button>
       <div class="tb-tool-sep"></div>
       <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/Search.png" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Search</button>
       <button class="tb-tool-btn"><span class="tbi"><img src="uploads/windows-ui/foldersss.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Folders</button>
       <div class="tb-tool-sep" style="width:1px;"></div>
       <div class="tb-nav-btn disabled"><div class="tb-nav-main"><span class="tbi"><img src="uploads/windows-ui/nosedisabled.svg" style="width:24px;height:24px;object-fit:contain;" alt=""/></span></div><div class="tb-nav-drop">▾</div></div>
-      <div class="tb-tool-sep" style="width:1px;"></div>
-      <button class="tb-tool-btn" id="fs-btn" onclick="togglePortfolioFS()"><span class="tbi"><img src="uploads/windows-ui/Projector.png" style="width:24px;height:24px;object-fit:contain;" alt=""/></span> Full Screen</button>
     </div>
     <div class="xp-bars-sep"></div>
     <div class="xp-addrbar" id="pf-addrbar">
       <span class="addr-lbl">Address</span>
-      <div class="addr-box"><div class="addr-box-content"><span><img src="uploads/windows-ui/explorer-icon.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span><span>http://santifilippone.com/projects</span></div><span class="addr-box-drop"><img src="uploads/windows-ui/arrowdownblue.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span></div>
+      <div class="addr-box"><div class="addr-box-content"><span><img src="uploads/windows-ui/WebPage.svg" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;" alt=""/></span><span>http://santifilippone.com/projects</span></div><span class="addr-box-drop"><img src="uploads/windows-ui/arrowdownblue.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span></div>
       <button class="addr-go"><img src="uploads/windows-ui/arrowgosmall.png" style="width:20px;height:20px;object-fit:contain;" alt=""/> Go</button>
     </div>
     </div>
@@ -1603,7 +1602,7 @@ input, textarea { cursor: text; }
         <div><div class="sm-item-main">About me</div><div class="sm-sub">Who I am</div></div>
       </div>
       <div class="sm-item" onclick="openWin('win-portfolio');closeSM()">
-        <span class="sm-item-ico"><img src="uploads/windows-ui/explorer-icon.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <span class="sm-item-ico"><img src="uploads/windows-ui/WebPage.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
         <div><div class="sm-item-main">My Projects</div><div class="sm-sub">Design & work</div></div>
       </div>
 
@@ -1882,7 +1881,11 @@ document.addEventListener('click', e => {
   const act = btn.dataset.action;
   if (act === 'cls') closeWin(id);
   else if (act === 'min') minimizeWin(id);
-  else if (act === 'max') maximizeWin(id);
+  else if (act === 'max') {
+    const winEl = document.getElementById(id);
+    if (id === 'win-portfolio' && winEl && winEl._isFS) togglePortfolioFS();
+    else maximizeWin(id);
+  }
 });
 
 // Clicking a window raises it
@@ -2136,16 +2139,18 @@ function togglePortfolioFS() {
   const menubar = document.getElementById('pf-menubar');
   const toolbar = document.getElementById('pf-toolbar');
   const addrbar = document.getElementById('pf-addrbar');
-  const isFS = win.classList.contains('fs-mode');
+  const desktop = document.getElementById('desktop');
+  const isFS = win._isFS;
 
   if (!isFS) {
     win._prevStyle = { width: win.style.width, height: win.style.height, left: win.style.left, top: win.style.top, transform: win.style.transform };
-    win.style.width = '62.5vw';
-    win.style.height = '62.5vh';
-    win.style.left = '0';
-    win.style.top = '0';
+    win.style.width = desktop.clientWidth + 'px';
+    win.style.height = desktop.clientHeight + 'px';
+    win.style.left = '0px';
+    win.style.top = '0px';
     win.style.transform = 'none';
-    win.classList.add('fs-mode');
+    win.style.borderRadius = '0';
+    win._isFS = true;
     menubar.style.display = 'none';
     toolbar.style.display = 'none';
     addrbar.style.display = 'none';
@@ -2157,7 +2162,8 @@ function togglePortfolioFS() {
     win.style.left = p.left;
     win.style.top = p.top;
     win.style.transform = p.transform;
-    win.classList.remove('fs-mode');
+    win.style.borderRadius = '';
+    win._isFS = false;
     menubar.style.display = '';
     toolbar.style.display = '';
     addrbar.style.display = '';
