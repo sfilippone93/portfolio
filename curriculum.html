@@ -371,7 +371,7 @@ body {
 /* 3-column variant (Recognition) */
 .edu-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
 .edu-grid-3 .edu-cell { border-bottom: none; border-right: 1px dashed var(--dash) !important; }
-.edu-grid-3 .edu-cell:nth-child(3n) { border-right: none; }
+.edu-grid-3 .edu-cell:nth-child(3n) { border-right: none !important; }
 
 .edu-cell-head {
   display: flex;
@@ -587,7 +587,7 @@ body {
       </a>
     </div>
     <div class="hero-name">Santiago Filippone</div>
-    <div class="hero-role" id="t-hero-role">Product Designer · Fintech · Complex Products · Design Systems</div>
+    <div class="hero-role" id="t-hero-role">Product Designer · UX · Design Systems · AI Workflows</div>
 
     <div class="hero-location" id="t-hero-loc">Buenos Aires, Argentina</div>
   </div>
@@ -598,7 +598,7 @@ body {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       <span id="t-back-label">Back to Portfolio</span>
     </a>
-    <a href="uploads/Santiago_Filippone_CV_EN.pdf" download="Santiago_Filippone_CV_EN.pdf" class="cv-download" id="t-download">
+    <a href="uploads/Santiago_Filippone_Product_Designer_CV_EN.pdf" download="Santiago_Filippone_Product_Designer_CV_EN.pdf" class="cv-download" id="t-download">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
       <span id="t-download-label">Download PDF</span>
     </a>
@@ -823,7 +823,7 @@ body {
 
 <script>
 const TRANSLATIONS = {
-  'hero-role':         { en: 'Product Designer · Fintech · Complex Products · Design Systems', es: 'Product Designer · Fintech · Productos Complejos · Design Systems' },
+  'hero-role':         { en: 'Product Designer · UX · Design Systems · AI Workflows', es: 'Product Designer · UX · Design Systems · AI Workflows' },
   'hero-loc':          { en: 'Buenos Aires, Argentina', es: 'Buenos Aires, Argentina' },
   'back-label':        { en: 'Back to Portfolio', es: 'Volver al Portfolio' },
   'download-label':    { en: 'Download PDF', es: 'Descargar PDF' },
@@ -895,7 +895,7 @@ function setLang(lang) {
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-es').classList.toggle('active', lang === 'es');
   document.documentElement.lang = lang;
-  const cvFile = lang === 'es' ? 'uploads/Santiago_Filippone_CV_ES.pdf' : 'uploads/Santiago_Filippone_CV_EN.pdf';
+  const cvFile = lang === 'es' ? 'uploads/Santiago_Filippone_Product_Designer_CV_ES.pdf' : 'uploads/Santiago_Filippone_Product_Designer_CV_EN.pdf';
   const downloadBtn = document.getElementById('t-download');
   if (downloadBtn) { downloadBtn.href = cvFile; downloadBtn.download = cvFile; }
   try { localStorage.setItem('cv-lang', lang); } catch(e) {}
