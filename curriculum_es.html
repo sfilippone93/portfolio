@@ -111,16 +111,13 @@ body {
 .exp-item {
   padding: 5px 8px;
   border-bottom: 1px dashed var(--dash);
-  display: grid;
-  grid-template-columns: 1fr 68px;
-  gap: 6px;
-  align-items: start;
+  position: relative;
 }
 .exp-item:last-child { border-bottom: none; }
 .exp-role    { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
 .exp-company { font-size: 9px; font-weight: 500; color: var(--fg-mid); margin-top: 1px; }
 .exp-desc    { font-size: 9px; color: var(--fg-mid); line-height: 1.55; margin-top: 4px; }
-.exp-years   { font-size: 8.5px; color: var(--fg-dim); text-align: right; white-space: nowrap; padding-top: 2px; }
+.exp-years   { position: absolute; top: 5px; right: 8px; font-size: 8.5px; color: var(--fg-dim); text-align: right; white-space: nowrap; }
 
 /* 3-COL GRID */
 .grid-3 {
@@ -226,7 +223,7 @@ body {
       <div>
         <div class="exp-role">Product Designer</div>
         <div class="exp-company">Aerolab</div>
-        <div class="exp-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Trabajé end-to-end en el diseño de producto para Kauffman Fellows, Essen+ y Santillana desde el discovery hasta la entrega final.</li><li>Transformé KF Connect de una plataforma solo desktop a una experiencia mobile-first, reestructurando la arquitectura de información y rediseñando flujos clave: onboarding, directorio de fellows, perfiles y eventos.</li><li>Traducí requerimientos complejos en soluciones claras y escalables, equilibrando usabilidad, factibilidad técnica y objetivos de negocio.</li><li>Integré herramientas de IA en el proceso de diseño: usé Stitch y Figma Make para prototipado rápido y pruebas de concepto, y Claude Code para generar documentación y acelerar la iteración.</li><li>Construí y mantuve componentes de design system, tokens y documentación en distintos proyectos.</li></ul></div>
+        <div class="exp-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Trabajé end-to-end en el diseño de producto para Kauffman Fellows, Essen+ y Santillana desde el discovery hasta la entrega final.</li><li>Transformé KF Connect de una plataforma solo desktop a una experiencia mobile-first, reestructurando la arquitectura de información y rediseñando flujos clave: onboarding, directorio de fellows, perfiles y eventos.</li><li>Primer rol trabajando completamente en inglés con un cliente internacional.</li><li>Integré herramientas de IA en el proceso de diseño: usé Stitch y Figma Make para prototipado rápido y pruebas de concepto, y Claude Code para generar documentación, automatizar tareas repetitivas y acelerar la iteración.</li><li>Trabajé de cerca con PMs e ingenieros para definir alcance, priorizar features y mantener el avance en contextos de cambio constante.</li></ul></div>
       </div>
       <div class="exp-years">2025–2026</div>
     </div>
@@ -234,7 +231,7 @@ body {
       <div>
         <div class="exp-role">DesignOps · UI</div>
         <div class="exp-company">Banco del Sol</div>
-        <div class="exp-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Responsable de los design systems de Retail y Business Banking, con uso de 8+ diseñadores en múltiples squads.</li><li>Gestioné el ciclo completo de componentes: intake, diseño, revisión de implementación, actualización en pantallas existentes y comunicación al equipo.</li><li>Definí governance, documentación en Storybook y estructura de design tokens para estandarizar patrones entre productos.</li><li>Actué como principal punto de contacto entre diseño y desarrollo para todo lo relacionado con consistencia e implementación del sistema.</li></ul></div>
+        <div class="exp-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Responsable de los design systems de los productos de Retail Banking y Business Banking, usados por un equipo de 8+ diseñadores en múltiples squads.</li><li>Gestioné el ciclo completo de componentes: intake, diseño, revisión de implementación, actualización en pantallas existentes y comunicación al equipo.</li><li>Definí governance, documentación en Storybook y estructura de design tokens para estandarizar patrones entre los productos del banco.</li><li>Actué como principal punto de contacto entre diseño y desarrollo.</li><li>Implementé design critics y UI Updates quincenales, espacios de colaboración que no existían antes, para romper el trabajo en silo entre los equipos.</li><li>Trabajé bajo las regulaciones bancarias del BCRA, una capa de compliance y seguridad que no está presente en productos fintech sin regulación.</li></ul></div>
       </div>
       <div class="exp-years">2023–2025</div>
     </div>
@@ -242,7 +239,7 @@ body {
       <div>
         <div class="exp-role">Diseñador UX / UI</div>
         <div class="exp-company">Artear</div>
-        <div class="exp-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Participé en el rediseño y lanzamiento de cuatro productos digitales de medios a gran escala: Todo Noticias (TN), eltrece, Ciudad Magazine y la app mobile de TN, con 285K+ usuarios activos diarios en Android e iOS.</li><li>Fui parte del equipo que construyó Brick UI desde cero: un design system para unificar estándares visuales e interactivos en todos los productos de Artear, conectado al CMS y adaptado a la alta demanda editorial.</li><li>El sistema fue utilizado en escenarios de alta demanda como la cobertura de Elecciones 2021 y Qatar 2022.</li><li>El trabajo fue reconocido con tres premios internacionales: 28th Communicator Awards, w3 Awards y EPPY Awards (2022-2023), y tuvo más de 3.000 apreciaciones en Behance.</li></ul></div>
+        <div class="exp-desc"><ul style="list-style: disc; padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;"><li>Participé en el rediseño y lanzamiento de cuatro productos digitales de medios a gran escala: Todo Noticias (TN), eltrece, Ciudad Magazine y la app mobile de TN, con 285K+ usuarios activos diarios en Android e iOS.</li><li>Fui parte del equipo que construyó Brick UI desde cero: un design system para unificar estándares visuales e interactivos en todos los productos de Artear, conectado al CMS y adaptado a la alta demanda editorial.</li><li>El trabajo fue reconocido con tres premios internacionales y tuvo más de 3.000 apreciaciones en Behance.</li></ul></div>
       </div>
       <div class="exp-years">2021–2023</div>
     </div>
