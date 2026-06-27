@@ -1036,23 +1036,7 @@ body {
     <span class="proj-row-year">2026</span>
   </div>
 
-  <div id="kf-lock" style="border-bottom:1px dashed var(--dash);padding:32px 20px;text-align:center;height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-    <div style="width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px dashed var(--dash);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--fg-dim);">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-      </svg>
-    </div>
-    <p style="font-size:14px;font-weight:600;color:var(--fg);margin:0 0 4px;" id="t-kf-private-title">This project is private</p>
-    <p style="font-size:12px;color:var(--fg-dim);margin:0 0 20px;" id="t-kf-private-desc">Enter the password to view the content</p>
-    <div style="display:flex;gap:8px;max-width:280px;margin:0 auto;">
-      <input type="password" id="kf-pass-input" placeholder="Password" style="flex:1;font-size:13px;padding:8px 12px;border-radius:4px;border:1px dashed var(--dash);background:var(--bg);color:var(--fg);outline:none;" onkeydown="if(event.key==='Enter')kfUnlock()">
-      <button onclick="kfUnlock()" id="kf-view-btn-el" style="padding:8px 14px;font-size:13px;border-radius:4px;background:var(--fg);color:var(--bg);border:none;cursor:pointer;">View</button>
-    </div>
-    <p id="kf-error" style="font-size:11px;color:#c0392b;margin:8px 0 0;display:none;">Incorrect password</p>
-  </div>
-
-  <div id="kf-content" style="display:none;">
+  <div id="kf-content">
 
   <div class="case-block" style="border-color:#C0C0C0;">
     <img class="case-img-full" src="uploads/kf-hero.jpg" style="width:100%;height:520px;object-fit:cover;object-position:center;display:block;" alt="KF Connect Hero">
@@ -1119,22 +1103,6 @@ body {
   </div>
 
   </div><!-- /kf-content -->
-
-  <script>
-  function kfUnlock() {
-    const input = document.getElementById('kf-pass-input');
-    const error = document.getElementById('kf-error');
-    if (input.value === '7J&YKX@rc') {
-      document.getElementById('kf-lock').style.display = 'none';
-      document.getElementById('kf-content').style.display = 'block';
-      error.style.display = 'none';
-    } else {
-      error.style.display = 'block';
-      input.value = '';
-      input.focus();
-    }
-  }
-  </script>
 
   <!-- ════════════════════ AURORA ════════════════════ -->
   <div class="proj-row">
@@ -1403,8 +1371,6 @@ const TRANSLATIONS = {
   'bds-wid-6-title':      { en: 'Maintenance at scale', es: 'Mantenimiento a escala' },
   'bds-wid-6-desc':       { en: 'Manually updated, component by component, hundreds of broken instances after each library change. When the file volume made centralizing this unsustainable for one person, I redesigned the process so each designer owned keeping their own file up to date.', es: 'Actualicé manualmente, componente por componente, cientos de instancias rotas tras cada cambio en la librería. Cuando el volumen de archivos hizo insostenible centralizarlo en una sola persona, rediseñé el proceso para que cada diseñador fuera owner de mantener actualizado su propio archivo.' },
   'kf-tagline':           { en: 'A mobile-first platform for Kauffman Fellows.', es: 'Una plataforma mobile-first para Kauffman Fellows.' },
-  'kf-private-title':     { en: 'This project is private', es: 'Este proyecto es privado' },
-  'kf-private-desc':      { en: 'Enter the password to view the content', es: 'Ingresá la contraseña para ver el contenido' },
   'kf-about-tag':         { en: 'About', es: 'Sobre el proyecto' },
   'kf-p1':                { en: "I worked on the design of KF Connect, a mobile-first platform for Kauffman Fellows, a global network of venture capital investors. The project went beyond a redesign. It required defining a new product from the ground up, capable of connecting people, data, and knowledge across a fragmented ecosystem that previously lived in Airtable, WhatsApp, and a desktop-first platform. I was involved in shaping core product decisions, translating complex data structures into usable interfaces, and designing flows that support how fellows actually discover people, events, and opportunities. The challenge was balancing depth and flexibility with speed and clarity, creating a system that feels intuitive for busy users while supporting complex queries, evolving data, and long-term scalability.", es: 'Trabajé en el diseño de KF Connect, una plataforma mobile-first para Kauffman Fellows, una red global de inversores de capital de riesgo. El proyecto fue más allá de un rediseño. Requirió definir un nuevo producto desde cero, capaz de conectar personas, datos y conocimiento en un ecosistema fragmentado que previamente vivía en Airtable, WhatsApp y una plataforma desktop-first. Participé en la definición de decisiones clave de producto, traduciendo estructuras de datos complejas en interfaces utilizables y diseñando flujos que apoyan cómo los fellows realmente descubren personas, eventos y oportunidades. El desafío fue equilibrar profundidad y flexibilidad con velocidad y claridad, creando un sistema que se siente intuitivo para usuarios ocupados mientras soporta queries complejas, datos en evolución y escalabilidad a largo plazo.' },
   'kf-wid-tag':           { en: 'What I did', es: 'Qué hice' },
@@ -1447,19 +1413,7 @@ function setLang(lang) {
     el.innerHTML = val[lang];
   });
 
-  // Password input placeholder
-  const passInput = document.getElementById('kf-pass-input');
-  if (passInput) passInput.placeholder = lang === 'es' ? 'Contraseña' : 'Password';
 
-  // Password button
-  const kfBtn = document.getElementById('kf-view-btn-el');
-  if (kfBtn) kfBtn.textContent = lang === 'es' ? 'Ver' : 'View';
-
-  // Error message (only update if not visible to avoid confusing mid-flow)
-  const kfErr = document.getElementById('kf-error');
-  if (kfErr && kfErr.style.display === 'none') {
-    kfErr.textContent = lang === 'es' ? 'Contraseña incorrecta' : 'Incorrect password';
-  }
 }
 </script>
 
