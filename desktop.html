@@ -1152,7 +1152,7 @@ input, textarea { cursor: text; }
     <div class="d-label">About Me</div>
   </div>
 
-  <div class="desktop-icon" style="top:103px;left:18px" id="ico-portfolio" data-win="win-portfolio">
+  <div class="desktop-icon" style="top:103px;left:18px" id="ico-portfolio" data-open="portfolio.html">
     <div class="d-icon">
       <img src="uploads/windows-ui/WebPage.svg" style="width:38px;height:38px;object-fit:contain;" alt="IE">
     </div>
@@ -1265,7 +1265,7 @@ input, textarea { cursor: text; }
         <div class="sb-section">
           <div class="sb-hdr" onclick="toggleSb(this)"><span class="sb-hdr-text">Tasks</span><span class="sb-toggle"></span></div>
           <div class="sb-body">
-<a class="sb-item" href="/cdn-cgi/l/email-protection#0271636c766b63656d646b6e6b72726d6c6742656f636b6e2c616d6f"><span class="sbi"><img src="uploads/windows-ui/contact.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span> Contact</a>
+<a class="sb-item" href="mailto:santiagofilippone@gmail.com"><span class="sbi"><img src="uploads/windows-ui/contact.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span> Contact</a>
             <a class="sb-item" href="curriculum.html" target="_blank"><span class="sbi"><img src="uploads/windows-ui/pdf.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span> Download CV</a>
           </div>
         </div>
@@ -1635,7 +1635,7 @@ input, textarea { cursor: text; }
         <span class="sm-item-ico"><img src="uploads/windows-ui/notepad-icon.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
         <div><div class="sm-item-main">About me</div><div class="sm-sub">Who I am</div></div>
       </div>
-      <div class="sm-item" onclick="openWin('win-portfolio');closeSM()">
+      <div class="sm-item" onclick="closeSM();window.open('portfolio.html','_blank')">
         <span class="sm-item-ico"><img src="uploads/windows-ui/WebPage.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
         <div><div class="sm-item-main">My Projects</div><div class="sm-sub">Design & work</div></div>
       </div>
@@ -1974,7 +1974,11 @@ document.querySelectorAll('.desktop-icon').forEach(ico => {
     clicks++;
     clearTimeout(timer);
     if (clicks >= 2) {
-      openWin(ico.dataset.win);
+      if (ico.dataset.open) {
+        window.open(ico.dataset.open, '_blank');
+      } else {
+        openWin(ico.dataset.win);
+      }
       clicks = 0;
     } else {
       timer = setTimeout(() => { clicks = 0; }, 400);
