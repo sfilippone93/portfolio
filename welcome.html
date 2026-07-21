@@ -499,7 +499,14 @@
     setTimeout(() => {
       fadeEl.classList.add('active');
       setTimeout(() => {
-        window.location.href = 'desktop.html';
+        fetch('desktop.html')
+          .then(res => res.text())
+          .then(html => {
+            document.open();
+            document.write(html);
+            document.close();
+          })
+          .catch(() => { window.location.href = 'desktop.html'; });
       }, 700);
     }, 2000);
   }

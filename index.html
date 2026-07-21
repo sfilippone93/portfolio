@@ -197,7 +197,14 @@
     const screen = document.getElementById('loading-screen');
     screen.classList.add('fade-out');
     setTimeout(() => {
-      window.location.href = 'welcome.html';
+      fetch('welcome.html')
+        .then(res => res.text())
+        .then(html => {
+          document.open();
+          document.write(html);
+          document.close();
+        })
+        .catch(() => { window.location.href = 'welcome.html'; });
     }, 650);
   }, 2000);
 </script>
