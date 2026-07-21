@@ -1648,26 +1648,30 @@ input, textarea { cursor: text; }
      MUSIC PLAYER (Webamp)
 ════════════════════════════════════════════ -->
 <div id="webamp-container" style="position:fixed; inset:0 0 30px 0; z-index:5000; pointer-events:none;"></div>
+<style>#webamp-container * { pointer-events: auto; }</style>
 <script>
   (function() {
     let webampInstance = null;
-    let webampOpen = false;
     let webampLoading = false;
+    window.webampIsOpen = false;
+
+    function syncTaskbar() {
+      if (typeof refreshTaskbar === 'function') refreshTaskbar();
+    }
 
     window.toggleWebamp = async function toggleWebamp() {
       if (webampLoading) return;
 
       if (webampInstance) {
-        const container = document.getElementById('webamp-container');
-        if (webampOpen) {
+        if (window.webampIsOpen) {
           webampInstance.close();
-          container.style.pointerEvents = 'none';
-          webampOpen = false;
+          window.webampIsOpen = false;
         } else {
           webampInstance.reopen();
-          container.style.pointerEvents = 'auto';
-          webampOpen = true;
+          window.webampIsOpen = true;
+          webampInstance.play();
         }
+        syncTaskbar();
         return;
       }
 
@@ -1682,17 +1686,17 @@ input, textarea { cursor: text; }
           }]
         });
         await webampInstance.renderWhenReady(container);
-        container.style.pointerEvents = 'auto';
-        webampOpen = true;
+        window.webampIsOpen = true;
         webampInstance.play();
         webampInstance.onClose(() => {
-          container.style.pointerEvents = 'none';
-          webampOpen = false;
+          window.webampIsOpen = false;
+          syncTaskbar();
         });
       } catch (err) {
         console.error('Webamp failed to load', err);
       } finally {
         webampLoading = false;
+        syncTaskbar();
       }
     };
   })();
@@ -2135,6 +2139,15 @@ function refreshTaskbar() {
 
     container.appendChild(btn);
   });
+
+  if (window.webampIsOpen) {
+    const btn = document.createElement('button');
+    btn.className = 'tb-win-btn tb-active';
+    btn.id = 'tb-webamp';
+    btn.innerHTML = '<span class="tb-win-icon"><img src="uploads/windows-ui/CDMusic.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;" alt=""/></span>Winamp';
+    btn.onclick = () => toggleWebamp();
+    container.appendChild(btn);
+  }
 }
 
 // ════════════════════════════════════════════════════════
