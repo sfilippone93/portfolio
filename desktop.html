@@ -1152,18 +1152,23 @@ input, textarea { cursor: text; }
     <div class="d-label">About Me</div>
   </div>
 
+  <div class="desktop-icon" style="top:18px;left:103px" id="ico-winamp" onclick="toggleWebamp()">
+    <div class="d-icon"><img src="uploads/windows-ui/CDMusic.png" style="width:38px;height:38px;object-fit:contain;" alt=""/></div>
+    <div class="d-label">Music</div>
+  </div>
+
   <div class="desktop-icon" style="top:103px;left:18px" id="ico-portfolio" data-open="portfolio.html">
     <div class="d-icon">
       <img src="uploads/windows-ui/WebPage.svg" style="width:38px;height:38px;object-fit:contain;" alt="IE">
     </div>
-    <div class="d-label">My Projects</div>
+    <div class="d-label">Projects</div>
   </div>
 
   <div class="desktop-icon" style="top:188px;left:18px" id="ico-resume" onclick="window.open('curriculum.html','_blank')">
     <div class="d-icon">
-      <img src="uploads/windows-ui/pdf.png" style="width:48px;height:48px;object-fit:contain;" alt="My Resume"/>
+      <img src="uploads/windows-ui/pdf.png" style="width:48px;height:48px;object-fit:contain;" alt="Resume"/>
     </div>
-    <div class="d-label">My Resume</div>
+    <div class="d-label">Resume</div>
   </div>
 
   <div class="desktop-icon" style="top:273px;left:18px" id="ico-pinball" data-win="win-pinball">
@@ -1187,6 +1192,7 @@ input, textarea { cursor: text; }
     <div class="d-icon"><img src="uploads/windows-ui/spider.png" style="width:32px;height:32px;object-fit:contain;" alt=""/></div>
     <div class="d-label">Spider Solitaire</div>
   </div>
+
 
 
 
@@ -1311,7 +1317,6 @@ input, textarea { cursor: text; }
             </div>
           </div>
           <div class="about-p">I work on the definition, design, documentation, and implementation of solutions aimed at improving user experience and efficiency. I'm interested in improving processes, team collaboration, facilitating the adoption of good practices, and building a solid bridge between design and other teams.</div>
-          <p style="color:#999;font-size:10px;margin-top:14px;">— Last edited: April 2026</p>
         </div>
       </div>
     </div>
@@ -1603,9 +1608,9 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-content" style="padding:0;flex:1;overflow:hidden;">
-      <iframe src="solitaire.html" style="width:100%;height:100%;border:none;display:block;" title="Solitaire"></iframe>
+      <iframe src="https://www.freecell.io/game/solitaire-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="Solitaire"></iframe>
     </div>
-    <div class="xp-status"><span>Click a card to auto-move &nbsp;|&nbsp; Drag to place &nbsp;|&nbsp; Click stock pile to reset</span></div>
+    <div class="xp-status"><span>Solitaire</span></div>
   </div>
 
   <!-- WIN-FREECELL -->
@@ -1740,7 +1745,7 @@ input, textarea { cursor: text; }
       </div>
       <div class="sm-item" onclick="closeSM();window.open('portfolio.html','_blank')">
         <span class="sm-item-ico"><img src="uploads/windows-ui/WebPage.svg" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
-        <div><div class="sm-item-main">My Projects</div><div class="sm-sub">Design & work</div></div>
+        <div><div class="sm-item-main">Projects</div><div class="sm-sub">Design & work</div></div>
       </div>
 
       <div class="sm-divider"></div>
@@ -1791,13 +1796,17 @@ input, textarea { cursor: text; }
         <div><div class="sm-item-main">Control Panel</div></div>
       </div>
       <div class="sm-sep"></div>
+      <div class="sm-item" onclick="toggleWebamp();closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/CDMusic.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main">Music</div></div>
+      </div>
       <div class="sm-item" onclick="openWin('win-viewer');closeSM()">
         <span class="sm-item-ico"><img src="uploads/windows-ui/PictureViewer.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
         <div><div class="sm-item-main">Image Viewer</div></div>
       </div>
       <div class="sm-item" onclick="window.open('curriculum.html','_blank');closeSM()">
         <span class="sm-item-ico"><img src="uploads/windows-ui/pdf.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
-        <div><div class="sm-item-main">My Resume</div></div>
+        <div><div class="sm-item-main">Resume</div></div>
       </div>
     </div>
   </div>
@@ -1907,7 +1916,7 @@ function openWin(id) {
   w.el.classList.add('anim-open');
   setTimeout(() => w.el.classList.remove('anim-open'), 160);
 
-  if (id === 'win-portfolio' || id === 'win-freecell' || id === 'win-spider' || window.innerWidth <= 480) maximizeWin(id);
+  if (id === 'win-portfolio' || id === 'win-solitaire' || id === 'win-freecell' || id === 'win-spider' || window.innerWidth <= 480) maximizeWin(id);
 
   // Inicializa el image viewer
   if (id === 'win-viewer') viewerShow(0);
@@ -2144,7 +2153,7 @@ function refreshTaskbar() {
     const btn = document.createElement('button');
     btn.className = 'tb-win-btn tb-active';
     btn.id = 'tb-webamp';
-    btn.innerHTML = '<span class="tb-win-icon"><img src="uploads/windows-ui/CDMusic.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;" alt=""/></span>Winamp';
+    btn.innerHTML = '<span class="tb-win-icon"><img src="uploads/windows-ui/CDMusic.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;" alt=""/></span>Music';
     btn.onclick = () => toggleWebamp();
     container.appendChild(btn);
   }
