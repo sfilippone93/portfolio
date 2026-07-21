@@ -78,6 +78,7 @@ input, textarea { cursor: text; }
 }
 .desktop-icon:hover { background: rgba(12,52,124,0.25); border-color: rgba(12,52,124,0.35); }
 .desktop-icon.selected { background: rgba(12,52,124,0.45); border-color: rgba(12,52,124,0.6); }
+.desktop-icon.dragging { opacity: 0.7; z-index: 50; }
 .desktop-icon .d-icon {
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
@@ -624,35 +625,104 @@ input, textarea { cursor: text; }
 }
 
 /* ────────────────────────────────────────────────
-   SHUTDOWN SCREEN
+   TURN OFF COMPUTER
 ──────────────────────────────────────────────── */
-#shutdown {
-  position: fixed; inset: 0;
-  background: #003399;
-  display: none; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 28px; z-index: 999999;
-}
-#shutdown.sd-on { display: flex; }
+#desktop, #taskbar { transition: filter 1.4s ease; }
+#desktop.grayscale, #taskbar.grayscale { filter: grayscale(1); }
 
-.sd-logo { font-size: 56px; }
-.sd-text { color: #fff; font-size: 22px; font-family: Tahoma, Arial, sans-serif; }
-.sd-sub { color: rgba(255,255,255,0.7); font-size: 12px; font-family: Tahoma, Arial, sans-serif; }
-.sd-bar-wrap { width:220px; height:20px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.25); border-radius:2px; overflow:hidden; }
-.sd-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #0055CC, #4499FF, #0055CC);
-  background-size: 220px 100%;
-  transition: width 2.5s linear;
-}
-.sd-restart {
-  padding: 8px 24px;
-  background: #fff; border:none; border-radius:2px;
-  font-size: 12px; font-family: Tahoma, Arial, sans-serif;
+#turnoff-dialog {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 360px;
+  padding: 4px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #fdfdfd 0%, #d4d2ca 6%, #a4a29a 50%, #86847c 100%);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.6);
+  z-index: 999997;
   display: none;
+  opacity: 0;
+  transition: opacity .25s ease, transform .25s ease;
+  font-family: Tahoma, Arial, sans-serif;
 }
-.sd-restart:hover { background: #EEE; }
+#turnoff-dialog.visible { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.tod-inner { border-radius: 2px; overflow: hidden; border: 1px solid #1941c9; }
+.tod-title {
+  position: relative;
+  background: linear-gradient(180deg, #5990f6 0%, #2f6bf0 12%, #1c4de0 55%, #123bc4 100%);
+  color: #fff; font-size:13px; font-weight:bold;
+  padding: 7px 8px 7px 12px; display:flex; align-items:center; justify-content:space-between;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.35);
+}
+.tod-title::after {
+  content:""; position:absolute; top:0; left:0; right:0; height:45%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  pointer-events:none;
+}
+.tod-title-logo { display:flex; align-items:center; gap:2px; }
+.tod-title-logo sup { font-size:7px; font-weight:normal; margin-left:1px; }
+.tod-body {
+  background: linear-gradient(150deg, #7ea3f0 0%, #5580e8 35%, #3660d8 70%, #2c53c9 100%);
+  padding: 34px 20px 26px; display:flex; justify-content:center; gap:24px;
+}
+.tod-btn { display:flex; flex-direction:column; align-items:center; gap:9px; background:none; border:none; cursor:pointer; color:#fff; font-size:11px; font-family:Tahoma,Arial,sans-serif; font-weight:bold; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); }
+.tod-circle {
+  width:60px; height:60px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.45), inset 0 -3px 5px rgba(0,0,0,0.2);
+  transition: transform .1s;
+}
+.tod-circle::before {
+  content:"";
+  position:absolute; top:3px; left:8px; right:8px; height:46%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0));
+  border-radius: 50%;
+  pointer-events:none;
+}
+.tod-standby { background: radial-gradient(circle at 50% 40%, #FFD787, #F0A429 65%, #C97613 100%); }
+.tod-turnoff { background: radial-gradient(circle at 50% 40%, #FF9478, #E14A2C 65%, #B32C16 100%); }
+.tod-restart { background: radial-gradient(circle at 50% 40%, #B9F08B, #4CAF3A 65%, #327A22 100%); }
+.tod-icon {
+  width:26px; height:26px;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,0.1);
+  position: relative; z-index: 1;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.tod-icon svg { width:16px; height:16px; display:block; }
+.tod-btn:hover .tod-circle { transform: scale(1.06); }
+.tod-btn:active .tod-circle { transform: scale(0.96); }
+.tod-footer {
+  background: linear-gradient(180deg, #ECE9D8, #DFDBC7);
+  border-top: 1px solid #ACA899;
+  padding: 10px 14px; display:flex; justify-content:flex-end;
+}
+.tod-cancel {
+  padding:5px 20px; font-size:11px; font-family:Tahoma,Arial,sans-serif;
+  border:1px solid #8f8f8f; border-radius:3px;
+  background:linear-gradient(180deg,#fefefe,#ece9d8); cursor:pointer;
+  box-shadow: inset 0 1px 0 #fff;
+}
+.tod-cancel:hover { background:linear-gradient(180deg,#fff,#dcd8c4); }
+.tod-cancel:active { background:linear-gradient(180deg,#dcd8c4,#eee); }
+
+#shutdown-black {
+  position: fixed; inset: 0;
+  background: #000;
+  z-index: 999999;
+  display: none;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px;
+}
+#shutdown-black.visible { display: flex; }
+.sb-row { display:flex; align-items:center; gap:16px; }
+.sb-text { color:#fff; font-family: Tahoma, Arial, sans-serif; text-align:left; }
+.sb-ms { font-size:15px; }
+.sb-win { font-size:34px; font-weight:bold; line-height:1.1; }
+.sb-sub { color:#fff; font-size:12px; font-family:Tahoma,Arial,sans-serif; }
 
 /* ────────────────────────────────────────────────
    CONTENT: PROYECTOS
@@ -1313,10 +1383,11 @@ input, textarea { cursor: text; }
             <div>
               <div class="about-name">Santiago Filippone</div>
               <div class="about-role">Product Designer · Freelance</div>
-              <div class="about-p">Product Designer with experience working on end-to-end projects for media and banking.</div>
+              <div class="about-p">Product Designer with 5+ years of experience designing complex digital products across fintech, media, and high-traffic platforms.</div>
             </div>
           </div>
-          <div class="about-p">I work on the definition, design, documentation, and implementation of solutions aimed at improving user experience and efficiency. I'm interested in improving processes, team collaboration, facilitating the adoption of good practices, and building a solid bridge between design and other teams.</div>
+          <div class="about-p">I work end-to-end: from discovery and user research through wireframes, prototypes, and developer handoff. I've built and maintained design systems used by multiple teams, and I collaborate closely with engineers and stakeholders throughout the process.</div>
+          <div class="about-p">I integrate AI tools into my design workflow, not as a shortcut, but as a way to move faster while keeping every decision intentional and defensible.</div>
         </div>
       </div>
     </div>
@@ -1815,7 +1886,7 @@ input, textarea { cursor: text; }
       <span class="sm-foot-icon logoff"><img src="uploads/windows-ui/LogOff.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
       Log Off
     </button>
-    <button class="sm-foot-btn" onclick="doShutdown()">
+    <button class="sm-foot-btn" onclick="openTurnOffDialog()">
       <span class="sm-foot-icon shutdown"><img src="uploads/windows-ui/PowerOff.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
       Shut Down
     </button>
@@ -1837,6 +1908,8 @@ input, textarea { cursor: text; }
   </div>
   <div class="viewer-stage">
     <img id="viewer-img" src="" alt="" draggable="false"/>
+    <video id="viewer-video" style="display:none;max-width:100%;max-height:100%;" controls></video>
+    <iframe id="viewer-youtube" style="display:none;width:100%;height:100%;border:none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
   </div>
   <div class="viewer-bar">
     <button class="viewer-btn" onclick="viewerFirst()" title="First">⏮</button>
@@ -1856,16 +1929,55 @@ input, textarea { cursor: text; }
 </div>
 
 <!-- ════════════════════════════════════════════
-     SHUTDOWN SCREEN
+     TURN OFF COMPUTER
 ════════════════════════════════════════════ -->
-<div id="shutdown">
-  <div class="sd-logo">⊞</div>
-  <div style="text-align:center">
-    <div class="sd-text" id="sd-msg">Shutting down...</div>
-    <div class="sd-sub" style="margin-top:6px">Please wait while your session changes are saved</div>
+<div id="turnoff-dialog">
+  <div class="tod-inner">
+    <div class="tod-title">
+      <span>Turn off computer</span>
+      <span class="tod-title-logo"><img src="uploads/windows-ui/win xp logo complete.png" style="width:20px;height:20px;object-fit:contain;" alt=""/><sup>TM</sup></span>
+    </div>
+    <div class="tod-body">
+      <button class="tod-btn" onclick="standByPC()">
+        <span class="tod-circle tod-standby">
+          <span class="tod-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v7"/><path d="M6.5 6.5a8 8 0 1 0 11 0"/></svg>
+          </span>
+        </span>
+        <span>Stand By</span>
+      </button>
+      <button class="tod-btn" onclick="turnOffPC()">
+        <span class="tod-circle tod-turnoff">
+          <span class="tod-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v7"/><path d="M6.5 6.5a8 8 0 1 0 11 0"/></svg>
+          </span>
+        </span>
+        <span>Turn Off</span>
+      </button>
+      <button class="tod-btn" onclick="restartPC()">
+        <span class="tod-circle tod-restart">
+          <span class="tod-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg>
+          </span>
+        </span>
+        <span>Restart</span>
+      </button>
+    </div>
+    <div class="tod-footer">
+      <button class="tod-cancel" onclick="closeTurnOffDialog()">Cancel</button>
+    </div>
   </div>
-  <div class="sd-bar-wrap"><div class="sd-bar" id="sd-bar"></div></div>
-  <button class="sd-restart" id="sd-restart" onclick="cancelShutdown()">↩ Back to portfolio</button>
+</div>
+
+<div id="shutdown-black">
+  <div class="sb-row">
+    <div class="sb-text">
+      <div class="sb-ms">Microsoft<sup style="font-size:8px;">®</sup></div>
+      <div class="sb-win">Windows<sup style="font-size:14px;">®</sup></div>
+    </div>
+    <img src="uploads/windows-ui/win xp logo complete.png" style="width:64px;height:64px;object-fit:contain;" alt=""/>
+  </div>
+  <div class="sb-sub">It is now safe to turn off your computer.</div>
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -2087,8 +2199,59 @@ document.addEventListener('mouseup', () => { drag = null; });
 //  DESKTOP ICONS
 // ════════════════════════════════════════════════════════
 
+// Block the click that follows a drag so it doesn't also open the icon
+let iconWasDragged = false;
+document.addEventListener('click', e => {
+  if (iconWasDragged) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    iconWasDragged = false;
+  }
+}, true);
+
+let iconDrag = null;
+
+document.addEventListener('mousemove', e => {
+  if (!iconDrag) return;
+  const dx = e.clientX - iconDrag.startX;
+  const dy = e.clientY - iconDrag.startY;
+  if (!iconDrag.dragging && Math.hypot(dx, dy) > 4) {
+    iconDrag.dragging = true;
+    iconDrag.el.classList.add('dragging');
+  }
+  if (iconDrag.dragging) {
+    const desktop = document.getElementById('desktop');
+    const maxLeft = desktop.clientWidth - iconDrag.el.offsetWidth;
+    const maxTop = desktop.clientHeight - iconDrag.el.offsetHeight;
+    const newLeft = Math.max(0, Math.min(maxLeft, iconDrag.origLeft + dx));
+    const newTop  = Math.max(0, Math.min(maxTop,  iconDrag.origTop  + dy));
+    iconDrag.el.style.left = newLeft + 'px';
+    iconDrag.el.style.top  = newTop  + 'px';
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  if (iconDrag && iconDrag.dragging) {
+    iconDrag.el.classList.remove('dragging');
+    iconWasDragged = true;
+  }
+  iconDrag = null;
+});
+
 document.querySelectorAll('.desktop-icon').forEach(ico => {
   let clicks = 0, timer;
+
+  ico.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    iconDrag = {
+      el: ico,
+      startX: e.clientX,
+      startY: e.clientY,
+      origLeft: ico.offsetLeft,
+      origTop: ico.offsetTop,
+      dragging: false
+    };
+  });
 
   ico.addEventListener('click', e => {
     document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
@@ -2206,13 +2369,10 @@ function togglePinballMute() {
 //  IMAGE VIEWER
 // ════════════════════════════════════════════════════════
 const VIEWER_IMAGES = [
-  { src: 'uploads/wallpapers/0bfd8fdf-457f-43c8-9253-a2346d37d26a_9064.jpeg',           name: 'Painting I' },
-  { src: 'uploads/wallpapers/8084274A-0B11-42C2-807D-E7A156AFE82C_1_201_a.jpeg',        name: 'Painting II' },
-  { src: 'uploads/wallpapers/A Sunday on La Grande Jatte - Georges Seurat.jpg',          name: 'A Sunday on La Grande Jatte' },
-  { src: 'uploads/wallpapers/Vincent_Willem_van_Gogh_127.jpeg',                          name: 'Vincent van Gogh' },
-  { src: 'uploads/wallpapers/dezoomify-result (24) copy.jpeg',                           name: 'Painting V' },
-  { src: 'uploads/wallpapers/download (1).jpeg',                                          name: 'Painting VI' },
-  { src: 'uploads/wallpapers/self-portrait_1998.74.5.jpeg',                               name: 'Self Portrait' },
+  { src: 'uploads/wallpapers/1.jpg',                                                      name: 'Painting I' },
+  { src: 'uploads/wallpapers/2.png',                                                       name: 'Painting II' },
+  { type: 'youtube', youtubeId: 'k2gfLL1gHy0',                                            name: 'Windows Me Desktop Themes - Baseball' },
+  { type: 'youtube', youtubeId: 'pTbSMKGQ_rU',                                            name: 'The Incredible Machine (1993) Longplay' },
 ];
 
 let viewerIdx = 0;
@@ -2223,9 +2383,30 @@ function viewerShow(idx) {
   viewerIdx = (idx + VIEWER_IMAGES.length) % VIEWER_IMAGES.length;
   const item = VIEWER_IMAGES[viewerIdx];
   viewerScale = 1; viewerRotation = 0;
+
   const img = document.getElementById('viewer-img');
+  const video = document.getElementById('viewer-video');
+  const yt = document.getElementById('viewer-youtube');
+
   img.style.transform = '';
-  img.src = item.src;
+  img.style.display = 'none';
+  video.style.display = 'none';
+  video.pause();
+  video.src = '';
+  yt.style.display = 'none';
+  yt.src = '';
+
+  if (item.type === 'youtube') {
+    yt.src = 'https://www.youtube.com/embed/' + item.youtubeId;
+    yt.style.display = 'block';
+  } else if (item.type === 'video') {
+    video.src = item.src;
+    video.style.display = 'block';
+  } else {
+    img.src = item.src;
+    img.style.display = 'block';
+  }
+
   document.getElementById('viewer-counter').textContent = (viewerIdx + 1) + ' / ' + VIEWER_IMAGES.length;
   document.getElementById('viewer-title').textContent = item.name + ' - Windows Picture and Fax Viewer';
 }
@@ -2253,36 +2434,37 @@ tickClock();
 setInterval(tickClock, 10000);
 
 // ════════════════════════════════════════════════════════
-//  SHUTDOWN
+//  TURN OFF COMPUTER
 // ════════════════════════════════════════════════════════
 
-function doShutdown() {
+function openTurnOffDialog() {
   closeSM();
-  const sd = document.getElementById('shutdown');
-  sd.classList.add('sd-on');
-
-  // Animate bar
-  setTimeout(() => {
-    document.getElementById('sd-bar').style.width = '100%';
-  }, 100);
-
-  // Show final state
-  setTimeout(() => {
-    document.getElementById('sd-msg').textContent = 'It is now safe to turn off your computer.';
-    document.getElementById('sd-restart').style.display = 'block';
-  }, 3200);
+  document.getElementById('desktop').classList.add('grayscale');
+  document.getElementById('taskbar').classList.add('grayscale');
+  document.getElementById('turnoff-dialog').classList.add('visible');
 }
 
-function cancelShutdown() {
-  const sd = document.getElementById('shutdown');
-  sd.classList.remove('sd-on');
-  document.getElementById('sd-bar').style.width = '0%';
-  document.getElementById('sd-bar').style.transition = 'none';
+function closeTurnOffDialog() {
+  document.getElementById('turnoff-dialog').classList.remove('visible');
+  document.getElementById('desktop').classList.remove('grayscale');
+  document.getElementById('taskbar').classList.remove('grayscale');
+}
+
+function standByPC() {
+  closeTurnOffDialog();
+}
+
+function restartPC() {
+  closeTurnOffDialog();
+  location.reload();
+}
+
+function turnOffPC() {
+  document.getElementById('turnoff-dialog').classList.remove('visible');
+  document.getElementById('shutdown-black').classList.add('visible');
   setTimeout(() => {
-    document.getElementById('sd-bar').style.transition = 'width 2.5s linear';
-    document.getElementById('sd-msg').textContent = 'Shutting down...';
-    document.getElementById('sd-restart').style.display = 'none';
-  }, 50);
+    window.location.href = 'https://santiagofilippone.com.ar';
+  }, 10000);
 }
 
 // ════════════════════════════════════════════════════════
