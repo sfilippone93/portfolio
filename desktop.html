@@ -1645,6 +1645,60 @@ input, textarea { cursor: text; }
 </div><!-- /desktop -->
 
 <!-- ════════════════════════════════════════════
+     MUSIC PLAYER (Webamp)
+════════════════════════════════════════════ -->
+<div id="webamp-container" style="position:fixed; inset:0 0 30px 0; z-index:5000; pointer-events:none;"></div>
+<script>
+  (function() {
+    let webampInstance = null;
+    let webampOpen = false;
+    let webampLoading = false;
+
+    window.toggleWebamp = async function toggleWebamp() {
+      if (webampLoading) return;
+
+      if (webampInstance) {
+        const container = document.getElementById('webamp-container');
+        if (webampOpen) {
+          webampInstance.close();
+          container.style.pointerEvents = 'none';
+          webampOpen = false;
+        } else {
+          webampInstance.reopen();
+          container.style.pointerEvents = 'auto';
+          webampOpen = true;
+        }
+        return;
+      }
+
+      webampLoading = true;
+      try {
+        const { default: Webamp } = await import('https://unpkg.com/webamp@^2');
+        const container = document.getElementById('webamp-container');
+        webampInstance = new Webamp({
+          initialTracks: [{
+            url: encodeURI('uploads/Seru Giran- Seminare.mp3'),
+            metaData: { artist: 'Serú Girán', title: 'Seminare' }
+          }]
+        });
+        await webampInstance.renderWhenReady(container);
+        container.style.pointerEvents = 'auto';
+        webampOpen = true;
+        webampInstance.play();
+        webampInstance.onClose(() => {
+          container.style.pointerEvents = 'none';
+          webampOpen = false;
+        });
+      } catch (err) {
+        console.error('Webamp failed to load', err);
+      } finally {
+        webampLoading = false;
+      }
+    };
+  })();
+</script>
+
+<!-- ════════════════════════════════════════════
      TASKBAR
 ════════════════════════════════════════════ -->
 <div id="taskbar">
@@ -1655,6 +1709,7 @@ input, textarea { cursor: text; }
   </button>
   <div id="tb-wins"></div>
   <div id="systray">
+    <img src="uploads/windows-ui/CDMusic.png" style="width:16px;height:16px;object-fit:contain;cursor:pointer;" alt="" title="Music Player" onclick="toggleWebamp()"/>
     <img src="uploads/windows-ui/Projector.png" style="width:16px;height:16px;object-fit:contain;cursor:pointer;" alt="" title="Toggle Fullscreen" onclick="document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()"/>
     <div id="clock"></div>
   </div>
