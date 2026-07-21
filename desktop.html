@@ -1178,6 +1178,16 @@ input, textarea { cursor: text; }
     <div class="d-label">Solitaire</div>
   </div>
 
+  <div class="desktop-icon" style="top:443px;left:18px" id="ico-freecell" data-win="win-freecell">
+    <div class="d-icon"><img src="uploads/windows-ui/freecell.png" style="width:32px;height:32px;object-fit:contain;" alt=""/></div>
+    <div class="d-label">FreeCell</div>
+  </div>
+
+  <div class="desktop-icon" style="top:528px;left:18px" id="ico-spider" data-win="win-spider">
+    <div class="d-icon"><img src="uploads/windows-ui/spider.png" style="width:32px;height:32px;object-fit:contain;" alt=""/></div>
+    <div class="d-label">Spider Solitaire</div>
+  </div>
+
 
 
   <!-- ════════════════════════════════════════
@@ -1598,6 +1608,40 @@ input, textarea { cursor: text; }
     <div class="xp-status"><span>Click a card to auto-move &nbsp;|&nbsp; Drag to place &nbsp;|&nbsp; Click stock pile to reset</span></div>
   </div>
 
+  <!-- WIN-FREECELL -->
+  <div class="xp-window" id="win-freecell" style="width:800px;height:580px;left:120px;top:40px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon"><img src="uploads/windows-ui/freecell.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span>
+      <span class="xp-title-text">FreeCell</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-freecell">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-freecell">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-freecell">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-content" style="padding:0;flex:1;overflow:hidden;">
+      <iframe src="https://www.freecell.io/game/freecell-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="FreeCell"></iframe>
+    </div>
+    <div class="xp-status"><span>FreeCell</span></div>
+  </div>
+
+  <!-- WIN-SPIDER -->
+  <div class="xp-window" id="win-spider" style="width:800px;height:580px;left:120px;top:40px;">
+    <div class="xp-titlebar">
+      <span class="xp-title-icon"><img src="uploads/windows-ui/spider.png" style="width:16px;height:16px;object-fit:contain;" alt=""/></span>
+      <span class="xp-title-text">Spider Solitaire</span>
+      <div class="xp-btns">
+        <button class="xp-btn" data-action="min" data-wid="win-spider">&#x2013;</button>
+        <button class="xp-btn" data-action="max" data-wid="win-spider">&#x25A1;</button>
+        <button class="xp-btn x-close" data-action="cls" data-wid="win-spider">&#x2715;</button>
+      </div>
+    </div>
+    <div class="xp-content" style="padding:0;flex:1;overflow:hidden;">
+      <iframe src="https://www.freecell.io/game/spider-solitaire-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="Spider"></iframe>
+    </div>
+    <div class="xp-status"><span>Spider Solitaire</span></div>
+  </div>
+
 </div><!-- /desktop -->
 
 <!-- ════════════════════════════════════════════
@@ -1650,6 +1694,16 @@ input, textarea { cursor: text; }
       <div class="sm-item" onclick="openWin('win-solitaire');closeSM()">
         <span class="sm-item-ico"><img src="uploads/windows-ui/Solitaire.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
         <div><div class="sm-item-main" style="font-weight:normal;">Solitaire</div></div>
+      </div>
+
+      <div class="sm-item" onclick="openWin('win-freecell');closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/freecell.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main" style="font-weight:normal;">FreeCell</div></div>
+      </div>
+
+      <div class="sm-item" onclick="openWin('win-spider');closeSM()">
+        <span class="sm-item-ico"><img src="uploads/windows-ui/spider.png" style="width:100%;height:100%;object-fit:contain;" alt=""/></span>
+        <div><div class="sm-item-main" style="font-weight:normal;">Spider Solitaire</div></div>
       </div>
 
       <div class="sm-sep" style="margin-top:auto;"></div>
@@ -1794,7 +1848,7 @@ function openWin(id) {
   w.el.classList.add('anim-open');
   setTimeout(() => w.el.classList.remove('anim-open'), 160);
 
-  if (id === 'win-portfolio' || window.innerWidth <= 480) maximizeWin(id);
+  if (id === 'win-portfolio' || id === 'win-freecell' || id === 'win-spider' || window.innerWidth <= 480) maximizeWin(id);
 
   // Inicializa el image viewer
   if (id === 'win-viewer') viewerShow(0);
