@@ -1679,7 +1679,7 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-content" style="padding:0;flex:1;overflow:hidden;">
-      <iframe src="https://www.freecell.io/game/solitaire-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="Solitaire"></iframe>
+      <iframe src="https://www.freecell.io/game-frame/game/solitaire-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="Solitaire"></iframe>
     </div>
     <div class="xp-status"><span>Solitaire</span></div>
   </div>
@@ -1696,7 +1696,7 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-content" style="padding:0;flex:1;overflow:hidden;">
-      <iframe src="https://www.freecell.io/game/freecell-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="FreeCell"></iframe>
+      <iframe src="https://www.freecell.io/game-frame/game/freecell-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="FreeCell"></iframe>
     </div>
     <div class="xp-status"><span>FreeCell</span></div>
   </div>
@@ -1713,7 +1713,7 @@ input, textarea { cursor: text; }
       </div>
     </div>
     <div class="xp-content" style="padding:0;flex:1;overflow:hidden;">
-      <iframe src="https://www.freecell.io/game/spider-solitaire-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="Spider"></iframe>
+      <iframe src="https://www.freecell.io/game-frame/game/spider-solitaire-windows-xp/" style="width:100%;height:100%;border:none;display:block;" title="Spider"></iframe>
     </div>
     <div class="xp-status"><span>Spider Solitaire</span></div>
   </div>
@@ -1757,11 +1757,23 @@ input, textarea { cursor: text; }
         const container = document.getElementById('webamp-container');
         webampInstance = new Webamp({
           initialTracks: [{
-            url: encodeURI('uploads/Seru Giran- Seminare.mp3'),
+            url: encodeURI('uploads/musica/Seru Giran- Seminare.mp3'),
             metaData: { artist: 'Serú Girán', title: 'Seminare' }
           }, {
-            url: encodeURI('uploads/Las Pelotas - Sera.mp3'),
+            url: encodeURI('uploads/musica/Las Pelotas - Sera.mp3'),
             metaData: { artist: 'Las Pelotas', title: 'Será' }
+          }, {
+            url: encodeURI('uploads/musica/Andres Calamaro - Estadio Azteca.mp3'),
+            metaData: { artist: 'Andrés Calamaro', title: 'Estadio Azteca' }
+          }, {
+            url: encodeURI('uploads/musica/La Portuaria - Nada Es Igual.mp3'),
+            metaData: { artist: 'La Portuaria', title: 'Nada Es Igual' }
+          }, {
+            url: encodeURI('uploads/musica/Charly Garcia - Influencia.mp3'),
+            metaData: { artist: 'Charly García', title: 'Influencia' }
+          }, {
+            url: encodeURI('uploads/musica/Bill Evans - Soiree.mp3'),
+            metaData: { artist: 'Bill Evans', title: 'Soiree' }
           }]
         });
         await webampInstance.renderWhenReady(container);
