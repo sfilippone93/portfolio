@@ -1757,32 +1757,8 @@ input, textarea { cursor: text; }
         const container = document.getElementById('webamp-container');
         webampInstance = new Webamp({
           initialTracks: [{
-            url: encodeURI('uploads/musica/Seru Giran- Seminare.mp3'),
-            metaData: { artist: 'Serú Girán', title: 'Seminare' }
-          }, {
             url: encodeURI('uploads/musica/Moby - Porcelain.mp3'),
             metaData: { artist: 'Moby', title: 'Porcelain' }
-          }, {
-            url: encodeURI('uploads/musica/Las Pelotas - Sera.mp3'),
-            metaData: { artist: 'Las Pelotas', title: 'Será' }
-          }, {
-            url: encodeURI('uploads/musica/Andres Calamaro - Estadio Azteca.mp3'),
-            metaData: { artist: 'Andrés Calamaro', title: 'Estadio Azteca' }
-          }, {
-            url: encodeURI('uploads/musica/La Portuaria - Nada Es Igual.mp3'),
-            metaData: { artist: 'La Portuaria', title: 'Nada Es Igual' }
-          }, {
-            url: encodeURI('uploads/musica/Charly Garcia - Influencia.mp3'),
-            metaData: { artist: 'Charly García', title: 'Influencia' }
-          }, {
-            url: encodeURI('uploads/musica/Bill Evans - Soiree.mp3'),
-            metaData: { artist: 'Bill Evans', title: 'Soiree' }
-          }, {
-            url: encodeURI('uploads/musica/Kings Of Convenience - Misread.mp3'),
-            metaData: { artist: 'Kings Of Convenience', title: 'Misread' }
-          }, {
-            url: encodeURI('uploads/musica/Moby - I Love to Move in Here.mp3'),
-            metaData: { artist: 'Moby', title: 'I Love to Move in Here' }
           }]
         });
         await webampInstance.renderWhenReady(container);
