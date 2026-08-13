@@ -75,6 +75,14 @@ input, textarea { cursor: text; }
   border-radius: 2px;
   gap: 4px;
   transition: background 0.05s;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+.desktop-icon img, .desktop-icon svg {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
 }
 .desktop-icon:hover { background: rgba(12,52,124,0.25); border-color: rgba(12,52,124,0.35); }
 .desktop-icon.selected { background: rgba(12,52,124,0.45); border-color: rgba(12,52,124,0.6); }
@@ -2213,8 +2221,8 @@ let iconDrag = null;
 
 document.addEventListener('mousemove', e => {
   if (!iconDrag) return;
-  const dx = e.clientX - iconDrag.startX;
-  const dy = e.clientY - iconDrag.startY;
+  const dx = (e.clientX - iconDrag.startX) / iconDrag.zoom;
+  const dy = (e.clientY - iconDrag.startY) / iconDrag.zoom;
   if (!iconDrag.dragging && Math.hypot(dx, dy) > 4) {
     iconDrag.dragging = true;
     iconDrag.el.classList.add('dragging');
@@ -2243,12 +2251,15 @@ document.querySelectorAll('.desktop-icon').forEach(ico => {
 
   ico.addEventListener('mousedown', e => {
     if (e.button !== 0) return;
+    e.preventDefault();
+    const rect = ico.getBoundingClientRect();
     iconDrag = {
       el: ico,
       startX: e.clientX,
       startY: e.clientY,
       origLeft: ico.offsetLeft,
       origTop: ico.offsetTop,
+      zoom: rect.width / ico.offsetWidth,
       dragging: false
     };
   });
