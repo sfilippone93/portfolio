@@ -1738,6 +1738,7 @@ input, textarea { cursor: text; }
     let webampInstance = null;
     let webampLoading = false;
     window.webampIsOpen = false;
+    window.webampMinimized = false;
 
     function syncTaskbar() {
       if (typeof refreshTaskbar === 'function') refreshTaskbar();
@@ -1747,15 +1748,19 @@ input, textarea { cursor: text; }
       if (webampLoading) return;
 
       if (webampInstance) {
-        if (window.webampIsOpen) {
+        if (window.webampMinimized) {
+          window.restoreWebamp();
+        } else if (window.webampIsOpen) {
+          window.webampMinimized = false;
           webampInstance.close();
           window.webampIsOpen = false;
+          syncTaskbar();
         } else {
           webampInstance.reopen();
           window.webampIsOpen = true;
           webampInstance.play();
+          syncTaskbar();
         }
-        syncTaskbar();
         return;
       }
 
@@ -1782,6 +1787,22 @@ input, textarea { cursor: text; }
         webampLoading = false;
         syncTaskbar();
       }
+    };
+
+    window.minimizeWebamp = function minimizeWebamp() {
+      if (!webampInstance || !window.webampIsOpen) return;
+      window.webampMinimized = true;
+      document.getElementById('webamp-container').style.display = 'none';
+      window.webampIsOpen = false;
+      syncTaskbar();
+    };
+
+    window.restoreWebamp = function restoreWebamp() {
+      if (!webampInstance || !window.webampMinimized) return;
+      window.webampMinimized = false;
+      document.getElementById('webamp-container').style.display = '';
+      window.webampIsOpen = true;
+      syncTaskbar();
     };
   })();
 </script>
@@ -2323,12 +2344,15 @@ function refreshTaskbar() {
     container.appendChild(btn);
   });
 
-  if (window.webampIsOpen) {
+  if (window.webampIsOpen || window.webampMinimized) {
     const btn = document.createElement('button');
-    btn.className = 'tb-win-btn tb-active';
+    btn.className = 'tb-win-btn' + (window.webampIsOpen ? ' tb-active' : '');
     btn.id = 'tb-webamp';
     btn.innerHTML = '<span class="tb-win-icon"><img src="uploads/windows-ui/CDMusic.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;" alt=""/></span>Music';
-    btn.onclick = () => toggleWebamp();
+    btn.onclick = () => {
+      if (window.webampMinimized) restoreWebamp();
+      else minimizeWebamp();
+    };
     container.appendChild(btn);
   }
 }
